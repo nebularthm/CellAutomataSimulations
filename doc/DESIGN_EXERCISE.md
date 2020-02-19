@@ -9,7 +9,16 @@ Michael Williams- mw376
 
 ### High Level Design Ideas
 
+1. The cell will update its state based on the rules in the Simulate Class, the cell itself will just recieve this information for updating its state as a parameter
 
+2.Based on the rules, a cell will have pointers to what cells count as its neighbhors, and the simulate class will handle updating the cell based on its neighbors on a cell by cell basis, to prevent a cell from interfering with its neighbhors
+
+3.  The grid itself will just be a data structure containing cell objects, the Simulate and related calsses will handle updating the grid based on the rules for the simulation.
+
+
+4. The information from a config file will contain valid cell neghbors, the rules of the game, the initial state(seed) of the grid, and the size of the grid. This information will be processed by a file reading class.
+
+5. Each frame a view of the grid is updated in the GUI, so that the user can see in real time what is happening on a frame by frame basis.
 
 ### CRC Card Classes
 
@@ -27,9 +36,13 @@ to be able to update itself over time.
 ```java
  public class Cell {
      public void updateState ()
+```
 
+```java 
+ public class CellGrid {
  }
 ```
+
 
 ### Use Cases
 
