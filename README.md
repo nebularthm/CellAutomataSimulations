@@ -5,6 +5,12 @@ This project implements a cellular automata simulator.
 
 Names:
 
+Connor Penny - cgp19
+
+Brian Li - bl195
+
+Michael Williams- mw376
+
 ### Timeline
 
 Start Date: 
