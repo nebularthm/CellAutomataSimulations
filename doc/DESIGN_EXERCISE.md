@@ -1,4 +1,5 @@
 # Simulation Lab Discussion
+
 ## Names and NetIDs
 
 Connor Penny - cgp19
