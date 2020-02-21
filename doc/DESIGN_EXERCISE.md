@@ -1,4 +1,5 @@
 # Simulation Lab Discussion
+
 ## Names and NetIDs
 
 Connor Penny - cgp19
@@ -8,6 +9,7 @@ Brian Li - bl195
 Michael Williams- mw376
 
 ### High Level Design Ideas
+
 1. The cell will update its state based on the rules in the Simulate Class, the cell itself will just recieve this information for updating its state as a parameter
 
 2.Based on the rules, a cell will have pointers to what cells count as its neighbhors, and the simulate class will handle updating the cell based on its neighbors on a cell by cell basis, to prevent a cell from interfering with its neighbhors
@@ -21,20 +23,27 @@ Michael Williams- mw376
 
 ### CRC Card Classes
 
-This class's purpose or value is to manage something:
+This class's purpose is to hold a grid of Cell objects as an instance
+variable and update those cells over the timeline of the simulation by passing
+the state change to the cell as a parameter:
 ```java
- public class Something {
-     public int getTotal (Collection<Integer> data)
-     public Value getValue ()
+ public class Simulate {
+     public void updateCellGrid ()
  }
 ```
 
-This class's purpose or value is to be useful:
+This class's purpose is to hold information about its state and neighbors and
+to be able to update itself over time.
 ```java
- public class Value {
-     public void update (int data)
+ public class Cell {
+     public void updateState ()
+```
+
+```java 
+ public class CellGrid {
  }
 ```
+
 
 ### Use Cases
 
