@@ -1,6 +1,9 @@
 # Simulation Design Plan
-### Team Number
-### Names
+### Team Number 05
+### Names 
+Michael Williams mw376
+
+Brian Li: bl195
 
 
 ## Design Overview

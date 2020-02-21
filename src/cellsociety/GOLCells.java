@@ -15,7 +15,7 @@ public class GOLCells implements Cell {
 
     @Override
     public void setState() {
-        
+
     }
 
     @Override
