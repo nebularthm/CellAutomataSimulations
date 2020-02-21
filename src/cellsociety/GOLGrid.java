@@ -19,6 +19,11 @@ public class GOLGrid implements  Grid {
 
     }
 
+    @Override
+    public void setUpdateRules() {
+
+    }
+
     public void setHeight(int height) {
         this.height = height;
     }

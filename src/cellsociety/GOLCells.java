@@ -1,6 +1,6 @@
 package cellsociety;
 
-import javafx.scene.control.Cell;
+
 
 public class GOLCells implements Cell {
     private String state;
@@ -12,14 +12,19 @@ public class GOLCells implements Cell {
         shape = shap;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-    public void setShape(String shap){
-        shape = shap;
-    }
-    public void setNeighbs(String [] neighb){
-        neighbs = neighb;
+
+    @Override
+    public void setState() {
+        
     }
 
+    @Override
+    public void setNeighbhors() {
+
+    }
+
+    @Override
+    public void setShape() {
+
+    }
 }
