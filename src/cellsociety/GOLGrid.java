@@ -1,5 +1,7 @@
 package cellsociety;
 
+import java.util.List;
+
 public class GOLGrid implements  Grid {
     private String shape;
     private int width,height;
@@ -22,6 +24,16 @@ public class GOLGrid implements  Grid {
     @Override
     public void setUpdateRules() {
 
+    }
+
+    @Override
+    public void setGrid() {
+
+    }
+
+    @Override
+    public List getGrid() {
+        return null;
     }
 
     public void setHeight(int height) {

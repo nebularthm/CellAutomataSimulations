@@ -1,7 +1,7 @@
 package cellsociety;
 
 public interface Cell {
-    public void setState(String state);
-    public void setNeighbhors();
-    public void setShape(String shap);
+    void setState(String state);
+    void setNeighbhors();
+    void setShape(String shap);
 }
