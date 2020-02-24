@@ -32,6 +32,7 @@ import org.w3c.dom.events.EventTarget;
 
 public class GOLView {
 
+    private Button myNextButton;
     private GOLModel myModel;
     public GOLView (GOLModel model) {
         myModel = model;
@@ -40,11 +41,12 @@ public class GOLView {
     public Scene makeScene (int width, int height) {
         BorderPane root = new BorderPane();
         // must be first since other panels may refer to page
-//        root.setCenter(makePageDisplay());
+        root.setLeft(makeButtonPanel());
+
 //        root.setTop(makeInputPanel());
 //        root.setBottom(makeInformationPanel());
 //        // control the navigation
-//        enableButtons();
+        enableButtons();
         // create scene to hold UI
         Scene scene = new Scene(root, width, height);
         // activate CSS styling
@@ -52,6 +54,52 @@ public class GOLView {
         return scene;
     }
 
+    private Node makeButtonPanel () {
+        HBox result = new HBox();
+        result.getChildren().add(makeButton("Simulate", event -> addFavorite()));
+        return result;
+    }
 
+    private Button makeButton (String property, EventHandler<ActionEvent> handler) {
+        // represent all supported image suffixes
+        final String IMAGEFILE_SUFFIXES =
+                String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
+
+        Button result = new Button();
+            result.setText(property);
+        result.setOnAction(handler);
+        result.setId(property);
+        return result;
+    }
+
+    private Node makeInputPanel () {
+        VBox result = new VBox();
+        result.getChildren().addAll(makeNavigationPanel());
+        return result;
+    }
+
+    private Node makeNavigationPanel () {
+        HBox result = new HBox();
+        // new style way to do set up callback (lambdas)
+        myNextButton = makeButton("NextCommand", event -> next());
+        result.getChildren().add(myNextButton);
+        return result;
+    }
+
+    private void next () {
+
+    }
+
+    private void update (URL url) {
+        enableButtons();
+    }
+
+    private void enableButtons () {
+//        myNextButton.setDisable(!myModel.hasNext());
+    }
+
+    private void addFavorite () {
+
+    }
 
 }

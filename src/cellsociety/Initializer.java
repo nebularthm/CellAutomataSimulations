@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public class Initializer extends Application {
     // convenience constants
     public static final String TITLE = "Game of Life Simulation";
-    public static final Dimension DEFAULT_SIZE = new Dimension(800, 600);
+    public static final Dimension DEFAULT_SIZE = new Dimension(500, 500);
 
     @Override
     public void start (Stage stage) {
