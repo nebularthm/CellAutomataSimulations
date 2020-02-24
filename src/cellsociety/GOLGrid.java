@@ -1,8 +1,11 @@
 package cellsociety;
 
+import java.util.List;
+
 public class GOLGrid implements  Grid {
     private String shape;
     private int width,height;
+    private List<List<GOLCells>> myGrid;
     public GOLGrid(String shap, int wid, int hei){
         shape = shap;
         width = wid;
@@ -24,11 +27,30 @@ public class GOLGrid implements  Grid {
 
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    @Override
+    public void setGrid() {
+
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    @Override
+    public List<List> getGrid() {
+        return null;
     }
+
+    @Override
+    public String getShape() {
+        return null;
+    }
+
+    @Override
+    public void setWidth(int height) {
+
+    }
+
+    @Override
+    public void setHeight(int width) {
+
+    }
+
+
 }
