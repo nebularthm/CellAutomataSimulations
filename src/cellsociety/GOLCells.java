@@ -12,7 +12,7 @@ public class GOLCells implements Cell {
         neighbs = nei;
         shape = shap;
     }
-    
+
     public void setState(String stat) {
         if(update == false){
             return;
@@ -32,7 +32,26 @@ public class GOLCells implements Cell {
     public void setShape(String shap) {
         shape = shap;
     }
-    public void shouldUpDate(){
-        update = !update;
+
+    @Override
+    public String[] getNeighbs() {
+        return new String[0];
     }
+
+    @Override
+    public String getState() {
+        return null;
+    }
+
+    @Override
+    public void shouldUpdate() {
+
+    }
+
+    @Override
+    public boolean canUpdate() {
+        return false;
+    }
+
+
 }

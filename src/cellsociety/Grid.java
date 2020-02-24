@@ -7,6 +7,8 @@ public interface Grid<T> {
     void updateCells();
     void setUpdateRules();
     void setGrid();
-    List getGrid();
-
+    List<List> getGrid();
+    String getShape();
+    void setWidth(int height);
+    void setHeight(int width);
 }

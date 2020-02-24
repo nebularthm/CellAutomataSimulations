@@ -5,6 +5,7 @@ import java.util.List;
 public class GOLGrid implements  Grid {
     private String shape;
     private int width,height;
+    private List<List<GOLCells>> myGrid;
     public GOLGrid(String shap, int wid, int hei){
         shape = shap;
         width = wid;
@@ -32,15 +33,24 @@ public class GOLGrid implements  Grid {
     }
 
     @Override
-    public List getGrid() {
+    public List<List> getGrid() {
         return null;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    @Override
+    public String getShape() {
+        return null;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    @Override
+    public void setWidth(int height) {
+
     }
+
+    @Override
+    public void setHeight(int width) {
+
+    }
+
+
 }
