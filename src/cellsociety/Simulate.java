@@ -108,6 +108,7 @@ public class Simulate {
                             thisCell.shouldUpdate();
                         }
 
+
                     }
             }
         }
@@ -177,10 +178,13 @@ public class Simulate {
         }
         else{
             return Collections.frequency(stateList, ALIVE) != 2 && Collections.frequency(stateList, ALIVE) != 3;
+
+            }
+
         }
 
 
-    }
+    
 
     /**
      * this method checks if an index, i, is within the bounds of our grid
