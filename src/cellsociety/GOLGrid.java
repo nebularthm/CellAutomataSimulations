@@ -15,41 +15,16 @@ public class GOLGrid implements  Grid {
         height = hei;
     }
 
+
+
     @Override
-    public void setShape() {
+    public void setShape(String shap) {
 
     }
 
     @Override
     public void updateCells() {
-        List<List<Cell>> theGrid = this.getGrid();
-        for(int i = 0; i < theGrid.size(); i++){
-            for(int j = 0; j < theGrid.get(0).size();j++){
-                Cell thisCell = theGrid.get(i).get(j);
-                String [] neighbhorhood = thisCell.getNeighbs();
-                if(updatable(neighbhorhood,theGrid,i,j,thisCell.getState())){
-                    thisCell.shouldUpdate();
-                }
 
-            }
-        }
-        for(int i = 0; i < theGrid.size();i++){
-            for(int j = 0; j <theGrid.get(0).size();j++){
-                Cell thisCell = theGrid.get(i).get(j);
-                if(thisCell.canUpdate()){
-                    if(thisCell.getState().equals(ALIVE)){
-                        thisCell.setState(DEAD);
-                        thisCell.shouldUpdate();
-                    }
-                    else{
-                        thisCell.setState(ALIVE);
-                        thisCell.shouldUpdate();
-                    }
-
-
-                }
-            }
-        }
     }
 
     @Override
@@ -58,16 +33,15 @@ public class GOLGrid implements  Grid {
     }
 
     @Override
-    public void setGrid(List cells) {
+    public void setGrid(Cell[][] cells) {
 
     }
-
-
 
     @Override
-    public List<List> getGrid() {
-        return null;
+    public Cell[][] getGrid() {
+        return new Cell[0][];
     }
+
 
     @Override
     public String getShape() {

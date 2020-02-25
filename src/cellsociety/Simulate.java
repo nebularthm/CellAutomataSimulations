@@ -66,15 +66,14 @@ public class Simulate {
         Grid retGrid = null;
         if(type.equals(GOL)){
             retGrid = new GOLGrid(RECTANGLE,gridHeight,gridWidth);
-            GOLCells [][] cellGrid = new GOLCells[gridHeight][gridWidth];
+            Cell [][] cellGrid = new Cell[gridHeight][gridWidth];
             for(int i = 0; i < initial.size();i++){
                 for(int j = 0; j < initial.get(0).size();j++){
-                cellGrid[i][j] = new GOLCells(initial.get(i).get(j),RECTANGLE);
+                cellGrid[i][j] = new Cell(initial.get(i).get(j),i,j);
                 }
-            }
-            List<List<Cell>> cellGridList = twoDArrayToList(cellGrid);
-            retGrid.setGrid(cellGridList);
 
+            }
+            retGrid.setGrid(cellGrid);
         }
 
         return retGrid;
@@ -84,10 +83,10 @@ public class Simulate {
      * @param cellGrid The grid of interest
      */
     public  void updateCells(Grid cellGrid){
-        List<List<Cell>> theGrid = cellGrid.getGrid();
-        for(int i = 0; i < theGrid.size(); i++){
-            for(int j = 0; j < theGrid.get(0).size();j++){
-            Cell thisCell = theGrid.get(i).get(j);
+        Cell[][] theGrid = cellGrid.getGrid();
+        for(int i = 0; i < theGrid.length; i++){
+            for(int j = 0; j < gridWidth;j++){
+            Cell thisCell = theGrid[i][j];
             String [] neighbhorhood = thisCell.getNeighbs();
             if(updatable(neighbhorhood,theGrid,i,j,thisCell.getState())){
             thisCell.shouldUpdate();
@@ -96,9 +95,9 @@ public class Simulate {
         }
         }
 
-        for(int i = 0; i < theGrid.size();i++){
-            for(int j = 0; j <theGrid.get(0).size();j++){
-                Cell thisCell = theGrid.get(i).get(j);
+        for(int i = 0; i < theGrid.length;i++){
+            for(int j = 0; j <gridWidth;j++){
+                Cell thisCell = theGrid[i][j];
                     if(thisCell.canUpdate()){
                         if(thisCell.getState().equals(ALIVE)){
                             thisCell.setState(DEAD);
@@ -124,50 +123,50 @@ public class Simulate {
      * @param j
      * @return
      */
-    private boolean updatable(String[] neighbhorhood, List<List<Cell>> theGrid, int i, int j, String state) {
+    private boolean updatable(String[] neighbhorhood, Cell [][] theGrid, int i, int j, String state) {
         List<String> stateList = new ArrayList<>();
         for(String nei:neighbhorhood){
             if (nei.equals(UP)) {
             if(validIndex(j+1)){
-                stateList.add(theGrid.get(i).get(j+1).getState());
+                stateList.add(theGrid[i][j+1].getState());
             }
             }
             if(nei.equals(DOWN)){
                 if(validIndex(j-1)){
-                    stateList.add(theGrid.get(i).get(j-1).getState());
+                    stateList.add(theGrid[i][j-1].getState());
                 }
 
             }
             if(nei.equals(LEFT)){
                 if(validIndex(i-1)){
-                    stateList.add(theGrid.get(i-1).get(j).getState());
+                    stateList.add(theGrid[i-1][j].getState());
                 }
             }
             if(nei.equals(RIGHT)){
                 if(validIndex(i+1)){
-                    stateList.add(theGrid.get(i+1).get(j).getState());
+                    stateList.add(theGrid[i+1][j].getState());
                 }
             }
             if(nei.equals(UPRIGHT)){
                 if(validIndex(i+ 1) && validIndex(j+1)){
-                    stateList.add(theGrid.get(i+1).get(j+1).getState());
+                    stateList.add(theGrid[i+1][j+1].getState());
                 }
             }
             if(nei.equals(UPLEFT)){
                 if(validIndex(i - 1) && validIndex(j + 1)){
-                    stateList.add(theGrid.get(i-1).get(j+1).getState());
+                    stateList.add(theGrid[i-1][j+1].getState());
                 }
 
             }
             if(nei.equals(DOWNRIGHT)){
                 if(validIndex(i + 1) && validIndex(j - 1)){
-                    stateList.add(theGrid.get(i+1).get(j-1).getState());
+                    stateList.add(theGrid[i+1][j-1].getState());
                 }
 
             }
             if(nei.equals(DOWNLEFT)){
                 if(validIndex(i - 1) && validIndex(j - 1)){
-                    stateList.add(theGrid.get(i-1).get(j-1).getState());
+                    stateList.add(theGrid[i-1][j-1].getState());
                 }
 
             }
