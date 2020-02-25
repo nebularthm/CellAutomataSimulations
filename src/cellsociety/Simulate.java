@@ -27,7 +27,7 @@ public class Simulate {
             Cell thisCell = theGrid.get(i).get(j);
             String [] neighbhorhood = thisCell.getNeighbs();
 
-        }
+            }
         }
 
     }
