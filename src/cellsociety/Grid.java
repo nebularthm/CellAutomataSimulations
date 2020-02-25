@@ -11,4 +11,10 @@ public interface Grid<T> {
     String getShape();
     void setWidth(int height);
     void setHeight(int width);
+    //grid should Should I implementation
+    //add valid index checking  to Grid
+
+    //Grid takes from the csv, initial configuration, height, width,
+
+    //Grid creates it's own 2d array of cell based on states
 }

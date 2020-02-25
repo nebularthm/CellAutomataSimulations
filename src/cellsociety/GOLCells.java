@@ -1,6 +1,6 @@
 package cellsociety;
 
-public class GOLCells implements Cell {
+public class GOLCells   {
 
     private String state;
     private String [] neighbs;
@@ -16,37 +16,31 @@ public class GOLCells implements Cell {
         state = stat;
     }
 
-    @Override
+
     public void setNeighbhors() {
         neighbs = new String[]{"up","down","left", "right", "up right", "down right", "down left", "up left"};
     }
 
-    @Override
-    public void setShape(String shap) {
-        shape = shap;
-    }
 
-    @Override
+
+
     public String[] getNeighbs() {
         return neighbs;
     }
 
-    @Override
+
     public String getState() {
         return state;
     }
 
-    @Override
-    public String getShape() {
-        return shape;
-    }
 
-    @Override
+
+
     public void shouldUpdate() {
     update = !update;
     }
 
-    @Override
+
     public boolean canUpdate() {
 
         return update;

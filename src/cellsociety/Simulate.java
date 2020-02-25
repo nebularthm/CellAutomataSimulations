@@ -95,6 +95,7 @@ public class Simulate {
 
         }
         }
+
         for(int i = 0; i < theGrid.size();i++){
             for(int j = 0; j <theGrid.get(0).size();j++){
                 Cell thisCell = theGrid.get(i).get(j);
