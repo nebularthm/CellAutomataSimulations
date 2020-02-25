@@ -28,9 +28,11 @@ public class GOLGrid implements  Grid {
     }
 
     @Override
-    public void setGrid() {
+    public void setGrid(List cells) {
 
     }
+
+
 
     @Override
     public List<List> getGrid() {

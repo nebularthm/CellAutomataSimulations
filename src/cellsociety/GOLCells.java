@@ -6,19 +6,14 @@ public class GOLCells implements Cell {
     private String state;
     private String [] neighbs;
     private String shape;
-    private boolean update;
-    public GOLCells(String stat, String[] nei, String shap){
+    private boolean update = false;
+    public GOLCells(String stat, String shap){
         state = stat;
-        neighbs = nei;
         shape = shap;
     }
 
     public void setState(String stat) {
-        if(update == false){
-            return;
-        }
         state = stat;
-
     }
 
 
@@ -35,22 +30,28 @@ public class GOLCells implements Cell {
 
     @Override
     public String[] getNeighbs() {
-        return new String[0];
+        return neighbs;
     }
 
     @Override
     public String getState() {
-        return null;
+        return state;
+    }
+
+    @Override
+    public String getShape() {
+        return shape;
     }
 
     @Override
     public void shouldUpdate() {
-
+    update = !update;
     }
 
     @Override
     public boolean canUpdate() {
-        return false;
+
+        return update;
     }
 
 
