@@ -6,8 +6,8 @@ public class GOLCells implements Cell {
     private String [] neighbs;
     private String shape;
     private boolean update = false;
-    public GOLCells(String stat, String shap){
 
+    public GOLCells(String stat, String shap){
         state = stat;
         shape = shap;
     }
@@ -48,7 +48,6 @@ public class GOLCells implements Cell {
 
     @Override
     public boolean canUpdate() {
-
         return update;
     }
 

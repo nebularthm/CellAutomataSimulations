@@ -49,7 +49,6 @@ public class CSVFileReader {
             List<String> rowStates = Arrays.asList(row);
             states.add(rowStates);
         }
-
         return states;
     }
 

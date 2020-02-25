@@ -6,6 +6,7 @@ public class GOLGrid implements  Grid {
     private String shape;
     private int width,height;
     private List<List<GOLCells>> myGrid;
+
     public GOLGrid(String shap, int wid, int hei){
         shape = shap;
         width = wid;
@@ -31,8 +32,6 @@ public class GOLGrid implements  Grid {
     public void setGrid(List cells) {
 
     }
-
-
 
     @Override
     public List<List> getGrid() {

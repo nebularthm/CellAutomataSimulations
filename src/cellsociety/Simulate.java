@@ -89,11 +89,10 @@ public class Simulate {
             for(int j = 0; j < theGrid.get(0).size();j++){
             Cell thisCell = theGrid.get(i).get(j);
             String [] neighbhorhood = thisCell.getNeighbs();
-            if(updatable(neighbhorhood,theGrid,i,j,thisCell.getState())){
-            thisCell.shouldUpdate();
+                if(updatable(neighbhorhood,theGrid,i,j,thisCell.getState())){
+                thisCell.shouldUpdate();
+                }
             }
-
-        }
         }
         for(int i = 0; i < theGrid.size();i++){
             for(int j = 0; j <theGrid.get(0).size();j++){
@@ -107,8 +106,6 @@ public class Simulate {
                             thisCell.setState(ALIVE);
                             thisCell.shouldUpdate();
                         }
-
-
                     }
             }
         }
@@ -183,14 +180,12 @@ public class Simulate {
 
         }
 
-
-    
-
     /**
      * this method checks if an index, i, is within the bounds of our grid
      * @param i the index
      * @return
      */
+
     private boolean validIndex(int i) {
       return (i >= gridHeight && i >= gridWidth) || (i <= gridHeight && i <= gridWidth) ;
     }
