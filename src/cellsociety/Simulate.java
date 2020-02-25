@@ -44,8 +44,8 @@ public class Simulate {
      * @param twoDArray
      * @return
      */
-    public  ArrayList<ArrayList<Cell>> twoDArrayToList(Cell [][] twoDArray) {
-        ArrayList<ArrayList<Cell>> list = new ArrayList<>();
+    public  List<List<Cell>> twoDArrayToList(Cell [][] twoDArray) {
+        List<List<Cell>> list = new ArrayList<>();
         for (Cell [] array : twoDArray) {
             ArrayList<Cell> tempList = new ArrayList<>();
             for(Cell cell: array){
@@ -72,7 +72,7 @@ public class Simulate {
                 cellGrid[i][j] = new GOLCells(initial.get(i).get(j),RECTANGLE);
                 }
             }
-            List<List<GOLCells>> cellGridList = twoDArrayToList(cellGrid);
+            List<List<Cell>> cellGridList = twoDArrayToList(cellGrid);
             retGrid.setGrid(cellGridList);
 
         }
