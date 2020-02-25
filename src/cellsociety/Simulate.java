@@ -184,7 +184,7 @@ public class Simulate {
         }
 
 
-    
+
 
     /**
      * this method checks if an index, i, is within the bounds of our grid
@@ -195,4 +195,7 @@ public class Simulate {
       return (i >= gridHeight && i >= gridWidth) || (i <= gridHeight && i <= gridWidth) ;
     }
 
+    public Grid getMyGrid() {
+        return myGrid;
+    }
 }
