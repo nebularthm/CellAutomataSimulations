@@ -6,6 +6,7 @@ public interface Cell {
     void setShape(String shap);
     String[] getNeighbs();
     String getState();
+    String getShape();
     void shouldUpdate();
     boolean canUpdate();
 }
