@@ -23,6 +23,8 @@ public class Initializer extends Application {
         // display.showPage(DEFAULT_START_PAGE);
     }
 
+
+
     public static void main (String[] args) {
         launch(args);
     }
