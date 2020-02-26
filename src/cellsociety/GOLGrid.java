@@ -121,7 +121,7 @@ public class GOLGrid implements  Grid {
     //I don't think this method works properly for identifying indices within the grid
     @Override
     public boolean validIndex(int i) {
-        return (i >= gridHeight && i >= gridWidth) || (i <= gridHeight && i <= gridWidth) ;
+        return i >= 0 && i <= gridHeight && i <= gridWidth;
     }
 
     /**
