@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Rules {
     String changeState(String stat);
-    boolean updateCell(String stat, List<String> neigbstates);
+    void setNextState(Cell cell);
     String [] possibleNeighbs();
 
 

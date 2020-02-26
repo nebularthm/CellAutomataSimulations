@@ -17,7 +17,7 @@ public class Cell {
     private boolean update = false;
     private List<Cell> neighbs;
 
-    public Cell(String stat, int x, int y){
+    public Cell(String stat, int y, int x){
         state = stat;
         xCord=x;
         yCord = y;
@@ -34,8 +34,12 @@ public class Cell {
     }
 
 
-    public List<Cell> getNeighbs() {
-        return neighbs;
+    public List<String> getNeighborStates() {
+        List<String> neighborStates = null;
+        for(Cell neighbor : neighbs) {
+            neighborStates.add(neighbor.getState());
+        }
+        return neighborStates;
     }
 
 
@@ -43,9 +47,11 @@ public class Cell {
         return state;
     }
 
-    public void setNextState() {}
+    public void setNextState(String nextGenState) {
+        nextState = nextGenState;
+    }
 
-    public void updateState() {state = nextState};
+    public void updateState() {state = nextState;}
 
 
     public void shouldUpdate() {

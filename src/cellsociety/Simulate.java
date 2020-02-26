@@ -55,9 +55,9 @@ public class Simulate {
         return retGrid;
     }
 
-    /**This method essentially handles updating the cells in this grid, essentially flips the update switch in one pass then updates elegible cells in the next
-     * @param cellGrid The grid of interest
-     */
+    ///**This method essentially handles updating the cells in this grid, essentially flips the update switch in one pass then updates elegible cells in the next
+     //* @param cellGrid The grid of interest
+     //*/
     /*public  void updateCells(){
         Cell[][] theGrid = cellGrid.getGrid();
         for(int i = 0; i < theGrid.length; i++){

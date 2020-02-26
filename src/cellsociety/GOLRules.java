@@ -29,21 +29,23 @@ public class GOLRules implements  Rules {
 
     /**
      * based on the neighbor's states, this method updates the state of our cell
-     * @param stat
-     * @param neigbstates
+     * @param cell
      * @return
      */
     @Override
-    public boolean updateCell(String stat, List<String> neigbstates) {
-        if(stat.equals(DEAD)){
-            return Collections.frequency(neigbstates, ALIVE) == 3;
+    public void setNextState(Cell cell) {
+        if(cell.getState().equals(DEAD)){
+            if(Collections.frequency(cell.getNeighborStates(), ALIVE) == 3) {
+                cell.setNextState(ALIVE);
+            }
 
         }
-        else{
-            return Collections.frequency(neigbstates, ALIVE) != 2 && Collections.frequency(neigbstates, ALIVE) != 3;
-
+        else if(cell.getState().equals(ALIVE)) {
+                if(Collections.frequency(cell.getNeighborStates(), ALIVE) != 2 && Collections.frequency(cell.getNeighborStates(), ALIVE) != 3) {
+                    cell.setNextState(DEAD);
+                }
+            }
         }
-    }
 
     /**
      * for the GOL- we have a full neighbhood of all the possible neighbs

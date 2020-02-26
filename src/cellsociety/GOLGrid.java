@@ -30,8 +30,8 @@ public class GOLGrid implements  Grid {
 
     public GOLGrid(String shap, int wid, int hei, String[][] initialStates){
         shape = shap;
-        gridHeight = wid;
-        gridWidth = hei;
+        gridHeight = hei;
+        gridWidth = wid;
         initializeGrid(initialStates);
         initializeNeighbors();
         theRules = new GOLRules();
@@ -120,8 +120,8 @@ public class GOLGrid implements  Grid {
 
     //I don't think this method works properly for identifying indices within the grid
     @Override
-    public boolean validIndex(int i) {
-        return (i >= gridHeight && i >= gridWidth) || (i <= gridHeight && i <= gridWidth) ;
+    public boolean validIndex(int x, int y) {
+        return (y < gridHeight && x < gridWidth) || (y >= 0 && x >= 0) ;
     }
 
     /**
@@ -130,53 +130,52 @@ public class GOLGrid implements  Grid {
      * @param xPos
      * @return
      */
-    @Override
     private List<Cell> eligibleNeighbs(int yPos, int xPos) {
         List<Cell> cellList = new ArrayList<>();
 
         for(String nei:neighbs){
             if (nei.equals(UP)) {
-                if(validIndex(xPos+1)){
-                    cellList.add(myGrid[yPos][xPos+1]);
+                if(validIndex(xPos, yPos-1)){
+                    cellList.add(myGrid[yPos-1][xPos]);
                 }
             }
             if(nei.equals(DOWN)){
-                if(validIndex(xPos-1)){
-                    cellList.add(myGrid[yPos][xPos-1]);
+                if(validIndex(xPos, yPos+1)){
+                    cellList.add(myGrid[yPos+1][xPos]);
                 }
 
             }
             if(nei.equals(LEFT)){
-                if(validIndex(yPos-1)){
-                    cellList.add(myGrid[yPos-1][xPos]);
+                if(validIndex(xPos-1, yPos)){
+                    cellList.add(myGrid[yPos][xPos-1]);
                 }
             }
 
             if(nei.equals(RIGHT)){
-                if(validIndex(yPos+1)){
-                    cellList.add(myGrid[yPos+1][xPos]);
+                if(validIndex(xPos+1, yPos)){
+                    cellList.add(myGrid[yPos][xPos+1]);
                 }
             }
             if(nei.equals(UPRIGHT)){
-                if(validIndex(yPos+ 1) && validIndex(xPos+1)){
-                    cellList.add(myGrid[yPos+1][xPos+1]);
+                if(validIndex(xPos+1, yPos-1)){
+                    cellList.add(myGrid[yPos-1][xPos+1]);
                 }
             }
             if(nei.equals(UPLEFT)){
-                if(validIndex(yPos - 1) && validIndex(xPos + 1)){
-                    cellList.add(myGrid[yPos-1][xPos+1]);
+                if(validIndex(yPos - 1, xPos-1)){
+                    cellList.add(myGrid[yPos-1][xPos-1]);
                 }
 
             }
             if(nei.equals(DOWNRIGHT)){
-                if(validIndex(yPos + 1) && validIndex(xPos - 1)){
-                    cellList.add(myGrid[yPos+1][xPos-1]);
+                if(validIndex(xPos+1, yPos+1)){
+                    cellList.add(myGrid[yPos+1][xPos+1]);
                 }
 
             }
             if(nei.equals(DOWNLEFT)){
-                if(validIndex(yPos - 1) && validIndex(xPos - 1)){
-                    cellList.add(myGrid[yPos-1][xPos-1]);
+                if(validIndex(xPos - 1, yPos+1)){
+                    cellList.add(myGrid[yPos+1][xPos-1]);
                 }
 
             }
