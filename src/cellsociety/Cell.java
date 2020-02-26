@@ -7,7 +7,9 @@ public class Cell {
     private int xCord,yCord;
     private boolean update = false;
     private List<Cell> neighbs;
-    public Cell(String stat, int x, int y){
+
+
+    public Cell(String stat, int y, int x){
         state = stat;
         xCord=x;
         yCord = y;
@@ -23,14 +25,19 @@ public class Cell {
     }
 
 
-    public List<Cell> getNeighbs() {
-        return neighbs;
+    public List<String> getNeighborStates() {
+        List<String> neighborStates = null;
+        for(Cell neighbor : neighbs) {
+            neighborStates.add(neighbor.getState());
+        }
+        return neighborStates;
     }
 
 
     public String getState() {
         return state;
     }
+
 
     public void shouldUpdate() {
         update = !update;
@@ -40,6 +47,10 @@ public class Cell {
     public boolean canUpdate() {
         return update;
     }
+    public List<Cell> getNeighbs() {
+        return neighbs;
+    }
+
 }
 
 

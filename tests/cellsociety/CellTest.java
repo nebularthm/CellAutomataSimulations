@@ -17,7 +17,7 @@ class CellTest {
 
     @Test
     void setNeighbhors() {
-        List<Cell> testList = new ArrayList<>()
+        List<Cell> testList = new ArrayList<>();
     }
 
     @Test
