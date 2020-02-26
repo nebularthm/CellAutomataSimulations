@@ -5,15 +5,22 @@ Michael Williams mw376
 
 Brian Li: bl195
 
+Connor Penny: cgp19
+
 
 ## Design Overview
-Model: SImulate Class- In charge of controlling the simulation/grid elements, modifies grid state, knows the rules of the simulation
+Model: Simulate Class- In charge of controlling the simulation/grid elements, modifies grid state, knows the rules of the simulation
 
-        Grid - Class: In charge of different grid formations
+        Grid - Class: Holds grid of cell objects. Knows rules for neighborhoods and can discern valid neighbors
+        for a given cell. Has functionality to loop through cells in grid and apply rules to each cell
         
-        Cell - Class- Each type of cell, has a state, knows it's neighbhors
+        Cell - Class: Holds the state of the cell and knows it's neighbhors, also holds the state of its next
+        generation, and has functionality to change modify its state and its next generation state
         
-        File reader- Gets the rules, starting config, everyhting else
+        Rule - Interface: will be implemented for each game with logic specific to that game's rules and can
+        modify a cell's next generation state given information about the cell's state and its neighbors
+        
+        File reader- Gets the game, the grid dimensions, & starting configuration of grid from a CSV
         
 
 View: View Class- Has Start, Step, End
@@ -24,8 +31,6 @@ End- End button for ending simulation
 
 Step- Animating the model
 
-
-
 Controller-
 
 Controller Class- Pass file to the Model
@@ -34,7 +39,8 @@ Passes the grid to the view
 
 ## Design Details
 
-In the View, the Start method passes the selected file intro the Controller, where The file is then passed to the Model's File Reader, which passes the config to simulate
+In the View, the Start method passes the selected file into the Controller, 
+where The file is then passed to the Model's File Reader, which passes the config to simulate
 
 
 
