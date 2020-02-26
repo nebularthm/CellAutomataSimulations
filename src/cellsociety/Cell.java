@@ -26,7 +26,6 @@ public class Cell {
 
     public void setNeighbhors(String [] neighb) {
         neighbs = neighb;
-                //new String[]{"up","down","left", "right", "up right", "down right", "down left", "up left"};
     }
 
 
