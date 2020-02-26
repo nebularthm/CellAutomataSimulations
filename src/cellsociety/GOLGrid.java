@@ -33,7 +33,6 @@ public class GOLGrid implements  Grid {
         gridHeight = wid;
         gridWidth = hei;
         initializeGrid(initialStates);
-        initializeNeighbors();
         theRules = new GOLRules();
     }
 
@@ -41,18 +40,24 @@ public class GOLGrid implements  Grid {
 
     @Override
     public void setShape(String shap) {
-
+    shape = shap;
     }
-
+    private List<String> neighbsToString(List<Cell> cellList){
+        List<String> stateList = new ArrayList<>();
+        for(Cell cell:cellList){
+            stateList.add(cell.getState());
+        }
+        return stateList;
+    }
     @Override
     public void updateCells() {
         for(int yPos = 0; yPos<gridHeight; yPos++) {
             for(int xPos = 0; xPos<gridWidth; xPos++) {
-                Cell currCell = myGrid[yPos][xPos];
-                currCell.updateState();
-                xPos++;
+                if(theRules.shouldUpdateCell(myGrid[yPos][xPos].getState(), neighbsToString(myGrid[yPos][xPos].getNeighbs()))){
+                    myGrid[yPos][xPos].shouldUpdate();
+                }
+
             }
-            yPos++;
         }
     }
 
@@ -60,62 +65,57 @@ public class GOLGrid implements  Grid {
     public void generateNextStates() {
         for(int yPos = 0; yPos<gridHeight; yPos++) {
             for(int xPos = 0; xPos<gridWidth; xPos++) {
-                Cell currCell = myGrid[yPos][xPos];
-                theRules.setNextState(currCell);
-                xPos++;
+                if(myGrid[yPos][xPos].canUpdate()){
+                    myGrid[yPos][xPos].setState(theRules.changeState(myGrid[yPos][xPos].getState()));
+                }
             }
-            yPos++;
         }
     }
 
+    /**
+     * initializes the grid based on starting configuration
+     * @param initialStates grid of starting configuration
+     */
     @Override
-
     public void initializeGrid(String[][] initialStates) {
-
         myGrid = new Cell[gridHeight][gridWidth];
         for(int yPos = 0; yPos<gridHeight; yPos++) {
             for(int xPos = 0; xPos<gridWidth; xPos++) {
                 String currState = initialStates[yPos][xPos];
-                Cell currCell = new Cell(currState, yPos, xPos);
-                myGrid[yPos][xPos] = currCell;
-                xPos++;
-            }
-            yPos++;
-        }
-    }
-
-    public void initializeNeighbors() {
-        for(int yPos = 0; yPos<gridHeight; yPos++) {
-            for(int xPos = 0; xPos<gridWidth; xPos++) {
-                Cell currCell = myGrid[yPos][xPos];
+                Cell currCell = new Cell(currState, xPos, yPos);
                 List<Cell> cellNeighbors = eligibleNeighbs(yPos,xPos);
                 currCell.setNeighbhors(cellNeighbors);
-                xPos++;
+                myGrid[yPos][xPos] = currCell;
+
             }
-            yPos++;
+
         }
     }
 
 
+    /**
+     * returns the 2d list of cells that represents this grid
+     * @return
+     */
     @Override
     public Cell[][] getGrid() {
-        return new Cell[0][];
+        return myGrid;
     }
 
 
     @Override
     public String getShape() {
-        return null;
+        return shape;
     }
 
     @Override
     public void setWidth(int height) {
-
+        gridHeight = height;
     }
 
     @Override
     public void setHeight(int width) {
-
+        gridWidth = width;
     }
 
     //I don't think this method works properly for identifying indices within the grid
@@ -131,7 +131,7 @@ public class GOLGrid implements  Grid {
      * @return
      */
     @Override
-    private List<Cell> eligibleNeighbs(int yPos, int xPos) {
+    public List<Cell> eligibleNeighbs(int yPos, int xPos) {
         List<Cell> cellList = new ArrayList<>();
 
         for(String nei:neighbs){

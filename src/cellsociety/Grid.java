@@ -13,8 +13,7 @@ public interface Grid<T> {
     void setWidth(int height);
     void setHeight(int width);
     boolean validIndex(int i);
-
-    List<String> eligibleNeighbs(String[] neighbs,int i, int j);
+    List<String> eligibleNeighbs(int i, int j);
     //grid should Should I implementation
     //add valid index checking  to Grid
 

@@ -34,7 +34,7 @@ public class GOLRules implements  Rules {
      * @return
      */
     @Override
-    public boolean updateCell(String stat, List<String> neigbstates) {
+    public boolean shouldUpdateCell(String stat, List<String> neigbstates) {
         if(stat.equals(DEAD)){
             return Collections.frequency(neigbstates, ALIVE) == 3;
 

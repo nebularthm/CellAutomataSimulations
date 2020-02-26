@@ -51,10 +51,13 @@ public class CSVFileReader {
         br.readLine();
         String line;
         String[][] states = new String[getHeight()][getWidth()];
+        int currRow = -1;//make it -1 to skip over the first line
         while ((line = br.readLine()) != null) {
-            int currRow = 0;
-            String[] row = line.split(csvSplitBy);
-            states[currRow] = row;
+            if(currRow != -1) {
+                String[] row = line.split(csvSplitBy);
+                states[currRow] = row;
+            }
+            currRow += 1;
         }
 
         return states;
