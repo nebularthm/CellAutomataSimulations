@@ -1,16 +1,20 @@
 package cellsociety;
 
 
+import java.util.List;
 
 public class GOLCells implements Cell {
-    private String state;
-    private String [] neighbs;
+    private int state;
+    private List<Cell> neighbs;
     private String shape;
     private boolean update;
-    public GOLCells(String stat, String[] nei, String shap){
+    private int myXPos;
+    private int myYPos;
+    public GOLCells(int stat, int xPos, int yPos){
         state = stat;
-        neighbs = nei;
-        shape = shap;
+        myXPos = xPos;
+        myYPos = yPos;
+
     }
 
     public void setState(String stat) {
@@ -24,8 +28,8 @@ public class GOLCells implements Cell {
 
 
     @Override
-    public void setNeighbhors() {
-        neighbs = new String[]{"up","down","left", "right", "up right", "down right", "down left", "up left"};
+    public void setNeighbhors(List<Cell> neighbors) {
+        neighbs = neighbors;
     }
 
     @Override
@@ -45,7 +49,12 @@ public class GOLCells implements Cell {
 
     @Override
     public void shouldUpdate() {
-
+        int count = 0;
+        for(Cell neighbor : neighbs) {
+            if (neighbor.getState() == 1) {
+                count++;
+            }
+        }
     }
 
     @Override

@@ -5,11 +5,12 @@ import java.util.List;
 public class GOLGrid implements  Grid {
     private String shape;
     private int width,height;
-    private List<List<GOLCells>> myGrid;
-    public GOLGrid(String shap, int wid, int hei){
+    private GOLCells[][] myGrid;
+    public GOLGrid(String shap, int wid, int hei, int[][] initialStates){
         shape = shap;
         width = wid;
         height = hei;
+        initializeGrid(initialStates);
     }
 
     @Override
@@ -28,9 +29,19 @@ public class GOLGrid implements  Grid {
     }
 
     @Override
-    public void setGrid() {
+    public void initializeGrid(int[][] initialStates) {
 
+        myGrid = new GOLCells[height][width];
+        for(int yPos = 0; yPos<height; yPos++) {
+            for(int xPos = 0; xPos<width; xPos++) {
+                int currState = initialStates[xPos][yPos];
+                GOLCells currCell = new GOLCells(currState, xPos, yPos);
+                myGrid[xPos][yPos] = currCell;
+            }
+            yPos++;
+        }
     }
+
 
     @Override
     public List<List> getGrid() {
