@@ -92,6 +92,11 @@ public class GOLGrid implements  Grid {
         }
     }
 
+    @Override
+    public void initializeNeighbhors() {
+
+    }
+
 
     /**
      * returns the 2d list of cells that represents this grid
