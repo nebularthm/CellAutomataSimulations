@@ -1,4 +1,5 @@
 package cellsociety;
+import java.awt.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -24,6 +25,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javax.imageio.ImageIO;
+import javax.swing.*;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -34,18 +37,17 @@ public class GOLView {
 
     private Button myNextButton;
     private GOLModel myModel;
+    private Container contents;
+    private JButton[][] squares = new JButton[8][8];
+
     public GOLView (GOLModel model) {
         myModel = model;
     }
 
     public Scene makeScene (int width, int height) {
         BorderPane root = new BorderPane();
-        // must be first since other panels may refer to page
         root.setLeft(makeButtonPanel());
-
-//        root.setTop(makeInputPanel());
-//        root.setBottom(makeInformationPanel());
-//        // control the navigation
+//        root.getChildren().add(contents);
         enableButtons();
         // create scene to hold UI
         Scene scene = new Scene(root, width, height);
@@ -54,9 +56,10 @@ public class GOLView {
         return scene;
     }
 
+
     private Node makeButtonPanel () {
         HBox result = new HBox();
-        result.getChildren().add(makeButton("Simulate", event -> addFavorite()));
+        result.getChildren().add(makeButton("Simulate", event -> Simulate()));
         return result;
     }
 
@@ -64,7 +67,6 @@ public class GOLView {
         // represent all supported image suffixes
         final String IMAGEFILE_SUFFIXES =
                 String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
-
         Button result = new Button();
             result.setText(property);
         result.setOnAction(handler);
@@ -95,10 +97,10 @@ public class GOLView {
     }
 
     private void enableButtons () {
-//        myNextButton.setDisable(!myModel.hasNext());
+
     }
 
-    private void addFavorite () {
+    private void Simulate () {
 
     }
 

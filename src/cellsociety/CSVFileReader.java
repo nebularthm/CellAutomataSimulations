@@ -12,18 +12,24 @@ public class CSVFileReader {
     private String fileName;
     String csvSplitBy = ",";
 
-    public CSVFileReader() throws IOException {
-
-    }
-
-    public void setFileName(String csvFile) {
+    public CSVFileReader(String csvFile) throws IOException {
         fileName = csvFile;
     }
 
+    public String readGame() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        String line = br.readLine();
+        String gameType = line;
+
+        return gameType;
+
+    }
+
+
     private String[] readDimension() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
-        String line;
-        line = br.readLine();
+        br.readLine();
+        String line = br.readLine();
         String[] dimensions = line.split(csvSplitBy);
 
         return dimensions;
@@ -39,15 +45,16 @@ public class CSVFileReader {
         return Integer.parseInt(dimensions[1]);
     }
 
-    public List<List> readStates() throws IOException {
+    public String[][] readStates() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         br.readLine();
+        br.readLine();
         String line;
-        List states = null;
+        String[][] states = new String[getHeight()][getWidth()];
         while ((line = br.readLine()) != null) {
+            int currRow = 0;
             String[] row = line.split(csvSplitBy);
-            List<String> rowStates = Arrays.asList(row);
-            states.add(rowStates);
+            states[currRow] = row;
         }
 
         return states;
