@@ -70,7 +70,7 @@ public class GOLView {
     private GOLModel myModel;
     private Simulate mySimulation;
     private GridPane pane;
-    
+
 
     public GOLView (Simulate simulate) {
         mySimulation = simulate;
@@ -105,13 +105,11 @@ public class GOLView {
                 //for iterating, search for the rects with proper x,y
             }
         }
-        updateStates(pane);
+
         return pane;
     }
 
-    private void updateStates(GridPane pane) {
-        String [][] states = mySimulation.getStringGrid();
-
+    private void updateStates(String [][] states) {
         for (Node child : pane.getChildren()) {
             Rectangle rec = (Rectangle) child;
             Integer column = GridPane.getColumnIndex(child);
