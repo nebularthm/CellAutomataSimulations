@@ -8,6 +8,8 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Connor Penny*/
 public class CSVFileReader {
     private String fileName;
     String csvSplitBy = ",";

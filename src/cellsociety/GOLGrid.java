@@ -35,6 +35,7 @@ public class GOLGrid implements  Grid {
         gridWidth = wid;
         initializeGrid(initialStates);
         theRules = new GOLRules();
+
     }
 
 
