@@ -47,24 +47,6 @@ public class Simulate {
     }
 
 
-    ///**This method essentially handles updating the cells in this grid, essentially flips the update switch in one pass then updates elegible cells in the next
-    //* @param cellGrid The grid of interest
-    //*/
-    /*public  void updateCells(){
-        Cell[][] theGrid = cellGrid.getGrid();
-        for(int i = 0; i < theGrid.length; i++){
-            for(int j = 0; j < gridWidth;j++){
-            Cell thisCell = theGrid[i][j];
-            List<String> validNeighbs =myGrid.eligibleNeighbs(thisCell.getNeighbs(),i,j);
-            if(theRules.updateCell(thisCell.getState(),validNeighbs)){
-            thisCell.shouldUpdate();
-
-
-    public void step() {
-        myGrid.updateCells();
-        myGrid.generateNextStates();
-    }
-
     /**
      * this method returns 2d grid of cells to the controller
      * @return
@@ -77,9 +59,13 @@ public class Simulate {
                 stringGrid[i][j] = gridBeforeConv[i][j].getState();
             }
         }
-
-        return stringGrid;
-
-
+                return stringGrid;
     }
+
+    public void step() {
+        myGrid.generateNextStates();
+        myGrid.updateCells();
+    }
+
+
 }
