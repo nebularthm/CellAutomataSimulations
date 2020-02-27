@@ -36,11 +36,9 @@ public class GOLRules implements  Rules {
     public boolean shouldUpdateCell(String stat, List<String> neigbstates) {
         if(stat.equals(DEAD)){
             return Collections.frequency(neigbstates, ALIVE) == 3 ;
-
-
         }
         else {
-            return Collections.frequency(neigbstates, ALIVE) == 2 || Collections.frequency(neigbstates, ALIVE) == 3;
+            return !(Collections.frequency(neigbstates, ALIVE) == 2) && !(Collections.frequency(neigbstates, ALIVE) == 3);
 
         }
         }

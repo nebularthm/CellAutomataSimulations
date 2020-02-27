@@ -35,6 +35,7 @@ public class GOLGrid implements  Grid {
         gridHeight = hei;
         gridWidth = wid;
         initializeGrid(initialStates);
+        initializeNeighbhors();
         theRules = new GOLRules();
     }
 
@@ -87,8 +88,6 @@ public class GOLGrid implements  Grid {
             for(int xPos = 0; xPos<gridWidth; xPos++) {
                 String currState = initialStates[yPos][xPos];
                 Cell currCell = new Cell(currState, xPos, yPos);
-                List<Cell> cellNeighbors = eligibleNeighbs(yPos,xPos);
-                currCell.setNeighbhors(cellNeighbors);
                 myGrid[yPos][xPos] = currCell;
 
             }
@@ -99,7 +98,13 @@ public class GOLGrid implements  Grid {
 
     @Override
     public void initializeNeighbhors() {
+        for(int yPos = 0; yPos<gridHeight; yPos++) {
+            for(int xPos = 0; xPos<gridWidth; xPos++) {
+                List<Cell> cellNeighbors = eligibleNeighbs(yPos,xPos);
+                myGrid[yPos][xPos].setNeighbhors(cellNeighbors);
+            }
 
+        }
     }
 
 
