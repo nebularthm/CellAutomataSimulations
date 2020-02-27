@@ -8,22 +8,29 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Connor Penny*/
 public class CSVFileReader {
     private String fileName;
     String csvSplitBy = ",";
 
-    public CSVFileReader() throws IOException {
-
-    }
-
-    public void setFileName(String csvFile) {
+    public CSVFileReader(String csvFile) {
         fileName = csvFile;
     }
 
+    public String readGame() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        String line = br.readLine();
+
+        return line;
+
+    }
+
+
     private String[] readDimension() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
-        String line;
-        line = br.readLine();
+        br.readLine();
+        String line = br.readLine();
         String[] dimensions = line.split(csvSplitBy);
 
         return dimensions;
@@ -39,15 +46,17 @@ public class CSVFileReader {
         return Integer.parseInt(dimensions[1]);
     }
 
-    public List<List> readStates() throws IOException {
+    public String[][] readStates() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         br.readLine();
+        br.readLine();
         String line;
-        List states = null;
+        String[][] states = new String[getHeight()][getWidth()];
+        int currRow = 0;//make it -1 to skip over the first line
         while ((line = br.readLine()) != null) {
-            String[] row = line.split(csvSplitBy);
-            List<String> rowStates = Arrays.asList(row);
-            states.add(rowStates);
+                String[] row = line.split(csvSplitBy);
+                states[currRow] = row;
+            currRow += 1;
         }
         return states;
     }
