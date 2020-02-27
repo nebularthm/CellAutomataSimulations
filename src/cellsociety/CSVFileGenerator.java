@@ -15,18 +15,25 @@ public class CSVFileGenerator {
 
     public void createCSVFile(String gameType, int height, int width, String[][] states) throws IOException {
         String gameTypeNoSpaces = gameType.replace(" ", "");
-        File savedConfig = new File("data\\" + gameTypeNoSpaces + ".csv");
+        File savedConfig = new File("data\\SavedConfigs\\" + gameTypeNoSpaces + ".csv");
         FileWriter config = new FileWriter(savedConfig);
         config.append(gameType);
         config.append("\n");
-        config.append((char) height);
-        config.append((char) width);
+        String strHeight = Integer.toString(height);
+        String strWidth = Integer.toString(width);
+        config.append(strHeight + ",");
+        config.append(strWidth);
         config.append("\n");
         for(int yPos = 0; yPos<height; yPos++) {
-            for (int xPos = 0; xPos < height; xPos++) {
+            for (int xPos = 0; xPos < width; xPos++) {
                 config.append(states[yPos][xPos]);
+                if(xPos != width-1) {
+                    config.append(",");
+                }
             }
-            config.append("\n");
+            if(yPos != width-1) {
+                config.append("\n");
+            }
         }
 
         config.flush();
