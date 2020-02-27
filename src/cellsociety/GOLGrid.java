@@ -124,22 +124,27 @@ public class GOLGrid implements  Grid {
         return shape;
     }
 
-    @Override
-    public void setWidth(int height) {
-        gridHeight = height;
-    }
-
-    @Override
-    public void setHeight(int width) {
-        gridWidth = width;
-    }
-
     //I don't think this method works properly for identifying indices within the grid
     @Override
 
     public boolean validIndex(int x, int y) {
-        return (y < gridHeight && x < gridWidth) || (y >= 0 && x >= 0) ;
+        return (y < gridHeight && x < gridWidth) && (y >=  0 && x >= 0) ;
 
+    }
+
+
+
+    @Override
+    public String[][] getStringGrid() {
+        Cell[][] gridBeforeConv = myGrid;
+        String[][] stringGrid = new String[gridWidth][gridHeight];
+        for (int i = 0; i < gridBeforeConv.length; i++) {
+            for (int j = 0; j < gridBeforeConv[0].length; j++) {
+                stringGrid[i][j] = gridBeforeConv[i][j].getState();
+            }
+        }
+
+        return stringGrid;
     }
 
     /**
@@ -203,6 +208,7 @@ public class GOLGrid implements  Grid {
         }
         return cellList;
     }
+
 
 
 }
