@@ -21,13 +21,16 @@ public class Initializer extends Application {
     @Override
     public void start (Stage stage) throws IOException {
         // create program specific components
-        CSVFileReader reader = new CSVFileReader("Data/GameOfLife3.csv");
+        CSVFileReader reader = new CSVFileReader("Data/GameOfLife1.csv");
         sim = new Simulate(reader.getHeight(),reader.getWidth(),reader.readStates(),"Game of Life");
         display = new GOLView(sim);
+
+
         // give the window a title
         stage.setTitle(TITLE);
         // add our user interface components to Frame and show it
         stage.setScene(display.makeScene(DEFAULT_SIZE.width, DEFAULT_SIZE.height));
+        display.updateStates(sim.getStringGrid());
         stage.show();
         // start somewhere, less typing for debugging
         // display.showPage(DEFAULT_START_PAGE);
@@ -40,7 +43,7 @@ public class Initializer extends Application {
 
     private void step(double secondDelay) {
         sim.step();
-
+        display.updateStates(sim.getStringGrid());
     }
 
 

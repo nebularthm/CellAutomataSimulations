@@ -95,7 +95,7 @@ public class GOLView {
         pane.setVgap(1);
         int squareSize = 50;
         for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 9; y++) {
+            for (int y = 0; y < 10; y++) {
                 Rectangle rect = new Rectangle();
                 //set color of squares\
                 rect.setFill(White);
@@ -109,7 +109,7 @@ public class GOLView {
         return pane;
     }
 
-    private void updateStates(String [][] states) {
+    public void updateStates(String [][] states) {
         for (Node child : pane.getChildren()) {
             Rectangle rec = (Rectangle) child;
             Integer column = GridPane.getColumnIndex(child);
