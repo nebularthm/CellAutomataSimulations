@@ -7,6 +7,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Michael Williams
+ */
 class CellTest {
     private Cell testCell = new Cell("dead",0,0);
     private Cell cell1 = new Cell("dead",1,1);
