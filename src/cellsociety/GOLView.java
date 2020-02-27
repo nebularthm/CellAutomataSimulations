@@ -43,7 +43,8 @@ import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
 public class GOLView {
-
+    private Color Black = Color.BLACK;
+    private Color White = Color.WHITE;
     private Button myNextButton;
     private GOLModel myModel;
     private Simulate mySimulation;
@@ -86,15 +87,19 @@ public class GOLView {
 
     private void updateStates(GridPane pane) {
         String [][] states = mySimulation.getStringGrid();
+
         for (Node child : pane.getChildren()) {
             Integer column = GridPane.getColumnIndex(child);
             Integer row = GridPane.getRowIndex(child);
+
             String state = states[row][column];
+            System.out.println(child.getStyle());
             if(state.equals("dead")){
+                System.out.println(child.getStyle());
                 child.setStyle("-fx-bar-fill: #b100ff;");
             }
             else{
-                child.setStyle("-fx-bar-fill: black;");
+                child.setStyle("-fx-bar-fill: #8aff6e;");
             }
         }
     }
