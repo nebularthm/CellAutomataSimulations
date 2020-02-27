@@ -1,6 +1,7 @@
 package cellsociety;
 
-import java.awt.Dimension;
+import java.awt.*;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
