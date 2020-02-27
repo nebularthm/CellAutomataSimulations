@@ -47,8 +47,9 @@ public class Simulate {
     }
 
     public void step() {
-        myGrid.generateNextStates();
         myGrid.updateCells();
+        myGrid.generateNextStates();
+
     }
 
     /**

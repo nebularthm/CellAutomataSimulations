@@ -67,9 +67,13 @@ public class GOLView {
 
     private Button myNextButton;
     private GOLModel myModel;
+    private Simulate mySimulation;
+    private GridPane pane;
+    private Color Black = Color.BLACK;
+    private Color White = Color.WHITE;
 
-    public GOLView (GOLModel model) {
-        myModel = model;
+    public GOLView (Simulate simulate) {
+        mySimulation = simulate;
     }
 
     public Scene makeScene (int width, int height) {
@@ -86,21 +90,39 @@ public class GOLView {
     }
 
     private GridPane makeGrid(){
-        GridPane pane = new GridPane();
+        pane = new GridPane();
         pane.setHgap(1);
         pane.setVgap(1);
         int squareSize = 50;
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 9; y++) {
                 Rectangle rect = new Rectangle();
-                //set color of squares
+                //set color of squares\
+                rect.setFill(White);
                 rect.setWidth(squareSize);
                 rect.setHeight(squareSize);
                 pane.add(rect, x, y);
                 //for iterating, search for the rects with proper x,y
             }
         }
+        updateStates(pane);
         return pane;
+    }
+
+    private void updateStates(GridPane pane) {
+        String [][] states = mySimulation.getStringGrid();
+        for (Node child : pane.getChildren()) {
+            Rectangle rec = (Rectangle) child;
+            Integer column = GridPane.getColumnIndex(child);
+            Integer row = GridPane.getRowIndex(child);
+            String state = states[row][column];
+            if(state.equals("dead")){
+                rec.setFill(Black);
+            }
+            else{
+                rec.setFill(White);
+            }
+        }
     }
 
     private Node makeButtonPanel () {
