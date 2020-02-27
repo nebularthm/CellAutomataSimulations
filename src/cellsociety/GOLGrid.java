@@ -34,6 +34,7 @@ public class GOLGrid implements  Grid {
         gridHeight = hei;
         gridWidth = wid;
         initializeGrid(initialStates);
+        initializeNeighbhors();
         theRules = new GOLRules();
 
     }
@@ -87,8 +88,6 @@ public class GOLGrid implements  Grid {
             for(int xPos = 0; xPos<gridWidth; xPos++) {
                 String currState = initialStates[yPos][xPos];
                 Cell currCell = new Cell(currState, xPos, yPos);
-                List<Cell> cellNeighbors = eligibleNeighbs(yPos,xPos);
-                currCell.setNeighbhors(cellNeighbors);
                 myGrid[yPos][xPos] = currCell;
 
             }
@@ -99,7 +98,13 @@ public class GOLGrid implements  Grid {
 
     @Override
     public void initializeNeighbhors() {
+        for(int yPos = 0; yPos<gridHeight; yPos++) {
+            for(int xPos = 0; xPos<gridWidth; xPos++) {
+                List<Cell> cellNeighbors = eligibleNeighbs(yPos,xPos);
+                myGrid[yPos][xPos].setNeighbhors(cellNeighbors);
+            }
 
+        }
     }
 
 
@@ -119,22 +124,27 @@ public class GOLGrid implements  Grid {
         return shape;
     }
 
-    @Override
-    public void setWidth(int height) {
-        gridHeight = height;
-    }
-
-    @Override
-    public void setHeight(int width) {
-        gridWidth = width;
-    }
-
     //I don't think this method works properly for identifying indices within the grid
     @Override
 
     public boolean validIndex(int x, int y) {
-        return (y < gridHeight && x < gridWidth) || (y >= 0 && x >= 0) ;
+        return (y < gridHeight && x < gridWidth) && (y >=  0 && x >= 0) ;
 
+    }
+
+
+
+    @Override
+    public String[][] getStringGrid() {
+        Cell[][] gridBeforeConv = myGrid;
+        String[][] stringGrid = new String[gridWidth][gridHeight];
+        for (int i = 0; i < gridBeforeConv.length; i++) {
+            for (int j = 0; j < gridBeforeConv[0].length; j++) {
+                stringGrid[i][j] = gridBeforeConv[i][j].getState();
+            }
+        }
+
+        return stringGrid;
     }
 
     /**
@@ -198,6 +208,7 @@ public class GOLGrid implements  Grid {
         }
         return cellList;
     }
+
 
 
 }

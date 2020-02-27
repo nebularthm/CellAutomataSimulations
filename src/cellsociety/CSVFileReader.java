@@ -54,10 +54,8 @@ public class CSVFileReader {
         String[][] states = new String[getHeight()][getWidth()];
         int currRow = 0;//make it -1 to skip over the first line
         while ((line = br.readLine()) != null) {
-
                 String[] row = line.split(csvSplitBy);
                 states[currRow] = row;
-
             currRow += 1;
         }
         return states;

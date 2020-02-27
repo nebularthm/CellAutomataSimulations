@@ -46,22 +46,6 @@ public class Simulate {
         return retGrid;
     }
 
-
-    /**
-     * this method returns 2d grid of cells to the controller
-     * @return
-     */
-    public String[][] getStringGrid() {
-        Cell[][] gridBeforeConv = myGrid.getGrid();
-        String[][] stringGrid = new String[gridWidth][gridHeight];
-        for (int i = 0; i < gridBeforeConv.length; i++) {
-            for (int j = 0; j < gridBeforeConv[0].length; j++) {
-                stringGrid[i][j] = gridBeforeConv[i][j].getState();
-            }
-        }
-                return stringGrid;
-    }
-
     public void step() {
         myGrid.generateNextStates();
         myGrid.updateCells();

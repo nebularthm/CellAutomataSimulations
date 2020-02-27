@@ -11,9 +11,9 @@ public interface Grid<T> {
     public void initializeNeighbhors();
     Cell[][] getGrid();
     String getShape();
-    void setWidth(int height);
-    void setHeight(int width);
     boolean validIndex(int x, int y);
+    String[][] getStringGrid();
+
     //grid should Should I implementation
     //add valid index checking  to Grid
 
