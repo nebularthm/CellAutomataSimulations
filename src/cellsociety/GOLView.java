@@ -46,9 +46,11 @@ public class GOLView {
 
     private Button myNextButton;
     private GOLModel myModel;
+    private Simulate mySimulation;
+    private GridPane pane;
 
-    public GOLView (GOLModel model) {
-        myModel = model;
+    public GOLView (Simulate simulate) {
+        mySimulation = simulate;
     }
 
     public Scene makeScene (int width, int height) {
@@ -64,7 +66,7 @@ public class GOLView {
     }
 
     private GridPane makeGrid(){
-        GridPane pane = new GridPane();
+        pane = new GridPane();
         pane.setHgap(1);
         pane.setVgap(1);
         int squareSize = 50;
@@ -78,7 +80,23 @@ public class GOLView {
                 //for iterating, search for the rects with proper x,y
             }
         }
+        updateStates(pane);
         return pane;
+    }
+
+    private void updateStates(GridPane pane) {
+        String [][] states = mySimulation.getStringGrid();
+        for (Node child : pane.getChildren()) {
+            Integer column = GridPane.getColumnIndex(child);
+            Integer row = GridPane.getRowIndex(child);
+            String state = states[row][column];
+            if(state.equals("dead")){
+                child.setStyle("-fx-bar-fill: #b100ff;");
+            }
+            else{
+                child.setStyle("-fx-bar-fill: black;");
+            }
+        }
     }
 
     private Node makeButtonPanel () {
