@@ -1,8 +1,26 @@
 package cellsociety;
 import java.awt.*;
+import java.io.File;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -36,11 +54,14 @@ import javafx.scene.web.WebView;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+import javafx.scene.paint.Color;
 
 public class GOLView {
     private Color Black = Color.BLACK;
@@ -49,6 +70,7 @@ public class GOLView {
     private GOLModel myModel;
     private Simulate mySimulation;
     private GridPane pane;
+    
 
     public GOLView (Simulate simulate) {
         mySimulation = simulate;
@@ -60,7 +82,8 @@ public class GOLView {
         group.setBottom(makeButtonPanel());
         enableButtons();
         // create scene to hold UI
-        Scene scene = new Scene(group, width, height);
+        Scene scene = new Scene(group, width, height, Color.BLACK);
+
         // activate CSS styling
         //scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
         return scene;
@@ -74,7 +97,8 @@ public class GOLView {
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 9; y++) {
                 Rectangle rect = new Rectangle();
-                //set color of squares
+                //set color of squares\
+                rect.setFill(White);
                 rect.setWidth(squareSize);
                 rect.setHeight(squareSize);
                 pane.add(rect, x, y);
@@ -89,31 +113,33 @@ public class GOLView {
         String [][] states = mySimulation.getStringGrid();
 
         for (Node child : pane.getChildren()) {
+            Rectangle rec = (Rectangle) child;
             Integer column = GridPane.getColumnIndex(child);
             Integer row = GridPane.getRowIndex(child);
 
             String state = states[row][column];
             System.out.println(child.getStyle());
             if(state.equals("dead")){
-                System.out.println(child.getStyle());
-                child.setStyle("-fx-bar-fill: #b100ff;");
+
+                rec.setFill(Black);
             }
             else{
-                child.setStyle("-fx-bar-fill: #8aff6e;");
+                rec.setFill(White);
+
             }
         }
     }
 
     private Node makeButtonPanel () {
         HBox result = new HBox();
+        result.getChildren().add(makeButton("Choose File", event -> getFile()));
         result.getChildren().add(makeButton("Simulate", event -> Simulate()));
         result.getChildren().add(makeButton("Play", event-> Play()));
         result.getChildren().add(makeButton("Pause", event-> Pause()));
         result.getChildren().add(makeButton("Step", event-> Step()));
+        result.getChildren().add(makeButton("Save", event-> Save()));
         result.setAlignment(Pos.CENTER);
-
-        BorderPane root = new BorderPane();
-
+        result.setSpacing(10);
         return result;
     }
 
@@ -150,6 +176,25 @@ public class GOLView {
 
     }
 
+    //Gets file from finder, and uses csv reader
+    Stage stage1;
+    private void getFile(){
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(stage1);
+        if (file != null) {
+            openFile(file);
+        }
+    }
+
+    private void openFile(File file) {
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(file);
+        } catch (IOException ex) {
+
+        }
+    }
+
     private void Simulate () {
         //start simulation with random initial configuration
     }
@@ -166,5 +211,9 @@ public class GOLView {
 
     private void Step(){
         //access boolean. if true dont step, if false, then do while loop in play once
+    }
+
+    private void Save(){
+
     }
 }
