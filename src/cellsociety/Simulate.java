@@ -51,5 +51,13 @@ public class Simulate {
         myGrid.updateCells();
     }
 
+    /**
+     * returns string representation of the matrix
+     * @return
+     */
+    public String[][] getStringGrid(){
+        return myGrid.getStringGrid();
+    }
+
 
 }

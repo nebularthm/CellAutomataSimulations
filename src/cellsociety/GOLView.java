@@ -75,6 +75,7 @@ public class GOLView {
                 rect.setWidth(squareSize);
                 rect.setHeight(squareSize);
                 pane.add(rect, x, y);
+                //for iterating, search for the rects with proper x,y
             }
         }
         return pane;
