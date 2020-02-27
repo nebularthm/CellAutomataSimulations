@@ -23,12 +23,14 @@ public class GOLGrid implements  Grid {
 
 
     private String shape;
+
     private int gridHeight;
     private int gridWidth;
     private Cell[][] myGrid;
     private GOLRules theRules;
 
     public GOLGrid(String shap, int wid, int hei, String[][] initialStates){
+
         shape = shap;
         gridHeight = hei;
         gridWidth = wid;
@@ -94,6 +96,7 @@ public class GOLGrid implements  Grid {
         }
     }
 
+
     @Override
     public void initializeNeighbhors() {
 
@@ -104,6 +107,7 @@ public class GOLGrid implements  Grid {
      * returns the 2d list of cells that represents this grid
      * @return
      */
+
     @Override
     public Cell[][] getGrid() {
         return myGrid;

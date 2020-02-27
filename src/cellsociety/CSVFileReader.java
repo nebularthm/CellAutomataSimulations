@@ -58,7 +58,6 @@ public class CSVFileReader {
 
             currRow += 1;
         }
-
         return states;
     }
 

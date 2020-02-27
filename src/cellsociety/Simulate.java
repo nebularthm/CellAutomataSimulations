@@ -45,39 +45,22 @@ public class Simulate {
     }
 
 
-    ///**This method essentially handles updating the cells in this grid, essentially flips the update switch in one pass then updates elegible cells in the next
-     //* @param cellGrid The grid of interest
-     //*/
-    /*public  void updateCells(){
-        Cell[][] theGrid = cellGrid.getGrid();
-        for(int i = 0; i < theGrid.length; i++){
-            for(int j = 0; j < gridWidth;j++){
-            Cell thisCell = theGrid[i][j];
-            List<String> validNeighbs =myGrid.eligibleNeighbs(thisCell.getNeighbs(),i,j);
-            if(theRules.updateCell(thisCell.getState(),validNeighbs)){
-            thisCell.shouldUpdate();
-            }
->>>>>>> 087b03d01e4956c558ce5d1aebb088414f5f7095
+    public String[][] getStringGrid() {
+                Cell[][] gridBeforeConv = myGrid.getGrid();
+                String[][] stringGrid = new String[gridWidth][gridHeight];
+                for (int i = 0; i < gridBeforeConv.length; i++) {
+                    for (int j = 0; j < gridBeforeConv[0].length; j++) {
+                        stringGrid[i][j] = gridBeforeConv[i][j].getState();
+                    }
+                }
 
-    public void step() {
-        myGrid.updateCells();
-        myGrid.generateNextStates();
-    }
-
-    /**
-     * this method returns 2d grid of cells to the controller
-     * @return
-     */
-    public String[][] getStringGrid(){
-        Cell[][] gridBeforeConv = myGrid.getGrid();
-        String[][] stringGrid = new String[gridWidth][gridHeight];
-        for(int i = 0; i < gridBeforeConv.length; i++){
-            for(int j = 0; j < gridBeforeConv[0].length;j++){
-                stringGrid[i][j] = gridBeforeConv[i][j].getState();
+                return stringGrid;
             }
-        }
-        return stringGrid;
-    }
+
+
+
+
+
 
 
 }
