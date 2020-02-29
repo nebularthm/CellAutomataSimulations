@@ -133,7 +133,8 @@ public class GOLGrid implements  Grid {
     }
 
 
-
+    //Connor: I think we're gonna have to alter this method to just return a given state within the grid because it says
+    // in the instructions that there should be no public references to the model's data structure for the grid (i.e. the 2D array we return here)
     @Override
     public String[][] getStringGrid() {
         Cell[][] gridBeforeConv = myGrid;

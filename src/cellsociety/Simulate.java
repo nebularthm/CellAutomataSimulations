@@ -16,6 +16,9 @@ public class Simulate {
     private int gridWidth;
     private Grid myGrid;
 
+    public Simulate() {
+
+    }
     /**
      * the constructor for this simulate
      *
@@ -24,12 +27,27 @@ public class Simulate {
      * @param initial
      * @param type
      */
+
     public Simulate(int height, int width, String[][] initial, String type) {
         gridWidth = width;
         gridHeight = height;
         myGrid = makeGrid(initial, type);
 
     }
+
+    public void setGridHeight(int gridHeight) {
+        this.gridHeight = gridHeight;
+    }
+
+    public void setGridWidth(int gridWidth) {
+        this.gridWidth = gridWidth;
+    }
+
+    public void setMyGrid(String[][] states, String type) {
+        this.myGrid = makeGrid(states, type);
+    }
+
+
 
     /**
      * makes the grid given the initial state and the type of game we are playing
@@ -56,9 +74,10 @@ public class Simulate {
      * returns string representation of the matrix
      * @return
      */
-    public String[][] getStringGrid(){
-        return myGrid.getStringGrid();
+    public String getState(int x, int y){
+        return myGrid.getStringGrid()[x][y];
     }
+
 
 
 }

@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -56,6 +59,7 @@ import javax.swing.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -70,7 +74,9 @@ public class GOLView {
     private GOLModel myModel;
     private Simulate mySimulation;
     private GridPane pane;
+    private Timeline myAnimation;
 
+    private static final double SECOND_DELAY = 1;
 
     public GOLView (Simulate simulate) {
         mySimulation = simulate;
@@ -109,13 +115,14 @@ public class GOLView {
         return pane;
     }
 
-    public void updateStates(String [][] states) {
+    public void updateStates() {
+        mySimulation.step();
         for (Node child : pane.getChildren()) {
             Rectangle rec = (Rectangle) child;
             Integer column = GridPane.getColumnIndex(child);
             Integer row = GridPane.getRowIndex(child);
 
-            String state = states[row][column];
+            String state = mySimulation.getState(row, column);
             System.out.println(child.getStyle());
             if(state.equals("dead")){
 
@@ -185,9 +192,12 @@ public class GOLView {
     }
 
     private void openFile(File file) {
-        Desktop desktop = Desktop.getDesktop();
+        CSVFileReader reader = new CSVFileReader(file.toString());
         try {
-            desktop.open(file);
+            mySimulation.setGridHeight(reader.getHeight());
+            mySimulation.setGridWidth(reader.getWidth());
+            mySimulation.setMyGrid(reader.readStates(), reader.readGame());
+            //need line that actually loads simulation into grid when file is chosen
         } catch (IOException ex) {
 
         }
@@ -198,16 +208,24 @@ public class GOLView {
     }
 
     private void Play(){
+        myAnimation = new Timeline();
+        KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> updateStates());
+        myAnimation.setCycleCount(Timeline.INDEFINITE);
+        myAnimation.getKeyFrames().add(frame);
+        myAnimation.play();
+
         //call method in view
         //while isplaying, step and update
     }
 
     private void Pause(){
+        myAnimation.stop();
         //create boolean for pause v play
         //set the boolean to false
     }
 
     private void Step(){
+        updateStates();
         //access boolean. if true dont step, if false, then do while loop in play once
     }
 
