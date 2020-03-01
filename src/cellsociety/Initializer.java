@@ -20,9 +20,7 @@ public class Initializer extends Application {
     @Override
     public void start (Stage stage) throws IOException {
         // create program specific components
-        CSVFileReader reader = new CSVFileReader("Data/GameOfLife1.csv");
-        sim = new Simulate();
-        display = new GOLView(sim);
+        display = new GOLView();
 
 
         // give the window a title

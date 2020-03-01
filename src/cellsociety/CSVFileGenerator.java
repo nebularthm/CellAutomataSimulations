@@ -8,12 +8,22 @@ import java.io.OutputStream;
 /**
  * @author Connor Penny*/
 public class CSVFileGenerator {
+    private String gameType;
+    private int height;
+    private int width;
+    private Grid states;
 
-    public CSVFileGenerator() {
+    public CSVFileGenerator(Grid grid, String type) {
+        gameType = type;
+        height = grid.getGridHeight();
+        width = grid.getGridWidth();
+        states = grid;
 
     }
 
-    public void createCSVFile(String gameType, int height, int width, String[][] states) throws IOException {
+
+
+    public void createCSVFile() throws IOException {
         String gameTypeNoSpaces = gameType.replace(" ", "");
         File savedConfig = new File("data\\SavedConfigs\\" + gameTypeNoSpaces + ".csv");
         FileWriter config = new FileWriter(savedConfig);
@@ -26,7 +36,7 @@ public class CSVFileGenerator {
         config.append("\n");
         for(int yPos = 0; yPos<height; yPos++) {
             for (int xPos = 0; xPos < width; xPos++) {
-                config.append(states[yPos][xPos]);
+                config.append(states.getStringGrid()[yPos][xPos]);
                 if(xPos != width-1) {
                     config.append(",");
                 }

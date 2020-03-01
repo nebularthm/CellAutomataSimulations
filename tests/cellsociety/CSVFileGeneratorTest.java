@@ -11,25 +11,24 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Connor Penny*/
 
 class CSVFileGeneratorTest {
-    private CSVFileGenerator fileGenerator = new CSVFileGenerator();
+    int width = 10;
+    int height = 10;
+    String[][] states = {{"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
+        {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
+        {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
+        {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
+        {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
+        {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
+        {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
+        {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
+        {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
+        {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"}};
+    GOLGrid grid = new GOLGrid("Rectangle", width, height, states);
+    private CSVFileGenerator fileGenerator = new CSVFileGenerator(grid, "Game of Life");
 
     @Test
     void createCSVFile() throws IOException {
-        String gameName = "Game of Life";
-        int width = 10;
-        int height = 10;
-        String[][] states = new String[height][width];
-        states = new String[][]{{"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
-                    {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
-                    {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
-                    {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
-                    {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
-                    {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
-                    {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
-                    {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
-                    {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
-                    {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"}};
-        fileGenerator.createCSVFile(gameName, height, width, states);
+        fileGenerator.createCSVFile();
         File generatedFile = new File("data\\SavedConfigs\\GameofLife.csv");
 
         assertEquals(true, generatedFile.isFile());

@@ -78,8 +78,8 @@ public class GOLView {
 
     private static final double SECOND_DELAY = 1;
 
-    public GOLView (Simulate simulate) {
-        mySimulation = simulate;
+    public GOLView () {
+
     }
 
     public Scene makeScene (int width, int height) {
@@ -104,7 +104,7 @@ public class GOLView {
             for (int y = 0; y < 10; y++) {
                 Rectangle rect = new Rectangle();
                 //set color of squares\
-                rect.setFill(White);
+                rect.setFill(Black);
                 rect.setWidth(squareSize);
                 rect.setHeight(squareSize);
                 pane.add(rect, x, y);
@@ -115,8 +115,7 @@ public class GOLView {
         return pane;
     }
 
-    public void updateStates() {
-        mySimulation.step();
+    public void displayStates() {
         for (Node child : pane.getChildren()) {
             Rectangle rec = (Rectangle) child;
             Integer column = GridPane.getColumnIndex(child);
@@ -133,6 +132,12 @@ public class GOLView {
 
             }
         }
+    }
+
+
+    public void updateStates() {
+        mySimulation.step();
+        displayStates();
     }
 
     private Node makeButtonPanel () {
@@ -194,9 +199,8 @@ public class GOLView {
     private void openFile(File file) {
         CSVFileReader reader = new CSVFileReader(file.toString());
         try {
-            mySimulation.setGridHeight(reader.getHeight());
-            mySimulation.setGridWidth(reader.getWidth());
-            mySimulation.setMyGrid(reader.readStates(), reader.readGame());
+            mySimulation = new Simulate(reader);
+            displayStates();
             //need line that actually loads simulation into grid when file is chosen
         } catch (IOException ex) {
 
@@ -230,6 +234,10 @@ public class GOLView {
     }
 
     private void Save(){
-
+        try {
+            mySimulation.generateSimFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

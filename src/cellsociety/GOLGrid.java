@@ -29,6 +29,14 @@ public class GOLGrid implements  Grid {
     private Cell[][] myGrid;
     private GOLRules theRules;
 
+    public int getGridHeight() {
+        return gridHeight;
+    }
+
+    public int getGridWidth() {
+        return gridWidth;
+    }
+
     public GOLGrid(String shap, int wid, int hei, String[][] initialStates){
         shape = shap;
         gridHeight = hei;
