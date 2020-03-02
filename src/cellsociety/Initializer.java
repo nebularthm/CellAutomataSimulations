@@ -22,7 +22,6 @@ public class Initializer extends Application {
         // create program specific components
         display = new GOLView();
 
-
         // give the window a title
         stage.setTitle(TITLE);
         // add our user interface components to Frame and show it
@@ -34,6 +33,7 @@ public class Initializer extends Application {
 
 
     }
+
 
     private void step(double elapsedTime) {
 

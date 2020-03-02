@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GOLViewTest {
-
+    private GridPane pane;
     GOLView view = new GOLView();
-
 
     @Test
     //test the initialization of the scene for various dimensions
