@@ -16,6 +16,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -75,6 +76,9 @@ public class GOLView {
     private Simulate mySimulation;
     private GridPane pane;
     private Timeline myAnimation;
+    private BorderPane group;
+    private double screenHeight;
+    private double screenWidth;
 
     private static final double SECOND_DELAY = 1;
 
@@ -82,12 +86,13 @@ public class GOLView {
 
     }
 
-    public Scene makeScene (int width, int height) {
-        BorderPane group = new BorderPane();
-        group.getChildren().add(makeGrid());
+    public Scene makeScene (double width, double height) {
+        group = new BorderPane();
         group.setBottom(makeButtonPanel());
         enableButtons();
         // create scene to hold UI
+        screenHeight = height;
+        screenWidth = width;
         Scene scene = new Scene(group, width, height, Color.BLACK);
 
         // activate CSS styling
@@ -95,24 +100,32 @@ public class GOLView {
         return scene;
     }
 
-    private GridPane makeGrid(){
+    private void makeGrid(int numCellsHeight, int numCellsWidth){
         pane = new GridPane();
         pane.setHgap(1);
         pane.setVgap(1);
-        int squareSize = 50;
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 10; y++) {
+        double cellWidth;
+        double cellHeight;
+        if(screenWidth < screenHeight) {
+            cellHeight = (screenWidth - numCellsWidth - 30) / numCellsWidth;
+        }
+        else {
+            cellHeight = (screenHeight - numCellsHeight - 30) / numCellsHeight;
+        }
+        cellWidth = cellHeight;
+
+        for (int x = 0; x < numCellsWidth; x++) {
+            for (int y = 0; y < numCellsHeight; y++) {
                 Rectangle rect = new Rectangle();
                 //set color of squares\
                 rect.setFill(Black);
-                rect.setWidth(squareSize);
-                rect.setHeight(squareSize);
+                rect.setWidth(cellWidth);
+                rect.setHeight(cellHeight);
                 pane.add(rect, x, y);
                 //for iterating, search for the rects with proper x,y
             }
         }
-
-        return pane;
+        group.getChildren().add(pane);
     }
 
     public void displayStates() {
@@ -158,7 +171,7 @@ public class GOLView {
         final String IMAGEFILE_SUFFIXES =
                 String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
         Button result = new Button();
-            result.setText(property);
+        result.setText(property);
         result.setOnAction(handler);
         result.setId(property);
         return result;
@@ -200,7 +213,9 @@ public class GOLView {
         CSVFileReader reader = new CSVFileReader(file.toString());
         try {
             mySimulation = new Simulate(reader);
+            makeGrid(mySimulation.getGridHeight(), mySimulation.getGridWidth());
             displayStates();
+
             //need line that actually loads simulation into grid when file is chosen
         } catch (IOException ex) {
 

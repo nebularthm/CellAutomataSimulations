@@ -46,13 +46,9 @@ public class Simulate {
 
     public String getGameType() {return myGame;}
 
-    public void setGridHeight(int gridHeight) {
-        this.gridHeight = gridHeight;
-    }
+    public int getGridHeight() { return myGrid.getGridHeight();}
 
-    public void setGridWidth(int gridWidth) {
-        this.gridWidth = gridWidth;
-    }
+    public int getGridWidth() { return myGrid.getGridWidth();}
 
     public void setMyGrid(String[][] states, String type) {
         this.myGrid = makeGrid(states, type);
