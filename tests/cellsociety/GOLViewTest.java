@@ -7,10 +7,11 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import org.junit.jupiter.api.Test;
+import util.DukeApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GOLViewTest {
+class GOLViewTest extends DukeApplicationTest {
     private GridPane pane;
     GOLView view = new GOLView();
 

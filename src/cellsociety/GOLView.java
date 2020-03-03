@@ -1,15 +1,12 @@
 package cellsociety;
 import java.awt.*;
-import java.io.*;
+import java.io.File;
 import java.net.URL;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Properties;
 import java.util.*;
 import java.util.List;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +16,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -71,7 +69,6 @@ import org.w3c.dom.events.EventTarget;
 import javafx.scene.paint.Color;
 
 public class GOLView {
-    private static Map<String, String> map;
     private Color Black = Color.BLACK;
     private Color White = Color.WHITE;
     private Button myNextButton;
@@ -79,26 +76,23 @@ public class GOLView {
     private Simulate mySimulation;
     private GridPane pane;
     private Timeline myAnimation;
-
     private BorderPane group;
     private double screenHeight;
     private double screenWidth;
-    private ResourceBundle GOLResourceBundle;
-
- 
-
 
     private static final double SECOND_DELAY = 1;
 
-    public GOLView(){
-        GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
+    public GOLView () {
+
     }
 
-    public Scene makeScene (int width, int height) {
-        BorderPane group = new BorderPane();
+    public Scene makeScene (double width, double height) {
+        group = new BorderPane();
         group.setBottom(makeButtonPanel());
         enableButtons();
         // create scene to hold UI
+        screenHeight = height;
+        screenWidth = width;
         Scene scene = new Scene(group, width, height, Color.BLACK);
 
         // activate CSS styling
@@ -106,26 +100,32 @@ public class GOLView {
         return scene;
     }
 
-    private void makeGrid(){
+    private void makeGrid(int numCellsHeight, int numCellsWidth){
         pane = new GridPane();
         pane.setHgap(1);
         pane.setVgap(1);
-        int squareSize = 50;
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 10; y++) {
+        double cellWidth;
+        double cellHeight;
+        if(screenWidth < screenHeight) {
+            cellHeight = (screenWidth - numCellsWidth - 30) / numCellsWidth;
+        }
+        else {
+            cellHeight = (screenHeight - numCellsHeight - 30) / numCellsHeight;
+        }
+        cellWidth = cellHeight;
+
+        for (int x = 0; x < numCellsWidth; x++) {
+            for (int y = 0; y < numCellsHeight; y++) {
                 Rectangle rect = new Rectangle();
                 //set color of squares\
                 rect.setFill(Black);
-                rect.setWidth(squareSize);
-                rect.setHeight(squareSize);
+                rect.setWidth(cellWidth);
+                rect.setHeight(cellHeight);
                 pane.add(rect, x, y);
                 //for iterating, search for the rects with proper x,y
             }
         }
-
-
         group.getChildren().add(pane);
-
     }
 
     public void displayStates() {
@@ -155,12 +155,12 @@ public class GOLView {
 
     private Node makeButtonPanel () {
         HBox result = new HBox();
-        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button1"), event -> getFile()));
-        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button2"), event -> Simulate()));
-        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button3"), event-> Play()));
-        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button4"), event-> Pause()));
-        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button5"), event-> Step()));
-        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button6"), event-> Save()));
+        result.getChildren().add(makeButton("Choose File", event -> getFile()));
+        result.getChildren().add(makeButton("Simulate", event -> Simulate()));
+        result.getChildren().add(makeButton("Play", event-> Play()));
+        result.getChildren().add(makeButton("Pause", event-> Pause()));
+        result.getChildren().add(makeButton("Step", event-> Step()));
+        result.getChildren().add(makeButton("Save", event-> Save()));
         result.setAlignment(Pos.CENTER);
         result.setSpacing(10);
         return result;
@@ -213,7 +213,9 @@ public class GOLView {
         CSVFileReader reader = new CSVFileReader(file.toString());
         try {
             mySimulation = new Simulate(reader);
+            makeGrid(mySimulation.getGridHeight(), mySimulation.getGridWidth());
             displayStates();
+
             //need line that actually loads simulation into grid when file is chosen
         } catch (IOException ex) {
 
