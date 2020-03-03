@@ -125,16 +125,13 @@ public class GOLView {
             Rectangle rec = (Rectangle) child;
             Integer column = GridPane.getColumnIndex(child);
             Integer row = GridPane.getRowIndex(child);
-
             String state = mySimulation.getState(row, column);
             System.out.println(child.getStyle());
             if(state.equals("dead")){
-
                 rec.setFill(Black);
             }
             else{
                 rec.setFill(White);
-
             }
         }
     }
@@ -160,8 +157,6 @@ public class GOLView {
 
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
         // represent all supported image suffixes
-        final String IMAGEFILE_SUFFIXES =
-                String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
         Button result = new Button();
         result.setText(property);
         result.setOnAction(handler);

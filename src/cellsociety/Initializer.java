@@ -17,9 +17,8 @@ public class Initializer extends Application {
     private Timeline myAnimation = new Timeline();
     private Simulate sim;
     GOLView display;
+
     @Override
-
-
     public void start (Stage stage) throws IOException {
         ResourceBundle GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
         // create program specific components
@@ -32,8 +31,6 @@ public class Initializer extends Application {
         stage.show();
         // start somewhere, less typing for debugging
         // display.showPage(DEFAULT_START_PAGE);
-
-
     }
 
 
