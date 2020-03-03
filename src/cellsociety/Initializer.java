@@ -13,7 +13,7 @@ import javafx.util.Duration;
 public class Initializer extends Application {
     // convenience constants
     public static final String TITLE = "Game of Life Simulation";
-    public static final Dimension DEFAULT_SIZE = new Dimension(500, 500);
+    public static final Dimension DEFAULT_SIZE = new Dimension(750, 750);
     private Timeline myAnimation = new Timeline();
     private Simulate sim;
     GOLView display;
@@ -36,6 +36,9 @@ public class Initializer extends Application {
 
     private void step(double elapsedTime) {
 
+    }
+    public GOLView getDisplay(){
+        return display;
     }
 
 
