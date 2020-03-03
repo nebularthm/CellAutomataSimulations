@@ -79,7 +79,13 @@ public class GOLView {
     private Simulate mySimulation;
     private GridPane pane;
     private Timeline myAnimation;
+
+    private BorderPane group;
+    private double screenHeight;
+    private double screenWidth;
     private ResourceBundle GOLResourceBundle;
+
+ 
 
 
     private static final double SECOND_DELAY = 1;
@@ -90,7 +96,6 @@ public class GOLView {
 
     public Scene makeScene (int width, int height) {
         BorderPane group = new BorderPane();
-        group.getChildren().add(makeGrid());
         group.setBottom(makeButtonPanel());
         enableButtons();
         // create scene to hold UI
@@ -101,7 +106,7 @@ public class GOLView {
         return scene;
     }
 
-    private GridPane makeGrid(){
+    private void makeGrid(){
         pane = new GridPane();
         pane.setHgap(1);
         pane.setVgap(1);
@@ -117,7 +122,10 @@ public class GOLView {
                 //for iterating, search for the rects with proper x,y
             }
         }
-        return pane;
+
+
+        group.getChildren().add(pane);
+
     }
 
     public void displayStates() {
