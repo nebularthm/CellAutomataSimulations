@@ -79,30 +79,14 @@ public class GOLView {
     private Simulate mySimulation;
     private GridPane pane;
     private Timeline myAnimation;
+    private ResourceBundle GOLResourceBundle;
 
 
     private static final double SECOND_DELAY = 1;
 
     public GOLView(){
-
+        GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
     }
-
-    //reads property file for button names and title
-    public static Map<String, String> ReadProperties(){
-            try {
-                ResourceBundle GOLResourceBundle = ResourceBundle.getBundle("Resources.GOLView");
-                Enumeration<String> GOLKeys = GOLResourceBundle.getKeys();
-                while (GOLKeys.hasMoreElements()) {
-                    String GOLKey = GOLKeys.nextElement();
-                    String value = GOLResourceBundle.getString(GOLKey);
-                    map.put(GOLKey,value);
-                }
-            } catch (Exception e) {
-                System.out.println("Error retrieving properties file: " + e);
-            }
-            return map;
-    }
-
 
     public Scene makeScene (int width, int height) {
         BorderPane group = new BorderPane();
@@ -133,7 +117,6 @@ public class GOLView {
                 //for iterating, search for the rects with proper x,y
             }
         }
-
         return pane;
     }
 
@@ -163,14 +146,13 @@ public class GOLView {
     }
 
     private Node makeButtonPanel () {
-        ReadProperties();
         HBox result = new HBox();
-        result.getChildren().add(makeButton(map.get("Button1"), event -> getFile()));
-        result.getChildren().add(makeButton(map.get("Button2"), event -> Simulate()));
-        result.getChildren().add(makeButton(map.get("Button3"), event-> Play()));
-        result.getChildren().add(makeButton(map.get("Button4"), event-> Pause()));
-        result.getChildren().add(makeButton(map.get("Button5"), event-> Step()));
-        result.getChildren().add(makeButton(map.get("Button6"), event-> Save()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button1"), event -> getFile()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button2"), event -> Simulate()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button3"), event-> Play()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button4"), event-> Pause()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button5"), event-> Step()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button6"), event-> Save()));
         result.setAlignment(Pos.CENTER);
         result.setSpacing(10);
         return result;
