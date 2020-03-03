@@ -132,11 +132,7 @@ public class GOLView {
                 //for iterating, search for the rects with proper x,y
             }
         }
-<<<<<<< HEAD
         group.getChildren().add(pane);
-=======
-        return pane;
->>>>>>> 326c1c1b2ffd78cf1231f154b4af6e0a1096971a
     }
 
     public void displayStates() {
