@@ -1,12 +1,15 @@
 package cellsociety;
 import java.awt.*;
-import java.io.File;
+import java.io.*;
 import java.net.URL;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Properties;
 import java.util.*;
 import java.util.List;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +72,7 @@ import org.w3c.dom.events.EventTarget;
 import javafx.scene.paint.Color;
 
 public class GOLView {
+    private static Map<String, String> map;
     private Color Black = Color.BLACK;
     private Color White = Color.WHITE;
     private Button myNextButton;
@@ -79,11 +83,14 @@ public class GOLView {
     private BorderPane group;
     private double screenHeight;
     private double screenWidth;
+    private ResourceBundle GOLResourceBundle;
+
+
 
     private static final double SECOND_DELAY = 1;
 
-    public GOLView () {
-
+    public GOLView(){
+        GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
     }
 
     public Scene makeScene (double width, double height) {
@@ -125,7 +132,11 @@ public class GOLView {
                 //for iterating, search for the rects with proper x,y
             }
         }
+<<<<<<< HEAD
         group.getChildren().add(pane);
+=======
+        return pane;
+>>>>>>> 326c1c1b2ffd78cf1231f154b4af6e0a1096971a
     }
 
     public void displayStates() {
@@ -155,12 +166,12 @@ public class GOLView {
 
     private Node makeButtonPanel () {
         HBox result = new HBox();
-        result.getChildren().add(makeButton("Choose File", event -> getFile()));
-        result.getChildren().add(makeButton("Simulate", event -> Simulate()));
-        result.getChildren().add(makeButton("Play", event-> Play()));
-        result.getChildren().add(makeButton("Pause", event-> Pause()));
-        result.getChildren().add(makeButton("Step", event-> Step()));
-        result.getChildren().add(makeButton("Save", event-> Save()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button1"), event -> getFile()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button2"), event -> Simulate()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button3"), event-> Play()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button4"), event-> Pause()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button5"), event-> Step()));
+        result.getChildren().add(makeButton(GOLResourceBundle.getString("Button6"), event-> Save()));
         result.setAlignment(Pos.CENTER);
         result.setSpacing(10);
         return result;
