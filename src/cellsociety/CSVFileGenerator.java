@@ -36,7 +36,7 @@ public class CSVFileGenerator {
         config.append("\n");
         for(int yPos = 0; yPos<height; yPos++) {
             for (int xPos = 0; xPos < width; xPos++) {
-                config.append(states.getStringGrid()[yPos][xPos]);
+                config.append(states.getState(xPos,yPos));
                 if(xPos != width-1) {
                     config.append(",");
                 }

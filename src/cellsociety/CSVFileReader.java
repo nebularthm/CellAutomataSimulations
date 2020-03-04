@@ -18,18 +18,9 @@ public class CSVFileReader {
         fileName = csvFile;
     }
 
-    public String readGame() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        String line = br.readLine();
-
-        return line;
-
-    }
-
 
     private String[] readDimension() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
-        br.readLine();
         String line = br.readLine();
         String[] dimensions = line.split(csvSplitBy);
 
@@ -48,7 +39,6 @@ public class CSVFileReader {
 
     public String[][] readStates() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
-        br.readLine();
         br.readLine();
         String line;
         String[][] states = new String[getHeight()][getWidth()];

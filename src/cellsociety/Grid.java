@@ -8,6 +8,7 @@ public interface Grid<T> {
     void updateCells();
     void generateNextStates();
     void initializeGrid(String[][] initialStates);
+    String getState(int x, int y);
     int getGridHeight();
     int getGridWidth();
     public void initializeNeighbhors();
