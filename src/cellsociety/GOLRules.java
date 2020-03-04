@@ -3,7 +3,7 @@ package cellsociety;
 import java.util.Collections;
 import java.util.List;
 
-public class GOLRules implements  Rules {
+public class GOLRules extends   Rules {
     private static final String ALIVE = "alive";
     private static final String DEAD = "dead";
     private static final String GOL = "Game of Life";

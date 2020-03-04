@@ -6,7 +6,7 @@ import java.util.List;
 //The rules shouldnt change based on shapes
 //does cell even need to know it's neighhors
 
-public class GOLGrid implements  Grid {
+public class GOLGrid extends   Grid {
     private static final String UP = "up";
     private static final String DOWN = "down";
     private static final String LEFT = "left";
