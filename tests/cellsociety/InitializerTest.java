@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InitializerTest extends DukeApplicationTest {
     private GOLView testdisplay;
+
     @Override
     public void start(Stage stage){
         ResourceBundle GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
@@ -25,6 +26,7 @@ class InitializerTest extends DukeApplicationTest {
         //display.updateStates();
         stage.show();
     }
+
     @Test
     void start() {
     }
@@ -32,14 +34,16 @@ class InitializerTest extends DukeApplicationTest {
     @Test
     void main() {
     }
+
     @Test
     void testMakeScene(){
         Scene scene1 = testdisplay.makeScene(10,10);
         assertEquals(10, scene1.getHeight());
         assertEquals(10, scene1.getWidth());
+
+
         Scene scene2 = testdisplay.makeScene(500,500);
         assertEquals(500, scene2.getHeight());
         assertEquals(500, scene2.getWidth());
-
     }
 }

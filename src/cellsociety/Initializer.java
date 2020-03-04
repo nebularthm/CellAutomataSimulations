@@ -13,12 +13,10 @@ import javafx.util.Duration;
 public class Initializer extends Application {
     // convenience constants
     public static final String TITLE = "Game of Life Simulation";
-    public static final Dimension DEFAULT_SIZE = new Dimension(500, 500);
+    public static final Dimension DEFAULT_SIZE = new Dimension(750, 900);
     private Timeline myAnimation = new Timeline();
     private Simulate sim;
     GOLView display;
-
-
 
     @Override
     public void start (Stage stage) throws IOException {
@@ -33,15 +31,13 @@ public class Initializer extends Application {
         stage.show();
         // start somewhere, less typing for debugging
         // display.showPage(DEFAULT_START_PAGE);
-
-
     }
 
 
     private void step(double elapsedTime) {
 
     }
-    public  GOLView getDisplay(){
+    public GOLView getDisplay(){
         return display;
     }
 

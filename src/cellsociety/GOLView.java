@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -19,10 +18,13 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.util.Optional;
@@ -45,13 +47,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
@@ -61,6 +58,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.processor.core.ColumnOrderDependent;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -79,11 +77,23 @@ public class GOLView {
     private BorderPane group;
     private double screenHeight;
     private double screenWidth;
+    private Color livecolor = Color.BLACK;
+    private Color deadcolor = Color.WHITE;
+    private ResourceBundle GOLResourceBundle;
+    private Map<String, Color> colormap;
+    private Map<String, String> imagemap;
+    private ChoiceBox<String> LiveColorbox;
+    private ChoiceBox<String> DeadColorbox;
+    private ChoiceBox<String> LiveImagebox;
+    private ChoiceBox<String> DeadImagebox;
+    private Image alive = new Image("/Images/alive.png");
+    private Image skull = new Image("/Images/skull.png");
+
 
     private static final double SECOND_DELAY = 1;
 
     public GOLView () {
-
+        GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
     }
 
     public Scene makeScene (double width, double height) {
@@ -118,9 +128,12 @@ public class GOLView {
             for (int y = 0; y < numCellsHeight; y++) {
                 Rectangle rect = new Rectangle();
                 //set color of squares\
+                Integer row = x;
+                Integer col = y;
                 rect.setFill(Black);
                 rect.setWidth(cellWidth);
                 rect.setHeight(cellHeight);
+                rect.setOnMouseClicked(e -> checkForClick(mySimulation.getState(row,col),rect));
                 pane.add(rect, x, y);
                 //for iterating, search for the rects with proper x,y
             }
@@ -128,71 +141,122 @@ public class GOLView {
         group.getChildren().add(pane);
     }
 
-    public void displayStates() {
+    public void displayStates(Color liveColor, Color DeadColor) {
         for (Node child : pane.getChildren()) {
             Rectangle rec = (Rectangle) child;
             Integer column = GridPane.getColumnIndex(child);
             Integer row = GridPane.getRowIndex(child);
-
             String state = mySimulation.getState(row, column);
             System.out.println(child.getStyle());
             if(state.equals("dead")){
-
-                rec.setFill(Black);
+                rec.setFill(DeadColor);
+                rec.setFill(new ImagePattern(skull));
             }
             else{
-                rec.setFill(White);
+                rec.setFill(liveColor);
+                rec.setFill(new ImagePattern(alive));
 
             }
         }
     }
 
+    public void checkForClick(String state, Rectangle rect){
+        if(state.equals("dead")) {
+            rect.setFill(livecolor);
+        }
+        else{
+            rect.setFill(deadcolor);
+        }
+    }
 
     public void updateStates() {
         mySimulation.step();
-        displayStates();
+        displayStates(livecolor, deadcolor);
+
     }
 
     private Node makeButtonPanel () {
-        HBox result = new HBox();
-        result.getChildren().add(makeButton("Choose File", event -> getFile()));
-        result.getChildren().add(makeButton("Simulate", event -> Simulate()));
-        result.getChildren().add(makeButton("Play", event-> Play()));
-        result.getChildren().add(makeButton("Pause", event-> Pause()));
-        result.getChildren().add(makeButton("Step", event-> Step()));
-        result.getChildren().add(makeButton("Save", event-> Save()));
-        result.setAlignment(Pos.CENTER);
-        result.setSpacing(10);
-        return result;
+        VBox root = new VBox(4);
+
+        HBox LowerButtons = new HBox();
+        HBox UpperButtons = new HBox();
+        makeColorBoxes();
+        makeImageBoxes();
+
+        UpperButtons.getChildren().add(LiveColorbox);
+        UpperButtons.getChildren().add(DeadColorbox);
+        UpperButtons.getChildren().add(LiveImagebox);
+        UpperButtons.getChildren().add(DeadImagebox);
+        UpperButtons.setAlignment(Pos.CENTER);
+        UpperButtons.setSpacing(10);
+
+        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button1"), event -> getFile()));
+        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button2"), event -> Simulate()));
+        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button3"), event-> Play()));
+        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button4"), event-> Pause()));
+        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button5"), event-> Step()));
+        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button6"), event-> Save()));
+        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button7"), event-> Fast()));
+        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button8"), event-> Slow()));
+        LowerButtons.setAlignment(Pos.CENTER);
+        LowerButtons.setSpacing(10);
+
+        root.getChildren().add(UpperButtons);
+        root.getChildren().add(LowerButtons);
+
+
+        return root;
+    }
+
+    private void makeImageBoxes(){
+        imagemap = new HashMap<String, String>();
+        imagemap.put("L","");
+        imagemap.put("Star","");
+        imagemap.put("D","");
+        imagemap.put("Skull","");
+
+        LiveImagebox = new ChoiceBox<String>();
+        LiveImagebox.getItems().setAll("Live Icon","L","Star");
+        LiveImagebox.setValue("Live Icon");
+
+        DeadImagebox = new ChoiceBox<String>();
+        DeadImagebox.getItems().addAll("Dead Icon","D","Skull");
+        DeadImagebox.setValue("Dead Icon");
+        DeadImagebox.setOnShown(e -> ChangeImage(imagemap.get(LiveImagebox.getValue()), imagemap.get(DeadImagebox.getValue())));
+    }
+
+    private void ChangeImage(String s, String s1) {
+
+    }
+
+
+    //create drop down color boxes to change live and dead cell colors
+    private void makeColorBoxes() {
+        colormap = new HashMap<String, Color>();
+        colormap.put("RED",Color.RED);
+        colormap.put("BLUE",Color.BLUE);
+        colormap.put("GREEN",Color.GREEN);
+        colormap.put("BLACK",Color.BLACK);
+        colormap.put("WHITE",Color.WHITE);
+
+        LiveColorbox = new ChoiceBox<String>();
+        LiveColorbox.getItems().addAll("Live color","RED", "BLUE", "GREEN", "BLACK", "WHITE");
+        LiveColorbox.setValue("Live color");
+
+        DeadColorbox = new ChoiceBox<String>();
+        DeadColorbox.setValue("Dead color");
+        DeadColorbox.getItems().addAll("Dead color", "RED", "BLUE", "GREEN", "BLACK", "WHITE");
+
+        DeadColorbox.setOnShown(e -> ChangeColor(colormap.get(LiveColorbox.getValue()), colormap.get(DeadColorbox.getValue())));
     }
 
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
         // represent all supported image suffixes
-        final String IMAGEFILE_SUFFIXES =
-                String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
         Button result = new Button();
         result.setText(property);
         result.setOnAction(handler);
         result.setId(property);
         return result;
-    }
-
-    private Node makeInputPanel () {
-        VBox result = new VBox();
-        result.getChildren().addAll(makeNavigationPanel());
-        return result;
-    }
-
-    private Node makeNavigationPanel () {
-        HBox result = new HBox();
-        // new style way to do set up callback (lambdas)
-        myNextButton = makeButton("NextCommand", event -> next());
-        result.getChildren().add(myNextButton);
-        return result;
-    }
-
-    private void next () {
-
     }
 
     private void enableButtons () {
@@ -215,7 +279,7 @@ public class GOLView {
             mySimulation = new Simulate(propertiesFileReader.readCSVFile(), propertiesFileReader.readGameType());
             //mySimulation = propertiesFileReader.getInitializedSimulation();
             makeGrid(mySimulation.getGridHeight(), mySimulation.getGridWidth());
-            displayStates();
+            displayStates(livecolor, deadcolor);
 
             //need line that actually loads simulation into grid when file is chosen
         } catch (IOException ex) {
@@ -227,15 +291,19 @@ public class GOLView {
         //start simulation with random initial configuration
     }
 
+    private void ChangeColor(Color newlive, Color newdead){
+        livecolor = newlive;
+        deadcolor = newdead;
+    }
+
+
     private void Play(){
         myAnimation = new Timeline();
         KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> updateStates());
         myAnimation.setCycleCount(Timeline.INDEFINITE);
         myAnimation.getKeyFrames().add(frame);
+        myAnimation.setRate(1);
         myAnimation.play();
-
-        //call method in view
-        //while isplaying, step and update
     }
 
     private void Pause(){
@@ -255,5 +323,13 @@ public class GOLView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void Fast(){
+        myAnimation.setRate(2);
+    }
+
+    private void Slow(){
+        myAnimation.setRate(0.5);
     }
 }
