@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.util.Optional;
@@ -85,6 +86,8 @@ public class GOLView {
     private ChoiceBox<String> DeadColorbox;
     private ChoiceBox<String> LiveImagebox;
     private ChoiceBox<String> DeadImagebox;
+    private Image alive = new Image("/Images/alive.png");
+    private Image skull = new Image("/Images/skull.png");
 
 
     private static final double SECOND_DELAY = 1;
@@ -147,9 +150,12 @@ public class GOLView {
             System.out.println(child.getStyle());
             if(state.equals("dead")){
                 rec.setFill(DeadColor);
+                rec.setFill(new ImagePattern(skull));
             }
             else{
                 rec.setFill(liveColor);
+                rec.setFill(new ImagePattern(alive));
+
             }
         }
     }
