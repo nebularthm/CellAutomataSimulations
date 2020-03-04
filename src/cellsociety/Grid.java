@@ -84,6 +84,8 @@ public abstract class Grid<T> {
 
     public abstract List<Cell> eligibleNeighbs(int yPos, int xPos);
 
+    public abstract String getState(int xPos, int yPos);
+
 
     //grid should Should I implementation
     //add valid index checking  to Grid

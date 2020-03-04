@@ -16,10 +16,7 @@ public class RectangleGrid extends   Grid {
     private static final String DOWNRIGHT = "down right";
     private static final String DOWNLEFT = "down left";
     private static final String[] neighbs = {UP, DOWN, LEFT, RIGHT, UPRIGHT, UPLEFT, DOWNRIGHT, DOWNLEFT};
-    private static final String ALIVE = "alive";
-    private static final String DEAD = "dead";
-    private static final String GOL = "Game of Life";
-    private static final String RECTANGLE = "Rectangle";
+
 
 
     private String shape;
@@ -27,17 +24,17 @@ public class RectangleGrid extends   Grid {
     private int gridHeight;
     private int gridWidth;
     private Cell[][] myGrid;
-    private GOLRules theRules;
+    private Rules theRules;
 
 
 
-    public RectangleGrid(String shap, int wid, int hei, String[][] initialStates){
+    public RectangleGrid(String shap, int wid, int hei, String[][] initialStates, Rules rules){
         shape = shap;
         gridHeight = hei;
         gridWidth = wid;
         initializeGrid(initialStates);
         initializeNeighbhors();
-        theRules = new GOLRules();
+        theRules = rules;
 
     }
 

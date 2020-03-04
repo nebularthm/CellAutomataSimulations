@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RectangleGridTest {
     private CSVFileReader myFileReader = new CSVFileReader("Data/GameOfLife.csv");
-    RectangleGrid testGrid = new RectangleGrid("rectangle",myFileReader.getHeight(),myFileReader.getWidth(),myFileReader.readStates());
+    RectangleGrid testGrid = new RectangleGrid("rectangle",myFileReader.getHeight(),myFileReader.getWidth(),myFileReader.readStates(),new GOLRules());
     String [][]testInit = new String[myFileReader.getWidth()][myFileReader.getHeight()];
     Cell [] [] testCellular = new  Cell[myFileReader.getWidth()][myFileReader.getHeight()];
 

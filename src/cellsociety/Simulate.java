@@ -14,6 +14,7 @@ public class Simulate {
     private Grid myGrid;
     private String myGame;
 
+
     public Simulate() {
 
     }
@@ -62,7 +63,8 @@ public class Simulate {
     private Grid makeGrid(String[][] initial, String type) {
         Grid retGrid = null;
         if (type.equals(GOL)) {
-            retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial);
+
+            retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial, new GOLRules());
             myGame = GOL;
         }
         return retGrid;

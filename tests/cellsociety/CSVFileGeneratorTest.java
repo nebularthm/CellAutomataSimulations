@@ -23,7 +23,7 @@ class CSVFileGeneratorTest {
         {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
         {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
         {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"}};
-    RectangleGrid grid = new RectangleGrid("Rectangle", width, height, states);
+    RectangleGrid grid = new RectangleGrid("Rectangle", width, height, states, new GOLRules());
     private CSVFileGenerator fileGenerator = new CSVFileGenerator(grid, "Game of Life");
 
     @Test
