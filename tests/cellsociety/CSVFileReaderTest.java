@@ -12,10 +12,6 @@ class CSVFileReaderTest {
     CSVFileReaderTest() throws IOException {
     }
 
-    @Test
-    void readGame() throws IOException {
-        assertEquals(GOL,myFileReader.readGame());
-    }
 
     @Test
     void getHeight() throws IOException {

@@ -3,6 +3,7 @@ package cellsociety;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public abstract class Grid<T> {
 
     private static final String UP = "up";
@@ -82,6 +83,7 @@ public abstract class Grid<T> {
     }
 
     public abstract List<Cell> eligibleNeighbs(int yPos, int xPos);
+
 
     //grid should Should I implementation
     //add valid index checking  to Grid

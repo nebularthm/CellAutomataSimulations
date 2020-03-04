@@ -18,10 +18,10 @@ public class Simulate {
 
     }
 
-    public Simulate(CSVFileReader gameReader) throws IOException {
+    public Simulate(CSVFileReader gameReader, String gameType) throws IOException {
         gridHeight = gameReader.getHeight();
         gridWidth = gameReader.getWidth();
-        myGrid = makeGrid(gameReader.readStates(), gameReader.readGame());
+        myGrid = makeGrid(gameReader.readStates(), gameType);
     }
     /**
      * the constructor for this simulate
@@ -79,7 +79,7 @@ public class Simulate {
      * @return
      */
     public String getState(int x, int y){
-        return myGrid.getStringGrid()[x][y];
+        return myGrid.getState(y,x);
     }
 
     public void generateSimFile() throws IOException {
