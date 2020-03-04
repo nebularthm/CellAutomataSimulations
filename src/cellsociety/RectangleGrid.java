@@ -6,7 +6,7 @@ import java.util.List;
 //The rules shouldnt change based on shapes
 //does cell even need to know it's neighhors
 
-public class GOLGrid extends   Grid {
+public class RectangleGrid extends   Grid {
     private static final String UP = "up";
     private static final String DOWN = "down";
     private static final String LEFT = "left";
@@ -29,15 +29,9 @@ public class GOLGrid extends   Grid {
     private Cell[][] myGrid;
     private GOLRules theRules;
 
-    public int getGridHeight() {
-        return gridHeight;
-    }
 
-    public int getGridWidth() {
-        return gridWidth;
-    }
 
-    public GOLGrid(String shap, int wid, int hei, String[][] initialStates){
+    public RectangleGrid(String shap, int wid, int hei, String[][] initialStates){
         shape = shap;
         gridHeight = hei;
         gridWidth = wid;
@@ -47,12 +41,6 @@ public class GOLGrid extends   Grid {
 
     }
 
-
-
-    @Override
-    public void setShape(String shap) {
-    shape = shap;
-    }
     private List<String> neighbsToString(List<Cell> cellList){
         List<String> stateList = new ArrayList<>();
         for(Cell cell:cellList){
@@ -121,24 +109,10 @@ public class GOLGrid extends   Grid {
      * @return
      */
 
-    @Override
-    public Cell[][] getGrid() {
-        return myGrid;
-    }
 
 
-    @Override
-    public String getShape() {
-        return shape;
-    }
 
-    //I don't think this method works properly for identifying indices within the grid
-    @Override
 
-    public boolean validIndex(int x, int y) {
-        return (y < gridHeight && x < gridWidth) && (y >=  0 && x >= 0) ;
-
-    }
 
 
     //Connor: I think we're gonna have to alter this method to just return a given state within the grid because it says
@@ -162,7 +136,7 @@ public class GOLGrid extends   Grid {
      * @param xPos
      * @return
      */
-
+    @Override
     public List<Cell> eligibleNeighbs(int yPos, int xPos) {
 
         List<Cell> cellList = new ArrayList<>();

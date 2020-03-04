@@ -7,13 +7,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GOLGridTest {
+class RectangleGridTest {
     private CSVFileReader myFileReader = new CSVFileReader("Data/GameOfLife.csv");
-    GOLGrid testGrid = new GOLGrid("rectangle",myFileReader.getHeight(),myFileReader.getWidth(),myFileReader.readStates());
+    RectangleGrid testGrid = new RectangleGrid("rectangle",myFileReader.getHeight(),myFileReader.getWidth(),myFileReader.readStates());
     String [][]testInit = new String[myFileReader.getWidth()][myFileReader.getHeight()];
     Cell [] [] testCellular = new  Cell[myFileReader.getWidth()][myFileReader.getHeight()];
 
-    GOLGridTest() throws IOException {
+    RectangleGridTest() throws IOException {
     }
 
     @Test

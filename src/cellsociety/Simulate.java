@@ -1,10 +1,6 @@
 package cellsociety;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author  Michael Williams
@@ -66,7 +62,7 @@ public class Simulate {
     private Grid makeGrid(String[][] initial, String type) {
         Grid retGrid = null;
         if (type.equals(GOL)) {
-            retGrid = new GOLGrid(RECTANGLE, gridWidth, gridHeight, initial);
+            retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial);
             myGame = GOL;
         }
         return retGrid;
