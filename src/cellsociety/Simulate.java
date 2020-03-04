@@ -75,7 +75,6 @@ public class Simulate {
     public void step() {
         myGrid.updateCells();
         myGrid.generateNextStates();
-
     }
 
     /**
