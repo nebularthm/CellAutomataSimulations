@@ -198,6 +198,7 @@ public class GOLView {
         root.getChildren().add(UpperButtons);
         root.getChildren().add(LowerButtons);
 
+
         return root;
     }
 
