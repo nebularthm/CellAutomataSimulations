@@ -81,14 +81,16 @@ public class GOLView {
     private Color deadcolor = Color.WHITE;
     private ResourceBundle GOLResourceBundle;
     private Map<String, Color> colormap;
-    private Map<String, String> imagemap;
+    private Map<String, Image> imagemap;
     private ChoiceBox<String> LiveColorbox;
     private ChoiceBox<String> DeadColorbox;
     private ChoiceBox<String> LiveImagebox;
     private ChoiceBox<String> DeadImagebox;
     private Image alive = new Image("/Images/alive.png");
     private Image skull = new Image("/Images/skull.png");
-
+    private Image liveimage = alive;
+    private Image deadimage = skull;
+    private static boolean containsImages = false;
 
     private static final double SECOND_DELAY = 1;
 
@@ -150,12 +152,15 @@ public class GOLView {
             System.out.println(child.getStyle());
             if(state.equals("dead")){
                 rec.setFill(DeadColor);
-                rec.setFill(new ImagePattern(skull));
+                if(containsImages) {
+                    rec.setFill(new ImagePattern(deadimage));
+                }
             }
             else{
                 rec.setFill(liveColor);
-                rec.setFill(new ImagePattern(alive));
-
+                if(containsImages) {
+                    rec.setFill(new ImagePattern(liveimage));
+                }
             }
         }
     }
@@ -172,7 +177,6 @@ public class GOLView {
     public void updateStates() {
         mySimulation.step();
         displayStates(livecolor, deadcolor);
-
     }
 
     private Node makeButtonPanel () {
@@ -204,29 +208,31 @@ public class GOLView {
         root.getChildren().add(UpperButtons);
         root.getChildren().add(LowerButtons);
 
-
         return root;
     }
 
     private void makeImageBoxes(){
-        imagemap = new HashMap<String, String>();
-        imagemap.put("L","");
-        imagemap.put("Star","");
-        imagemap.put("D","");
-        imagemap.put("Skull","");
+        imagemap = new HashMap<String, Image>();
+        imagemap.put("Alive",alive);
+        imagemap.put("Dead",skull);
 
         LiveImagebox = new ChoiceBox<String>();
-        LiveImagebox.getItems().setAll("Live Icon","L","Star");
+        LiveImagebox.getItems().setAll("Live Icon","Alive");
         LiveImagebox.setValue("Live Icon");
 
         DeadImagebox = new ChoiceBox<String>();
-        DeadImagebox.getItems().addAll("Dead Icon","D","Skull");
+        DeadImagebox.getItems().addAll("Dead Icon","Dead");
         DeadImagebox.setValue("Dead Icon");
-        DeadImagebox.setOnShown(e -> ChangeImage(imagemap.get(LiveImagebox.getValue()), imagemap.get(DeadImagebox.getValue())));
+
+        DeadImagebox.setOnAction(e -> ChangeImage(imagemap.get(LiveImagebox.getValue()), imagemap.get(DeadImagebox.getValue())));
+        System.out.println(DeadImagebox.getValue());
     }
 
-    private void ChangeImage(String s, String s1) {
 
+    private void ChangeImage(Image Live, Image Dead) {
+        liveimage = Live;
+        deadimage = Dead;
+        containsImages = true;
     }
 
 
@@ -247,7 +253,7 @@ public class GOLView {
         DeadColorbox.setValue("Dead color");
         DeadColorbox.getItems().addAll("Dead color", "RED", "BLUE", "GREEN", "BLACK", "WHITE");
 
-        DeadColorbox.setOnShown(e -> ChangeColor(colormap.get(LiveColorbox.getValue()), colormap.get(DeadColorbox.getValue())));
+        DeadColorbox.setOnShowing(e -> ChangeColor(colormap.get(LiveColorbox.getValue()), colormap.get(DeadColorbox.getValue())));
     }
 
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
