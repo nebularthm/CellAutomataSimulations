@@ -20,6 +20,7 @@ public abstract class Grid<T> {
     protected Cell[][] myGrid;
     protected Rules theRules;
     protected boolean shouldWrapAround = false;
+    protected  String[] neighbs;
 
     public Grid(String shap, int wid, int hei, String[][] initialStates, Rules rules){
         shape = shap;
@@ -27,6 +28,7 @@ public abstract class Grid<T> {
         gridWidth = wid;
         initializeGrid(initialStates);
         theRules = rules;
+        neighbs = theRules.possibleNeighbs();
 
     }
 
@@ -37,6 +39,9 @@ public abstract class Grid<T> {
 
     void updateCells() {
 
+
+    }
+    void changeStateSingleCell(int xPos, int yPos){
 
     }
 
