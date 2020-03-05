@@ -9,8 +9,6 @@ public class PropertiesFileReader {
     private ResourceBundle myConfigFile;
     private ResourceBundle myExceptionBundle;
 
-
-
     public PropertiesFileReader(String filePath) {
         filePath = filePath.replace("\\", ".");
         int startOfBundleName = filePath.indexOf(PROP_FILE_START_IND);
