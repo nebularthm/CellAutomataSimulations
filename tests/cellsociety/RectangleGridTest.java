@@ -3,17 +3,18 @@ package cellsociety;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GOLGridTest {
+class RectangleGridTest {
     private CSVFileReader myFileReader = new CSVFileReader("Data/GameOfLife.csv");
-    GOLGrid testGrid = new GOLGrid("rectangle",myFileReader.getHeight(),myFileReader.getWidth(),myFileReader.readStates());
+    RectangleGrid testGrid = new RectangleGrid("rectangle",myFileReader.getHeight(),myFileReader.getWidth(),myFileReader.readStates(),new GOLRules());
     String [][]testInit = new String[myFileReader.getWidth()][myFileReader.getHeight()];
     Cell [] [] testCellular = new  Cell[myFileReader.getWidth()][myFileReader.getHeight()];
 
-    GOLGridTest() throws IOException {
+    RectangleGridTest() throws IOException {
     }
 
     @Test
@@ -92,9 +93,17 @@ class GOLGridTest {
                 testCellular[i][j] = new Cell("dead",j,i);
             }
         }
-        if(testCellular.equals(testGrid.getGrid())){
+
+        Cell[][] holder = testGrid.getGrid();
+        for(int i = 0; i < myFileReader.getHeight();i++){
+            for(int j = 0; j < myFileReader.getWidth();j++){
+                System.out.println(holder[i][j].getState());
+            }
+        }
+        if(Arrays.deepEquals(testCellular, holder)){
             assertEquals(1,1);
         }
+
     }
 
     @Test
