@@ -41,7 +41,6 @@ public class Simulate {
         gridHeight = height;
         myGrid = makeGrid(initial, type);
         myGame = type;
-
     }
 
     public String getGameType() {return myGame;}
