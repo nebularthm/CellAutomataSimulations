@@ -28,7 +28,7 @@ class CSVFileGeneratorTest {
 
     @Test
     void createCSVFile() throws IOException {
-        fileGenerator.createCSVFile();
+        fileGenerator.createCSVFile("GOL");
         File generatedFile = new File("data\\SavedConfigs\\GameofLife.csv");
 
         assertEquals(true, generatedFile.isFile());

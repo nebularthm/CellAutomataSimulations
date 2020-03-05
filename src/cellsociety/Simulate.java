@@ -82,11 +82,14 @@ public class Simulate {
         return myGrid.getState(y,x);
     }
 
-    public void generateSimFile() throws IOException {
+    public void generateSimFile(String filename) throws IOException {
         CSVFileGenerator csvFileGenerator = new CSVFileGenerator(myGrid, myGame);
-        csvFileGenerator.createCSVFile();
+        csvFileGenerator.createCSVFile(filename);
     }
 
+    public void generatePropertiesFile() throws IOException{
+
+    }
 
 
 }
