@@ -14,6 +14,7 @@ public abstract class Rules {
     String[] possibleNeighbs() {
         return new String[0];
     }
+    abstract List<String> unModifiedStates();
 
 
 }

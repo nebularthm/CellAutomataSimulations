@@ -3,6 +3,7 @@ package cellsociety;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -92,9 +93,17 @@ class RectangleGridTest {
                 testCellular[i][j] = new Cell("dead",j,i);
             }
         }
-        if(testCellular.equals(testGrid.getGrid())){
+
+        Cell[][] holder = testGrid.getGrid();
+        for(int i = 0; i < myFileReader.getHeight();i++){
+            for(int j = 0; j < myFileReader.getWidth();j++){
+                System.out.println(holder[i][j].getState());
+            }
+        }
+        if(Arrays.deepEquals(testCellular, holder)){
             assertEquals(1,1);
         }
+
     }
 
     @Test

@@ -6,15 +6,7 @@ import java.util.List;
 
 public abstract class Grid<T> {
 
-    private static final String UP = "up";
-    private static final String DOWN = "down";
-    private static final String LEFT = "left";
-    private static final String RIGHT = "right";
-    private static final String UPRIGHT = "up right";
-    private static final String UPLEFT = "up left";
-    private static final String DOWNRIGHT = "down right";
-    private static final String DOWNLEFT = "down left";
-    private static final String[] neighbs = {UP, DOWN, LEFT, RIGHT, UPRIGHT, UPLEFT, DOWNRIGHT, DOWNLEFT};
+
     private static final String ALIVE = "alive";
     private static final String DEAD = "dead";
     private static final String GOL = "Game of Life";
@@ -23,13 +15,21 @@ public abstract class Grid<T> {
 
     private String shape;
 
-    private int gridHeight;
-    private int gridWidth;
-    private Cell[][] myGrid;
-    private Rules theRules;
-    private boolean shouldWrapAround = false;
+    protected int gridHeight;
+    protected int gridWidth;
+    protected Cell[][] myGrid;
+    protected Rules theRules;
+    protected boolean shouldWrapAround = false;
+    protected  String[] neighbs;
 
-    public Grid() {
+    public Grid(String shap, int wid, int hei, String[][] initialStates, Rules rules){
+        shape = shap;
+        gridHeight = hei;
+        gridWidth = wid;
+        initializeGrid(initialStates);
+        theRules = rules;
+        neighbs = theRules.possibleNeighbs();
+
     }
 
 
@@ -39,13 +39,25 @@ public abstract class Grid<T> {
 
     void updateCells() {
 
-    }
-
-    void generateNextStates() {
 
     }
+    void changeStateSingleCell(int xPos, int yPos){
 
-    void initializeGrid(String[][] initialStates) {
+    }
+
+    abstract void generateNextStates();
+
+    void   initializeGrid(String[][] initialStates){
+        myGrid = new Cell[gridHeight][gridWidth];
+        for(int yPos = 0; yPos<gridHeight; yPos++) {
+            for(int xPos = 0; xPos<gridWidth; xPos++) {
+                String currState = initialStates[yPos][xPos];
+                Cell currCell = new Cell(currState, xPos, yPos);
+                myGrid[yPos][xPos] = currCell;
+
+            }
+
+        }
     }
 
     int getGridHeight() {
@@ -57,8 +69,10 @@ public abstract class Grid<T> {
         return gridWidth;
     }
 
-    void initializeNeighbhors() {
-    }
+     void initializeNeighbhors(){
+
+     }
+
     void setShouldWrapAround(boolean wrapAround){
         shouldWrapAround = wrapAround;
 
