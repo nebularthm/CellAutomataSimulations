@@ -135,13 +135,14 @@ public class GOLView {
             for (int y = 0; y < numCellsHeight; y++) {
                 Rectangle rect = new Rectangle();
                 //set color of squares\
-                Integer row = x;
-                Integer col = y;
+                Integer col = x;
+                Integer row = y;
                 rect.setFill(Black);
                 rect.setWidth(cellWidth);
                 rect.setHeight(cellHeight);
-
-                rect.setOnMouseClicked(e -> checkForClick(mySimulation.getState(row,col),rect));
+                int finalX = x;
+                int finalY = y;
+                rect.setOnMouseClicked(e -> checkForClick(finalX, finalY, rect));
                 pane.add(rect, x, y);
                 //for iterating, search for the rects with proper x,y
             }
@@ -162,7 +163,7 @@ public class GOLView {
             Rectangle rec = (Rectangle) child;
             Integer column = GridPane.getColumnIndex(child);
             Integer row = GridPane.getRowIndex(child);
-            String state = mySimulation.getState(row, column);
+            String state = mySimulation.getState(column, row);
 
             rec.getStyleClass().clear();
             rec.getStyleClass().add("my-rect-" + colormap.get(state));
@@ -193,12 +194,23 @@ public class GOLView {
         System.out.println(colormap.get(state));
     }
 
-    public void checkForClick(String state, Rectangle rect){
-        if(state.equals("dead")) {
-            rect.setFill(livecolor);
+
+
+    public void checkForClick(int x, int y, Rectangle rect){
+        mySimulation.rotateState(x,y);
+        mySimulation.getState(x,y);
+        //need to generalize for any simulation type
+        if(mySimulation.getState(x,y).equals("dead")){
+            rect.setFill(Color.WHITE);
+            if(containsImages) {
+                rect.setFill(new ImagePattern(deadimage));
+            }
         }
         else{
-            rect.setFill(deadcolor);
+            rect.setFill(Color.BLACK);
+            if(containsImages) {
+                rect.setFill(new ImagePattern(liveimage));
+            }
         }
     }
 
@@ -264,7 +276,9 @@ public class GOLView {
     }
 
     private void openFile(File file) {
+        group.getChildren().remove(pane);
         PropertiesFileReader propertiesFileReader = new PropertiesFileReader(file.getPath());
+        System.out.println(file.getPath());
         try {
             mySimulation = new Simulate(propertiesFileReader.readCSVFile(), propertiesFileReader.readGameType());
             //mySimulation = propertiesFileReader.getInitializedSimulation();
