@@ -334,7 +334,6 @@ public class GOLView {
         saveButton.setOnAction(e->
             {   try {
                 mySimulation.generateSimFile(FileName.getText());
-                popupstage.close();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -347,7 +346,7 @@ public class GOLView {
         Scene scene = new Scene(layout, 500, 350);
 
         popupstage.setScene(scene);
-        popupstage.showAndWait();
+        popupstage.show();
     }
 
     private void Fast(){

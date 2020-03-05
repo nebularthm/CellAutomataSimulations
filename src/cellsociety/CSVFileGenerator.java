@@ -43,7 +43,6 @@ public class CSVFileGenerator {
                 config.append("\n");
             }
         }
-
         config.flush();
         config.close();
     }

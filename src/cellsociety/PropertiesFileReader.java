@@ -8,8 +8,6 @@ public class PropertiesFileReader {
     private static final String PROP_FILE_END_IND = ".properties";
     private ResourceBundle myConfigFile;
 
-
-
     public PropertiesFileReader(String filePath) {
         filePath = filePath.replace("\\", ".");
         int startOfBundleName = filePath.indexOf(PROP_FILE_START_IND);
