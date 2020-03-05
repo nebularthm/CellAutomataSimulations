@@ -44,14 +44,7 @@ public class GOLRules extends   Rules {
         }
         }
 
-    /**
-     * for the GOL- we have a full neighbhood of all the possible neighbs
-     * @return
-     */
-    @Override
-    public String[] possibleNeighbs() {
-        return new String[]{"up","down","left", "right", "up right", "down right", "down left", "up left"};
-    }
+
 
     @Override
     List<String> unModifiedStates() {

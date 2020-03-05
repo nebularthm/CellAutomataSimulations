@@ -1,5 +1,6 @@
 package cellsociety;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,7 +10,11 @@ public class PercolationRules extends Rules {
     private  static  final String PERCOLATED = "percolated";
     @Override
     List<String> unModifiedStates() {
-        return null;
+        List<String> validStates = new ArrayList<>();
+        validStates.add(OPEN);
+        validStates.add(BLOCKED);
+        validStates.add(PERCOLATED);
+        return  Collections.unmodifiableList(validStates);
     }
 
     /**
@@ -17,10 +22,11 @@ public class PercolationRules extends Rules {
      * @param stat
      * @return
      */
+    @Override
     String changeState(String stat) {
             return  PERCOLATED;
     }
-
+    @Override
     boolean shouldUpdateCell(String stat, List<String> neigbstates) {
         if (stat.equals(OPEN)){
             return Collections.frequency(neigbstates,PERCOLATED) >0;
@@ -28,7 +34,5 @@ public class PercolationRules extends Rules {
         return false;
     }
 
-    String[] possibleNeighbs() {
-        return new String[]{"up","down","left", "right", "up right", "down right", "down left", "up left"};
-    }
+
 }

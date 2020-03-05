@@ -12,7 +12,7 @@ public abstract class Rules {
     }
 
     String[] possibleNeighbs() {
-        return new String[0];
+        return new String[]{"up","down","left", "right", "up right", "down right", "down left", "up left"};
     }
     abstract List<String> unModifiedStates();
 
