@@ -1,5 +1,6 @@
 package cellsociety;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class GOLRules extends   Rules {
 
     /**
      * based on the neighbor's states, this method updates the state of our cell
-     * @param cell
+     * @param
      * @return
      */
     @Override
@@ -50,5 +51,13 @@ public class GOLRules extends   Rules {
     @Override
     public String[] possibleNeighbs() {
         return new String[]{"up","down","left", "right", "up right", "down right", "down left", "up left"};
+    }
+
+    @Override
+    List<String> unModifiedStates() {
+        List<String> validStates = new ArrayList<>();
+        validStates.add(ALIVE);
+        validStates.add(DEAD);
+        return  Collections.unmodifiableList(validStates);
     }
 }

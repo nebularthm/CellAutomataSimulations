@@ -15,7 +15,6 @@ public class RectangleGrid extends   Grid {
     private static final String UPLEFT = "up left";
     private static final String DOWNRIGHT = "down right";
     private static final String DOWNLEFT = "down left";
-    private static final String[] neighbs = {UP, DOWN, LEFT, RIGHT, UPRIGHT, UPLEFT, DOWNRIGHT, DOWNLEFT};
 
 
 
@@ -81,10 +80,9 @@ public class RectangleGrid extends   Grid {
 
 
 
-    /**
-     * returns the 2d list of cells that represents this grid
-     * @return
-     */
+   public  void changeStateSingleCell(int xPos,int yPos){
+       myGrid[yPos][xPos].setState(theRules.changeState(myGrid[yPos][xPos].getState()));
+    }
 
 
 
