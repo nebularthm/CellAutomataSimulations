@@ -7,15 +7,18 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * @author Connor Penny*/
 public class CSVFileReader {
     private String fileName;
     String csvSplitBy = ",";
+    ResourceBundle myExceptionBundle;
 
     public CSVFileReader(String csvFile) {
         fileName = csvFile;
+        myExceptionBundle = ResourceBundle.getBundle("cellsociety.ExceptionResources.CSVFileExceptionMessages");
     }
 
 
@@ -44,9 +47,16 @@ public class CSVFileReader {
         String[][] states = new String[getHeight()][getWidth()];
         int currRow = 0;//make it -1 to skip over the first line
         while ((line = br.readLine()) != null) {
-                String[] row = line.split(csvSplitBy);
-                states[currRow] = row;
+            String[] row = line.split(csvSplitBy);
+            if (row.length != getWidth()) {
+                throw new CSVFileException(myExceptionBundle.getString("DimensionError"));
+            }
+            states[currRow] = row;
             currRow += 1;
+        }
+
+        if(currRow != getHeight()) {
+            throw new CSVFileException(myExceptionBundle.getString("DimensionError"));
         }
         return states;
     }

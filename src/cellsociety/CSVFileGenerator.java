@@ -21,11 +21,9 @@ public class CSVFileGenerator {
 
     }
 
-
-
-    public void createCSVFile() throws IOException {
+    public void createCSVFile(String filename) throws IOException {
         String gameTypeNoSpaces = gameType.replace(" ", "");
-        File savedConfig = new File("data\\SavedConfigs\\" + gameTypeNoSpaces + ".csv");
+        File savedConfig = new File("data\\SavedConfigs\\" + filename + ".csv");
         FileWriter config = new FileWriter(savedConfig);
         config.append(gameType);
         config.append("\n");
@@ -45,10 +43,7 @@ public class CSVFileGenerator {
                 config.append("\n");
             }
         }
-
         config.flush();
         config.close();
-
-
     }
 }

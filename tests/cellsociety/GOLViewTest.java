@@ -33,7 +33,6 @@ class GOLViewTest extends DukeApplicationTest {
     void makeSceneTest() {
         assertEquals(10, myScene.getHeight());
         assertEquals(10, myScene.getWidth());
-        assertEquals(Color.black, myScene.getFill());
 
     }
 
