@@ -19,19 +19,41 @@ public class PropertiesFileReader {
     }
 
     public String readGameType() {
-        return myConfigFile.getString("GameType");
-    }
+
+        for(SimulationType x : SimulationType.values()) {
+            if(x.equals(myConfigFile.getString("GameType"))) {
+                return myConfigFile.getString("GameType");
+            }
+        }
+        throw new IllegalStateException();
+        }
+
 
     public String readTitle() {
-        return myConfigFile.getString("Title");
+        if(keyExists("Title")) {
+            return myConfigFile.getString("Title");
+        }
+        else {
+            throw new IllegalStateException();
+        }
     }
 
     public String readAuthor() {
-        return myConfigFile.getString("Author");
+        if(keyExists("Author")) {
+            return myConfigFile.getString("Author");
+        }
+        else {
+            throw new IllegalStateException();
+        }
     }
 
     public String readDescriptions() {
-        return myConfigFile.getString("Description");
+        if(keyExists("Description")) {
+            return myConfigFile.getString("Description");
+        }
+        else {
+            throw new IllegalStateException();
+        }
     }
 
     /*public Simulate getInitializedSimulation() throws IOException {
@@ -42,9 +64,15 @@ public class PropertiesFileReader {
     }*/
 
     public CSVFileReader readCSVFile() {
-        String strCSVFile = myConfigFile.getString("CSVFile");
-        CSVFileReader reader = new CSVFileReader(strCSVFile);
-        return reader;
+        if(keyExists("Description")) {
+            String strCSVFile = myConfigFile.getString("CSVFile");
+            CSVFileReader reader = new CSVFileReader(strCSVFile);
+            return reader;
+        }
+        else {
+            throw new IllegalStateException();
+        }
+
     }
 
     public int readParameters() {
@@ -53,5 +81,9 @@ public class PropertiesFileReader {
             return Integer.parseInt(param);
         }
         return 2;
+    }
+
+    private boolean keyExists(String key) {
+        return myConfigFile.containsKey(key);
     }
 }
