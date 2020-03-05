@@ -9,6 +9,14 @@ public class RockPaperSciRules extends Rules {
     private static final String PAPER = "paper";
     private  static  final String SCISSORS = "scissors";
     private static final int THRESHOLD = 3;
+
+    public RockPaperSciRules(int threshie) {
+        super(threshie);
+    }
+
+    public RockPaperSciRules() {
+    }
+
     @Override
     List<String> unModifiedStates() {
         List<String> validStates = new ArrayList<>();
