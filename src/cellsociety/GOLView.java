@@ -280,7 +280,9 @@ public class GOLView {
     }
 
     private void openFile(File file) {
+        group.getChildren().remove(pane);
         PropertiesFileReader propertiesFileReader = new PropertiesFileReader(file.getPath());
+        System.out.println(file.getPath());
         try {
             mySimulation = new Simulate(propertiesFileReader.readCSVFile(), propertiesFileReader.readGameType());
             //mySimulation = propertiesFileReader.getInitializedSimulation();
