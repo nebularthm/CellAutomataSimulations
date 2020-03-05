@@ -7,6 +7,7 @@ public class PropertiesFileReader {
     private static final String PROP_FILE_START_IND = "cellsociety";
     private static final String PROP_FILE_END_IND = ".properties";
     private ResourceBundle myConfigFile;
+    private ResourceBundle myExceptionBundle;
 
 
 
@@ -16,6 +17,7 @@ public class PropertiesFileReader {
         int endOfBundleName = filePath.indexOf(PROP_FILE_END_IND);
         String resourceBundle = filePath.substring(startOfBundleName, endOfBundleName);
         myConfigFile = ResourceBundle.getBundle(resourceBundle);
+        myExceptionBundle = ResourceBundle.getBundle("cellsociety.ExceptionResources.ConfigFileExceptionMessages");
     }
 
     public String readGameType() {
@@ -25,7 +27,7 @@ public class PropertiesFileReader {
                 return myConfigFile.getString("GameType");
             }
         }
-        throw new IllegalStateException();
+        throw new ConfigurationFileException(myExceptionBundle.getString("GameTypeError"));
         }
 
 
@@ -34,7 +36,7 @@ public class PropertiesFileReader {
             return myConfigFile.getString("Title");
         }
         else {
-            throw new IllegalStateException();
+            throw new ConfigurationFileException(myExceptionBundle.getString("TitleError"));
         }
     }
 
@@ -43,7 +45,7 @@ public class PropertiesFileReader {
             return myConfigFile.getString("Author");
         }
         else {
-            throw new IllegalStateException();
+            throw new ConfigurationFileException(myExceptionBundle.getString("AuthorError"));
         }
     }
 
@@ -52,7 +54,7 @@ public class PropertiesFileReader {
             return myConfigFile.getString("Description");
         }
         else {
-            throw new IllegalStateException();
+            throw new ConfigurationFileException(myExceptionBundle.getString("DescriptionError"));
         }
     }
 
@@ -64,14 +66,15 @@ public class PropertiesFileReader {
     }*/
 
     public CSVFileReader readCSVFile() {
-        if(keyExists("Description")) {
+        if(keyExists("CSVFile")) {
             String strCSVFile = myConfigFile.getString("CSVFile");
             CSVFileReader reader = new CSVFileReader(strCSVFile);
             return reader;
         }
         else {
-            throw new IllegalStateException();
+            throw new ConfigurationFileException(myExceptionBundle.getString("CSVFileError"));
         }
+
 
     }
 

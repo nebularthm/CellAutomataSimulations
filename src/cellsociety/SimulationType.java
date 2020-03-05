@@ -15,7 +15,7 @@ public enum SimulationType {
     }
 
     public boolean equals(String name) {
-        return (myName == name);
+        return (myName.equals(name));
 
     }
     public String toString() {
