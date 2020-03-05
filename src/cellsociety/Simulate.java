@@ -79,8 +79,10 @@ public class Simulate {
      * @return
      */
     public String getState(int x, int y){
-        return myGrid.getState(y,x);
+        return myGrid.getState(x,y);
     }
+
+    public void rotateState(int x, int y) {myGrid.changeStateSingleCell(x, y);}
 
     public void generateSimFile(String filename) throws IOException {
         CSVFileGenerator csvFileGenerator = new CSVFileGenerator(myGrid, myGame);
