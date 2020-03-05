@@ -4,8 +4,9 @@ import java.util.List;
 
 public abstract class Rules {
     protected int thresh;
+    protected  Grid theGrid;
     public  Rules(){
-        thresh = 0;
+        thresh = 1;
     }
     public  Rules(int threshie){
         thresh = threshie;
@@ -24,7 +25,23 @@ public abstract class Rules {
     void setThresh(int threshie){
         thresh = threshie;
     }
+    boolean isMovingCells(){
+        return false;
+    }
     abstract List<String> unModifiedStates();
 
 
+    public boolean shouldMoveCell(Cell cell) {
+     return false;
+    }
+
+    public Cell getDestinationCell(Cell cell) {
+        return null;
+    }
+
+    public void resetStateList() {
+    }
+    public  void setTheGrid(Grid griddy){
+        theGrid = griddy;
+    }
 }

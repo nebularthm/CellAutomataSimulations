@@ -7,12 +7,28 @@ public class Cell {
     private int xCord,yCord;
     private boolean update = false;
     private List<Cell> neighbs;
-
+    private boolean move = false;
 
     public Cell(String stat, int y, int x){
         state = stat;
         xCord=x;
         yCord = y;
+    }
+
+    public int getxCord() {
+        return xCord;
+    }
+
+    public int getyCord() {
+        return yCord;
+    }
+
+    public void setxCord(int xCord) {
+        this.xCord = xCord;
+    }
+
+    public void setyCord(int yCord) {
+        this.yCord = yCord;
     }
 
     public void setState(String stat) {
@@ -49,6 +65,14 @@ public class Cell {
     }
     public List<Cell> getNeighbs() {
         return neighbs;
+    }
+
+    public void shouldMove(){
+        move = !move;
+    }
+
+    public boolean canMove(){
+        return move;
     }
 
 }

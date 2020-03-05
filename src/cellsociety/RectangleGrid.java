@@ -56,6 +56,9 @@ public class RectangleGrid extends   Grid {
             for(int xPos = 0; xPos<gridWidth; xPos++) {
                 if(theRules.shouldUpdateCell(myGrid[yPos][xPos].getState(), neighbsToString(myGrid[yPos][xPos].getNeighbs()))){//pass the cell directly into rulles
                     myGrid[yPos][xPos].shouldUpdate();
+                    if(theRules.isMovingCells() && theRules.shouldMoveCell(myGrid[yPos][xPos])){
+                        myGrid[yPos][xPos].shouldMove();
+                    }
                 }
 
             }
@@ -66,21 +69,38 @@ public class RectangleGrid extends   Grid {
         for(int yPos = 0; yPos<this.getGridHeight(); yPos++) {
             for(int xPos = 0; xPos<this.getGridWidth(); xPos++) {
                 if(myGrid[yPos][xPos].canUpdate()){
-                    myGrid[yPos][xPos].setState(theRules.changeState(myGrid[yPos][xPos].getState()));
-                    myGrid[yPos][xPos].shouldUpdate();
+                    if(myGrid[yPos][xPos].canMove()){
+                        swap(myGrid[yPos][xPos],theRules.getDestinationCell(myGrid[yPos][xPos]));
+                        myGrid[yPos][xPos].shouldUpdate();
+                        myGrid[yPos][xPos].shouldMove();
+                    }
+                    else {
+                        myGrid[yPos][xPos].setState(theRules.changeState(myGrid[yPos][xPos].getState()));
+                        myGrid[yPos][xPos].shouldUpdate();
+                    }
                 }
             }
         }
+        theRules.resetStateList();
+
+    }
+
+    private void swap(Cell cell, Cell destinationCell) {
+        Cell temp = cell;
+        cell.setyCord(destinationCell.getyCord());
+        cell.setxCord(destinationCell.getxCord());
+        cell.setState(destinationCell.getState());
+        destinationCell.setyCord(temp.getyCord());
+        destinationCell.setxCord(temp.getxCord());
+        destinationCell.setState(temp.getState());
+
+        myGrid[cell.getyCord()][cell.getxCord()] = cell;
+        myGrid[destinationCell.getyCord()][destinationCell.getxCord()] = destinationCell;
 
     }
 
 
-
-
-
-
-
-   public  void changeStateSingleCell(int xPos,int yPos){
+    public  void changeStateSingleCell(int xPos,int yPos){
        myGrid[yPos][xPos].setState(theRules.changeState(myGrid[yPos][xPos].getState()));
     }
 

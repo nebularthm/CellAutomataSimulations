@@ -1,6 +1,7 @@
 package cellsociety;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -96,17 +97,22 @@ public abstract class Grid<T> {
         return new String[0][];
     }
 
+    public List<Cell> allCellsWithState(String stat){
+        List<Cell> retList = new ArrayList<>();
+        for(Cell [] cells:myGrid){
+            for(Cell cell:cells){
+                if(cell.getState().equals(stat)){
+                    retList.add(cell);
+                }
+            }
+        }
+        return Collections.unmodifiableList(retList);
+    }
+
     public abstract List<Cell> eligibleNeighbs(int yPos, int xPos);
 
     public abstract String getState(int xPos, int yPos);
 
 
-    //grid should Should I implementation
-    //add valid index checking  to Grid
 
-    //Grid takes from the csv, initial configuration, height, width,
-
-    //Grid creates it's own 2d array of cell based on states
-
-    //instead of returning the grid
 }
