@@ -101,6 +101,7 @@ public class GOLView {
         GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
     }
 
+    PopUp myPopUp = new PopUp();
     public Scene makeScene (double width, double height) {
         group = new BorderPane();
         group.setBottom(makeButtonPanel());
@@ -240,7 +241,7 @@ public class GOLView {
         LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button3"), event-> Play()));
         LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button4"), event-> Pause()));
         LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button5"), event-> Step()));
-        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button6"), event-> popUpSave()));
+        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button6"), event-> myPopUp.popUpSave(mySimulation)));
         LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button7"), event-> Fast()));
         LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button8"), event-> Slow()));
         LowerButtons.setAlignment(Pos.CENTER);
@@ -320,32 +321,6 @@ public class GOLView {
         //access boolean. if true dont step, if false, then do while loop in play once
     }
 
-    //popup to save properties and csv files
-    private void popUpSave() {
-        Stage popupstage = new Stage();
-        popupstage.setTitle("Save as CSV and Properties File");
-        Label label1 = new Label("Enter File Name");
-        Label label2 = new Label("Your file name will be saved as a .properties and .CSV file");
-        Button saveButton = new Button("Save");
-        TextField FileName = new TextField();
-        saveButton.setOnAction(e->
-            {   try {
-                mySimulation.generateSimFile(FileName.getText());
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
-
-        VBox layout = new VBox(15);
-        layout.getChildren().addAll(label1,FileName,saveButton,label2);
-        layout.setAlignment(Pos.CENTER);
-
-        Scene scene = new Scene(layout, 500, 350);
-
-        popupstage.setScene(scene);
-        popupstage.show();
-    }
-
     private void Fast(){
         myAnimation.setRate(2);
     }
@@ -353,4 +328,5 @@ public class GOLView {
     private void Slow(){
         myAnimation.setRate(0.5);
     }
+
 }
