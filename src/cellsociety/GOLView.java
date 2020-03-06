@@ -210,7 +210,6 @@ public class GOLView {
         PropertiesFileReader propertiesFileReader = new PropertiesFileReader(file.getPath());
         try {
             mySimulation = new Simulate(propertiesFileReader.readCSVFile(), propertiesFileReader.readGameType());
-            //mySimulation = propertiesFileReader.getInitializedSimulation();
             makeGrid(mySimulation.getGridHeight(), mySimulation.getGridWidth());
             HBox UpperButtons = new HBox();
             states = mySimulation.getUnmodifiablePossibleStates();
