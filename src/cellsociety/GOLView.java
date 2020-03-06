@@ -300,6 +300,7 @@ public class GOLView {
     }
 
     //popup to save properties and csv files
+    //popup needs to ask for author, title, and description
     private void popUpSave() {
         Stage popupstage = new Stage();
         popupstage.setTitle("Save as CSV and Properties File");
