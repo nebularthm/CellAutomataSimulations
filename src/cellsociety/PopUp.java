@@ -25,13 +25,19 @@ public class PopUp{
         Stage popupstage = new Stage();
         popupstage.setTitle(GOLResourceBundle.getString("PopUpTitle"));
         Label label1 = new Label(GOLResourceBundle.getString("FileName"));
+        label1.setId("SaveInstructions");
         Label label2 = new Label(GOLResourceBundle.getString("Save"));
+        label2.setId("SaveInfo");
         Button saveButton = new Button(GOLResourceBundle.getString("SaveButton"));
+        saveButton.setId("SaveButton");
         TextField FileName = new TextField();
+        FileName.setId("FileNameBox");
         TextField Title = new TextField();
+        Title.setId("TitleBox");
         TextField Author = new TextField();
+        Title.setId("AuthorBox");
         TextField Description = new TextField();
-
+        Title.setId("DescriptionBox");
         FileName.setMaxWidth(400);
         Title.setMaxWidth(400);
         Author.setMaxWidth(400);
@@ -75,6 +81,8 @@ public class PopUp{
         popupstage.setScene(scene);
         popupstage.show();
     }
+
+
 
 
 }
