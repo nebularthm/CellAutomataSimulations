@@ -10,6 +10,7 @@ public class PropertiesFileReader {
     private ResourceBundle myExceptionBundle;
 
     public PropertiesFileReader(String filePath) {
+        System.out.println(filePath);
         filePath = filePath.replace("\\", ".");
         int startOfBundleName = filePath.indexOf(PROP_FILE_START_IND);
         int endOfBundleName = filePath.indexOf(PROP_FILE_END_IND);

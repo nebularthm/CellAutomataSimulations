@@ -26,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
 
+
 public class GOLView {
     private Color Black = Color.BLACK;
     private Color White = Color.WHITE;
@@ -52,6 +53,9 @@ public class GOLView {
     private Image deadimage = skull;
     private static boolean containsImages = false;
     private List<String> states = new ArrayList<>(3);
+    private boolean testMode;
+    private String testFilePath;
+    private  double animationRate;
 
     private static final double SECOND_DELAY = 1;
 
@@ -64,6 +68,7 @@ public class GOLView {
         group = new BorderPane();
         group.setBottom(makeButtonPanel());
         enableButtons();
+        group.setId("pane");
         // create scene to hold UI
         screenHeight = height;
         screenWidth = width;
@@ -71,8 +76,7 @@ public class GOLView {
 
         //activate CSS styling
         scene.getStylesheets().add("Stylesheet.css");
-        Rectangle test = new Rectangle();
-        test.getStyleClass().clear();
+
         return scene;
     }
 
@@ -164,15 +168,29 @@ public class GOLView {
         myVBox = new VBox(4);
         HBox LowerButtons = new HBox();
 
+        Button fileButton = makeButton(GOLResourceBundle.getString("Button1"), event -> getFile());
 
-        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button1"), event -> getFile()));
-        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button2"), event -> Simulate()));
-        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button3"), event-> Play()));
-        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button4"), event-> Pause()));
-        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button5"), event-> Step()));
-        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button6"), event-> myPopUp.popUpSave(mySimulation)));
-        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button7"), event-> Fast()));
-        LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button8"), event-> Slow()));
+        LowerButtons.getChildren().add(fileButton);
+        Button simButton = makeButton(GOLResourceBundle.getString("Button2"), event -> Simulate());
+
+        LowerButtons.getChildren().add(simButton);
+        Button playButton = makeButton(GOLResourceBundle.getString("Button3"), event-> Play());
+        LowerButtons.getChildren().add(playButton);
+        Button pauseButon = makeButton(GOLResourceBundle.getString("Button4"), event-> Pause());
+
+        LowerButtons.getChildren().add(pauseButon);
+        Button stepButton = makeButton(GOLResourceBundle.getString("Button5"), event-> Step());
+
+        LowerButtons.getChildren().add(stepButton);
+        Button saveButton = makeButton(GOLResourceBundle.getString("Button6"), event-> myPopUp.popUpSave(mySimulation));
+
+        LowerButtons.getChildren().add(saveButton);
+        Button fastButton = makeButton(GOLResourceBundle.getString("Button7"), event-> Fast());
+
+        LowerButtons.getChildren().add(fastButton);
+        Button slowButton = makeButton(GOLResourceBundle.getString("Button8"), event-> Slow());
+
+        LowerButtons.getChildren().add(slowButton);
         LowerButtons.setAlignment(Pos.CENTER);
         LowerButtons.setSpacing(10);
 
@@ -199,7 +217,14 @@ public class GOLView {
     Stage stage1;
     private void getFile(){
         FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(stage1);
+        File file = null;
+        if(!testMode){
+                    file = fileChooser.showOpenDialog(stage1);
+        }
+        else{
+            file = new File(testFilePath);
+        }
+
         if (file != null) {
             openFile(file);
         }
@@ -242,6 +267,7 @@ public class GOLView {
         myAnimation.setCycleCount(Timeline.INDEFINITE);
         myAnimation.getKeyFrames().add(frame);
         myAnimation.setRate(1);
+        animationRate = myAnimation.getRate();
         myAnimation.play();
     }
 
@@ -258,10 +284,31 @@ public class GOLView {
 
     private void Fast(){
         myAnimation.setRate(2);
+        animationRate = myAnimation.getRate();
     }
 
     private void Slow(){
         myAnimation.setRate(0.5);
+        animationRate = myAnimation.getRate();
     }
 
+
+
+    //These methods are for tests
+
+
+    public Simulate getMySimulation() {
+        return mySimulation;
+    }
+    public void setTestMode(boolean testin){
+        testMode = testin;
+    }
+
+    public void setTestFilePath(String testFilePath) {
+        this.testFilePath = testFilePath;
+    }
+
+    public double getAnimationRate() {
+        return animationRate;
+    }
 }
