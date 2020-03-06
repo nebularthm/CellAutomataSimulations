@@ -83,7 +83,7 @@ public class Simulate {
     public void rotateState(int x, int y) {myGrid.changeStateSingleCell(x, y);}
 
     public void generateSimFile(String filename) throws IOException {
-        CSVFileGenerator csvFileGenerator = new CSVFileGenerator(myGrid, myGame);
+        CSVFileGenerator csvFileGenerator = new CSVFileGenerator(myGrid);
         csvFileGenerator.createCSVFile(filename);
     }
 

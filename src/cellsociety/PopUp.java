@@ -8,8 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class PopUp{
@@ -20,17 +21,23 @@ public class PopUp{
         GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
     }
 
-    void popUpSave(Simulate mySimulation) {
+    public void popUpSave(Simulate mySimulation) {
         Stage popupstage = new Stage();
         popupstage.setTitle(GOLResourceBundle.getString("PopUpTitle"));
         Label label1 = new Label(GOLResourceBundle.getString("FileName"));
+        label1.setId("SaveInstructions");
         Label label2 = new Label(GOLResourceBundle.getString("Save"));
+        label2.setId("SaveInfo");
         Button saveButton = new Button(GOLResourceBundle.getString("SaveButton"));
+        saveButton.setId("SaveButton");
         TextField FileName = new TextField();
+        FileName.setId("FileNameBox");
         TextField Title = new TextField();
+        Title.setId("TitleBox");
         TextField Author = new TextField();
+        Title.setId("AuthorBox");
         TextField Description = new TextField();
-
+        Title.setId("DescriptionBox");
         FileName.setMaxWidth(400);
         Title.setMaxWidth(400);
         Author.setMaxWidth(400);
@@ -50,10 +57,19 @@ public class PopUp{
         layout.setAlignment(Pos.CENTER);
         saveButton.setOnAction(e->
         {   try {
-            //PropertiesFileGenerator fileGenerator = new PropertiesFileGenerator(savingInfoList)
-            //fileGenerator.createPropertiesFile()
-            mySimulation.generateSimFile(FileName.getText());
             popupstage.close();
+            List simInfo = new ArrayList();
+            simInfo.add(Title.getText());
+            simInfo.add(Author.getText());
+            simInfo.add(Description.getText());
+            mySimulation.generateSimFile(FileName.getText());
+            simInfo.add("data/" + FileName.getText());
+            simInfo.add(mySimulation.getGameType());
+            //simInfo.add(mySimulation.getParameter());
+            PropertiesFileGenerator fileGenerator = new PropertiesFileGenerator(simInfo);
+            fileGenerator.createPropertiesFile(FileName.getText());
+
+
             //need some way for layout to go away upon clicking save button
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -65,6 +81,8 @@ public class PopUp{
         popupstage.setScene(scene);
         popupstage.show();
     }
+
+
 
 
 }
