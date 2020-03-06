@@ -83,9 +83,6 @@ public class GOLView {
     private Map<String, String> colormap;
     private Map<String, ChoiceBox> boxmap;
     private Map<String, Image> imagemap;
-    private ChoiceBox<String> Colorbox1;
-    private ChoiceBox<String> Colorbox2;
-    private ChoiceBox<String> Colorbox3;
     private ChoiceBox<String> LiveImagebox;
     private ChoiceBox<String> DeadImagebox;
     private Image alive = new Image("/Images/alive.png");
@@ -151,13 +148,6 @@ public class GOLView {
     }
 
     public void displayStates() {
-        Map<String, Color> paintmap = new HashMap<String, Color>();
-
-        paintmap.put("red", Color.RED);
-        paintmap.put("blue", Color.BLUE);
-        paintmap.put("black", Color.BLACK);
-        paintmap.put("white", Color.WHITE);
-        paintmap.put("green", Color.GREEN);
 
         for (Node child : pane.getChildren()) {
             Rectangle rec = (Rectangle) child;
@@ -196,22 +186,11 @@ public class GOLView {
 
 
 
-    public void checkForClick(int x, int y, Rectangle rect){
-        mySimulation.rotateState(x,y);
-        mySimulation.getState(x,y);
-        //need to generalize for any simulation type
-        if(mySimulation.getState(x,y).equals("dead")){
-            rect.setFill(Color.WHITE);
-            if(containsImages) {
-                rect.setFill(new ImagePattern(deadimage));
-            }
-        }
-        else{
-            rect.setFill(Color.BLACK);
-            if(containsImages) {
-                rect.setFill(new ImagePattern(liveimage));
-            }
-        }
+    public void checkForClick(int x, int y, Rectangle rect) {
+        mySimulation.rotateState(x, y);
+        String state = mySimulation.getState(x, y);
+        rect.getStyleClass().clear();
+        rect.getStyleClass().add("my-rect-" + colormap.get(state));
     }
 
     public void updateStates() {
