@@ -56,13 +56,6 @@ public class PropertiesFileReader {
         }
     }
 
-    /*public Simulate getInitializedSimulation() throws IOException {
-        String strCSVFile = myConfigFile.getString("CSVFile");
-        CSVFileReader reader = new CSVFileReader(strCSVFile);
-        Simulate simulation = new Simulate(reader, readGameType());
-        return simulation;
-    }*/
-
     public CSVFileReader readCSVFile() {
         if(keyExists("CSVFile")) {
             String strCSVFile = myConfigFile.getString("CSVFile");
