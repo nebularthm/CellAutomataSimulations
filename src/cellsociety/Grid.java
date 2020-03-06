@@ -113,6 +113,9 @@ public abstract class Grid<T> {
 
     public abstract String getState(int xPos, int yPos);
 
+    public abstract List<String> getUnmodifiablePossibleStates() ;
+
+
 
 
 }
