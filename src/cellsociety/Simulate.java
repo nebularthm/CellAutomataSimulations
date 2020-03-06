@@ -14,7 +14,6 @@ public class Simulate {
     private Grid myGrid;
     private String myGame;
 
-
     public Simulate() {
 
     }
@@ -50,8 +49,6 @@ public class Simulate {
         this.myGrid = makeGrid(states, type);
     }
 
-
-
     /**
      * makes the grid given the initial state and the type of game we are playing
      *
@@ -79,8 +76,10 @@ public class Simulate {
      * @return
      */
     public String getState(int x, int y){
-        return myGrid.getState(y,x);
+        return myGrid.getState(x,y);
     }
+
+    public void rotateState(int x, int y) {myGrid.changeStateSingleCell(x, y);}
 
     public void generateSimFile(String filename) throws IOException {
         CSVFileGenerator csvFileGenerator = new CSVFileGenerator(myGrid, myGame);
@@ -90,6 +89,4 @@ public class Simulate {
     public void generatePropertiesFile() throws IOException{
 
     }
-
-
 }

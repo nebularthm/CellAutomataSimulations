@@ -80,10 +80,9 @@ public class GOLView {
     private Color livecolor = Color.BLACK;
     private Color deadcolor = Color.WHITE;
     private ResourceBundle GOLResourceBundle;
-    private Map<String, Color> colormap;
+    private Map<String, String> colormap;
+    private Map<String, ChoiceBox> boxmap;
     private Map<String, Image> imagemap;
-    private ChoiceBox<String> LiveColorbox;
-    private ChoiceBox<String> DeadColorbox;
     private ChoiceBox<String> LiveImagebox;
     private ChoiceBox<String> DeadImagebox;
     private Image alive = new Image("/Images/alive.png");
@@ -91,6 +90,7 @@ public class GOLView {
     private Image liveimage = alive;
     private Image deadimage = skull;
     private static boolean containsImages = false;
+    private List<String> states = new ArrayList<>(3);
 
     private static final double SECOND_DELAY = 1;
 
@@ -107,8 +107,10 @@ public class GOLView {
         screenWidth = width;
         Scene scene = new Scene(group, width, height, Color.BLACK);
 
-        // activate CSS styling
-        //scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
+        //activate CSS styling
+        scene.getStylesheets().add("Stylesheet.css");
+        Rectangle test = new Rectangle();
+        test.getStyleClass().clear();
         return scene;
     }
 
@@ -130,12 +132,14 @@ public class GOLView {
             for (int y = 0; y < numCellsHeight; y++) {
                 Rectangle rect = new Rectangle();
                 //set color of squares\
-                Integer row = x;
-                Integer col = y;
+                Integer col = x;
+                Integer row = y;
                 rect.setFill(Black);
                 rect.setWidth(cellWidth);
                 rect.setHeight(cellHeight);
-                rect.setOnMouseClicked(e -> checkForClick(mySimulation.getState(row,col),rect));
+                int finalX = x;
+                int finalY = y;
+                rect.setOnMouseClicked(e -> checkForClick(finalX, finalY, rect));
                 pane.add(rect, x, y);
                 //for iterating, search for the rects with proper x,y
             }
@@ -143,54 +147,70 @@ public class GOLView {
         group.getChildren().add(pane);
     }
 
-    public void displayStates(Color liveColor, Color DeadColor) {
+    public void displayStates() {
+
         for (Node child : pane.getChildren()) {
             Rectangle rec = (Rectangle) child;
             Integer column = GridPane.getColumnIndex(child);
             Integer row = GridPane.getRowIndex(child);
-            String state = mySimulation.getState(row, column);
-            System.out.println(child.getStyle());
-            if(state.equals("dead")){
-                rec.setFill(DeadColor);
-                if(containsImages) {
-                    rec.setFill(new ImagePattern(deadimage));
-                }
-            }
-            else{
-                rec.setFill(liveColor);
-                if(containsImages) {
-                    rec.setFill(new ImagePattern(liveimage));
-                }
-            }
+            String state = mySimulation.getState(column, row);
+
+            rec.getStyleClass().clear();
+            rec.getStyleClass().add("my-rect-" + colormap.get(state));
+
+
+//            rec.setFill(paintmap.get(colormap.get(state)));
         }
     }
 
-    public void checkForClick(String state, Rectangle rect){
-        if(state.equals("dead")) {
-            rect.setFill(livecolor);
+    //create drop down color boxes to change live and dead cell colors
+    private void makeColorBoxes() {
+        boxmap = new HashMap<String, ChoiceBox>();
+        colormap = new HashMap<String, String>();
+        int numberofStates = states.size();
+
+        for(int i = 0;i<numberofStates;i++) {
+            int counter = i;
+            ChoiceBox<String> colorbox = new ChoiceBox<String>();
+            colorbox.getItems().addAll( states.get(i),"red", "blue", "green", "black", "white");
+            colorbox.setValue(states.get(i));
+            colorbox.setOnAction(e->mapColor(states.get(counter),colorbox.getValue()));
+            boxmap.put(states.get(i),colorbox);
         }
-        else{
-            rect.setFill(deadcolor);
-        }
+    }
+
+    private void mapColor(String state, String color) {
+        colormap.put(state, color);
+        System.out.println(colormap.get(state));
+    }
+
+
+
+    public void checkForClick(int x, int y, Rectangle rect) {
+        mySimulation.rotateState(x, y);
+        String state = mySimulation.getState(x, y);
+        rect.getStyleClass().clear();
+        rect.getStyleClass().add("my-rect-" + colormap.get(state));
     }
 
     public void updateStates() {
         mySimulation.step();
-        displayStates(livecolor, deadcolor);
+        displayStates();
     }
 
     private Node makeButtonPanel () {
         VBox root = new VBox(4);
-
+        states.add("alive");
+        states.add("dead");
         HBox LowerButtons = new HBox();
         HBox UpperButtons = new HBox();
         makeColorBoxes();
-        makeImageBoxes();
 
-        UpperButtons.getChildren().add(LiveColorbox);
-        UpperButtons.getChildren().add(DeadColorbox);
-        UpperButtons.getChildren().add(LiveImagebox);
-        UpperButtons.getChildren().add(DeadImagebox);
+        for(int i = 0;i<states.size();i++) {
+            UpperButtons.getChildren().add(boxmap.get(states.get(i)));
+        }
+
+        UpperButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button0"),event -> displayStates()));
         UpperButtons.setAlignment(Pos.CENTER);
         UpperButtons.setSpacing(10);
 
@@ -209,51 +229,6 @@ public class GOLView {
         root.getChildren().add(LowerButtons);
 
         return root;
-    }
-
-    private void makeImageBoxes(){
-        imagemap = new HashMap<String, Image>();
-        imagemap.put("Alive",alive);
-        imagemap.put("Dead",skull);
-
-        LiveImagebox = new ChoiceBox<String>();
-        LiveImagebox.getItems().setAll("Live Icon","Alive");
-        LiveImagebox.setValue("Live Icon");
-
-        DeadImagebox = new ChoiceBox<String>();
-        DeadImagebox.getItems().addAll("Dead Icon","Dead");
-        DeadImagebox.setValue("Dead Icon");
-
-        DeadImagebox.setOnAction(e -> ChangeImage(imagemap.get(LiveImagebox.getValue()), imagemap.get(DeadImagebox.getValue())));
-        System.out.println(DeadImagebox.getValue());
-    }
-
-
-    private void ChangeImage(Image Live, Image Dead) {
-        liveimage = Live;
-        deadimage = Dead;
-        containsImages = true;
-    }
-
-
-    //create drop down color boxes to change live and dead cell colors
-    private void makeColorBoxes() {
-        colormap = new HashMap<String, Color>();
-        colormap.put("RED",Color.RED);
-        colormap.put("BLUE",Color.BLUE);
-        colormap.put("GREEN",Color.GREEN);
-        colormap.put("BLACK",Color.BLACK);
-        colormap.put("WHITE",Color.WHITE);
-
-        LiveColorbox = new ChoiceBox<String>();
-        LiveColorbox.getItems().addAll("Live color","RED", "BLUE", "GREEN", "BLACK", "WHITE");
-        LiveColorbox.setValue("Live color");
-
-        DeadColorbox = new ChoiceBox<String>();
-        DeadColorbox.setValue("Dead color");
-        DeadColorbox.getItems().addAll("Dead color", "RED", "BLUE", "GREEN", "BLACK", "WHITE");
-
-        DeadColorbox.setOnShowing(e -> ChangeColor(colormap.get(LiveColorbox.getValue()), colormap.get(DeadColorbox.getValue())));
     }
 
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
@@ -280,12 +255,14 @@ public class GOLView {
     }
 
     private void openFile(File file) {
+        group.getChildren().remove(pane);
         PropertiesFileReader propertiesFileReader = new PropertiesFileReader(file.getPath());
+        System.out.println(file.getPath());
         try {
             mySimulation = new Simulate(propertiesFileReader.readCSVFile(), propertiesFileReader.readGameType());
             //mySimulation = propertiesFileReader.getInitializedSimulation();
             makeGrid(mySimulation.getGridHeight(), mySimulation.getGridWidth());
-            displayStates(livecolor, deadcolor);
+            displayStates();
 
             //need line that actually loads simulation into grid when file is chosen
         } catch (IOException ex) {
@@ -301,7 +278,6 @@ public class GOLView {
         livecolor = newlive;
         deadcolor = newdead;
     }
-
 
     private void Play(){
         myAnimation = new Timeline();
@@ -324,6 +300,7 @@ public class GOLView {
     }
 
     //popup to save properties and csv files
+    //popup needs to ask for author, title, and description
     private void popUpSave() {
         Stage popupstage = new Stage();
         popupstage.setTitle("Save as CSV and Properties File");
@@ -331,17 +308,25 @@ public class GOLView {
         Label label2 = new Label("Your file name will be saved as a .properties and .CSV file");
         Button saveButton = new Button("Save");
         TextField FileName = new TextField();
+        //get all necessary information (fileName, author, title, description) into a list
+        //parameter from simulation and simulation type should be added as well (these methods need to be created)
+        //mySimulation.getSimParameter()
+        //mySimulation.getSimType()
+        VBox layout = new VBox(15);
+        layout.getChildren().addAll(label1,FileName,saveButton,label2);
+        layout.setAlignment(Pos.CENTER);
         saveButton.setOnAction(e->
             {   try {
+                //PropertiesFileGenerator fileGenerator = new PropertiesFileGenerator(savingInfoList)
+                //fileGenerator.createPropertiesFile()
                 mySimulation.generateSimFile(FileName.getText());
+                popupstage.close();
+                //need some way for layout to go away upon clicking save button
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             });
 
-        VBox layout = new VBox(15);
-        layout.getChildren().addAll(label1,FileName,saveButton,label2);
-        layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout, 500, 350);
 

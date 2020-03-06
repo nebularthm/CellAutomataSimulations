@@ -1,0 +1,24 @@
+.my-rect-black{
+    -fx-fill: black;
+}
+.my-rect-white{
+    -fx-fill: white;
+}
+.my-rect-blue{
+    -fx-fill: blue;
+}
+.my-rect-red{
+    -fx-fill: red;
+}
+
+.my-rect-green{
+    -fx-fill: green;
+}
+
+.my-rect-purple{
+    -fx-fill: purple;
+}
+
+.my-rect-yellow{
+    -fx-fill: yellow;
+}

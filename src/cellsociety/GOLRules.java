@@ -22,6 +22,7 @@ public class GOLRules extends   Rules {
     public String changeState(String stat) {
         if(stat.equals(ALIVE)){
             return DEAD;
+
         }
         else{
             return ALIVE;
