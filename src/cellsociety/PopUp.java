@@ -21,17 +21,31 @@ public class PopUp{
 
     void popUpSave(Simulate mySimulation) {
         Stage popupstage = new Stage();
-        popupstage.setTitle("Save as CSV and Properties File");
-        Label label1 = new Label("Enter File Name");
-        Label label2 = new Label("Your file name will be saved as a .properties and .CSV file");
-        Button saveButton = new Button("Save");
+        popupstage.setTitle(GOLResourceBundle.getString("PopUpTitle"));
+        Label label1 = new Label(GOLResourceBundle.getString("FileName"));
+        Label label2 = new Label(GOLResourceBundle.getString("Save"));
+        Button saveButton = new Button(GOLResourceBundle.getString("SaveButton"));
         TextField FileName = new TextField();
+        TextField Title = new TextField();
+        TextField Author = new TextField();
+        TextField Description = new TextField();
+
+        FileName.setMaxWidth(400);
+        Title.setMaxWidth(400);
+        Author.setMaxWidth(400);
+        Description.setMaxWidth(400);
+
+        FileName.setPromptText(GOLResourceBundle.getString("Filename"));
+        Title.setPromptText(GOLResourceBundle.getString("title"));
+        Author.setPromptText(GOLResourceBundle.getString("Author"));
+        Description.setPromptText(GOLResourceBundle.getString("Description"));
+
         //get all necessary information (fileName, author, title, description) into a list
         //parameter from simulation and simulation type should be added as well (these methods need to be created)
         //mySimulation.getSimParameter()
         //mySimulation.getSimType()
         VBox layout = new VBox(15);
-        layout.getChildren().addAll(label1,FileName,saveButton,label2);
+        layout.getChildren().addAll(label1,FileName,Title,Author, Description,saveButton,label2);
         layout.setAlignment(Pos.CENTER);
         saveButton.setOnAction(e->
         {   try {
