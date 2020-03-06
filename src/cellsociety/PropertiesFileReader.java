@@ -19,7 +19,6 @@ public class PropertiesFileReader {
     }
 
     public String readGameType() {
-
         for(SimulationType x : SimulationType.values()) {
             if(x.equals(myConfigFile.getString("GameType"))) {
                 return myConfigFile.getString("GameType");
