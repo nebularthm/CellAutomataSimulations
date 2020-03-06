@@ -1,6 +1,7 @@
 package cellsociety;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author  Michael Williams
@@ -84,6 +85,10 @@ public class Simulate {
     public void generateSimFile(String filename) throws IOException {
         CSVFileGenerator csvFileGenerator = new CSVFileGenerator(myGrid, myGame);
         csvFileGenerator.createCSVFile(filename);
+    }
+
+    public List<String> getUnmodifiablePossibleStates() {
+        return myGrid.getUnmodifiablePossibleStates();
     }
 
     public void generatePropertiesFile() throws IOException{

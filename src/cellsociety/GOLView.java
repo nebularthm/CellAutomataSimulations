@@ -1,69 +1,29 @@
 package cellsociety;
-import java.awt.*;
 import java.io.File;
-import java.net.URL;
 import java.util.*;
 import java.util.List;
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.util.Optional;
+
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
+
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.concurrent.Worker.State;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.web.WebView;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.processor.core.ColumnOrderDependent;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.events.EventListener;
-import org.w3c.dom.events.EventTarget;
 import javafx.scene.paint.Color;
 
 public class GOLView {
@@ -73,6 +33,7 @@ public class GOLView {
     private GOLModel myModel;
     private Simulate mySimulation;
     private GridPane pane;
+    private VBox myVBox;
     private Timeline myAnimation;
     private BorderPane group;
     private double screenHeight;
@@ -199,21 +160,10 @@ public class GOLView {
         displayStates();
     }
 
-    private Node makeButtonPanel () {
-        VBox root = new VBox(4);
-        states.add("alive");
-        states.add("dead");
+    private Node makeButtonPanel() {
+        myVBox = new VBox(4);
         HBox LowerButtons = new HBox();
-        HBox UpperButtons = new HBox();
-        makeColorBoxes();
 
-        for(int i = 0;i<states.size();i++) {
-            UpperButtons.getChildren().add(boxmap.get(states.get(i)));
-        }
-
-        UpperButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button0"),event -> displayStates()));
-        UpperButtons.setAlignment(Pos.CENTER);
-        UpperButtons.setSpacing(10);
 
         LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button1"), event -> getFile()));
         LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button2"), event -> Simulate()));
@@ -226,10 +176,10 @@ public class GOLView {
         LowerButtons.setAlignment(Pos.CENTER);
         LowerButtons.setSpacing(10);
 
-        root.getChildren().add(UpperButtons);
-        root.getChildren().add(LowerButtons);
 
-        return root;
+        myVBox.getChildren().add(LowerButtons);
+
+        return myVBox;
     }
 
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
@@ -258,11 +208,23 @@ public class GOLView {
     private void openFile(File file) {
         group.getChildren().remove(pane);
         PropertiesFileReader propertiesFileReader = new PropertiesFileReader(file.getPath());
-        System.out.println(file.getPath());
         try {
             mySimulation = new Simulate(propertiesFileReader.readCSVFile(), propertiesFileReader.readGameType());
             //mySimulation = propertiesFileReader.getInitializedSimulation();
             makeGrid(mySimulation.getGridHeight(), mySimulation.getGridWidth());
+            HBox UpperButtons = new HBox();
+            states = mySimulation.getUnmodifiablePossibleStates();
+            makeColorBoxes();
+
+            for(int i = 0;i<states.size();i++) {
+                UpperButtons.getChildren().add(boxmap.get(states.get(i)));
+            }
+
+            UpperButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button0"),event -> displayStates()));
+            UpperButtons.setAlignment(Pos.CENTER);
+            UpperButtons.setSpacing(10);
+            myVBox.getChildren().add(UpperButtons);
+
             displayStates();
 
             //need line that actually loads simulation into grid when file is chosen
@@ -273,11 +235,6 @@ public class GOLView {
 
     private void Simulate () {
         //start simulation with random initial configuration
-    }
-
-    private void ChangeColor(Color newlive, Color newdead){
-        livecolor = newlive;
-        deadcolor = newdead;
     }
 
     private void Play(){
