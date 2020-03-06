@@ -14,7 +14,6 @@ public class Simulate {
     private Grid myGrid;
     private String myGame;
 
-
     public Simulate() {
 
     }
@@ -49,8 +48,6 @@ public class Simulate {
     public void setMyGrid(String[][] states, String type) {
         this.myGrid = makeGrid(states, type);
     }
-
-
 
     /**
      * makes the grid given the initial state and the type of game we are playing
@@ -92,6 +89,4 @@ public class Simulate {
     public void generatePropertiesFile() throws IOException{
 
     }
-
-
 }

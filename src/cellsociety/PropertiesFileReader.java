@@ -26,8 +26,8 @@ public class PropertiesFileReader {
             }
         }
         throw new ConfigurationFileException(myExceptionBundle.getString("GameTypeError"));
-        }
 
+    }
 
     public String readTitle() {
         if(keyExists("Title")) {
@@ -72,7 +72,6 @@ public class PropertiesFileReader {
         else {
             throw new ConfigurationFileException(myExceptionBundle.getString("CSVFileError"));
         }
-
 
     }
 

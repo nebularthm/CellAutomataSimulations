@@ -6,7 +6,7 @@ import java.util.List;
 //The rules shouldnt change based on shapes
 //does cell even need to know it's neighhors
 
-public class RectangleGrid extends   Grid {
+public class RectangleGrid extends Grid {
     private static final String UP = "up";
     private static final String DOWN = "down";
     private static final String LEFT = "left";
@@ -16,16 +16,12 @@ public class RectangleGrid extends   Grid {
     private static final String DOWNRIGHT = "down right";
     private static final String DOWNLEFT = "down left";
 
-
-
 //    private String shape;
 //
 //    private int gridHeight;
 //    private int gridWidth;
 //    private Cell[][] myGrid;
 //    private Rules theRules;
-
-
 
     public RectangleGrid(String shap, int wid, int hei, String[][] initialStates, Rules rules){
         super(shap,wid,hei,initialStates,rules);
@@ -162,13 +158,8 @@ public class RectangleGrid extends   Grid {
                 if(validIndex(xPos - 1, yPos+1)){
                     cellList.add(myGrid[yPos+1][xPos-1]);
                 }
-
             }
-
         }
         return cellList;
     }
-
-
-
 }
