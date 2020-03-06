@@ -16,6 +16,7 @@ import java.util.*;
 public class PopUp{
     public ResourceBundle GOLResourceBundle;
 
+
     public PopUp () {
         GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
     }
@@ -68,7 +69,6 @@ public class PopUp{
             ex.printStackTrace();
         }
         });
-
 
         Scene scene = new Scene(layout, 500, 350);
 
