@@ -24,16 +24,16 @@ class CSVFileGeneratorTest {
         {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"},
         {"dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead", "dead"}};
     RectangleGrid grid = new RectangleGrid("Rectangle", width, height, states, new GOLRules());
-    private CSVFileGenerator fileGenerator = new CSVFileGenerator(grid, "Game of Life");
+    private CSVFileGenerator fileGenerator = new CSVFileGenerator(grid);
 
     @Test
     void createCSVFile() throws IOException {
         fileGenerator.createCSVFile("GOL");
-        File generatedFile = new File("data\\SavedConfigs\\GameofLife.csv");
+        File generatedFile = new File("data\\SavedConfigs\\GOL.csv");
 
         assertEquals(true, generatedFile.isFile());
 
-        CSVFileReader fileReader = new CSVFileReader("data\\SavedConfigs\\GameofLife.csv");
+        CSVFileReader fileReader = new CSVFileReader("data\\SavedConfigs\\GOL.csv");
         assertEquals(height, fileReader.getHeight());
         assertEquals(width, fileReader.getWidth());
 
