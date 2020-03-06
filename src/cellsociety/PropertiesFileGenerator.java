@@ -25,7 +25,7 @@ public class PropertiesFileGenerator {
 
     public void createPropertiesFile(String filename) throws IOException {
         Properties props = new Properties();
-        FileOutputStream fos = new FileOutputStream("src/cellsociety/SavedConfigurations/" + filename + ".properties");
+        FileOutputStream fos = new FileOutputStream("src/cellsociety/Configurations/" + filename + ".properties");
         props.setProperty("GameType", gameType);
         props.setProperty("Title", title);
         props.setProperty("Author", author);

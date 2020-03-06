@@ -120,8 +120,6 @@ public class GOLView {
             rec.getStyleClass().clear();
             rec.getStyleClass().add("my-rect-" + colormap.get(state));
 
-
-//            rec.setFill(paintmap.get(colormap.get(state)));
         }
     }
 
@@ -146,8 +144,6 @@ public class GOLView {
         System.out.println(colormap.get(state));
     }
 
-
-
     public void checkForClick(int x, int y, Rectangle rect) {
         mySimulation.rotateState(x, y);
         String state = mySimulation.getState(x, y);
@@ -163,7 +159,6 @@ public class GOLView {
     private Node makeButtonPanel() {
         myVBox = new VBox(4);
         HBox LowerButtons = new HBox();
-
 
         LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button1"), event -> getFile()));
         LowerButtons.getChildren().add(makeButton(GOLResourceBundle.getString("Button2"), event -> Simulate()));
