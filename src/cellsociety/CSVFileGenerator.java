@@ -13,8 +13,7 @@ public class CSVFileGenerator {
     private int width;
     private Grid states;
 
-    public CSVFileGenerator(Grid grid, String type) {
-        gameType = type;
+    public CSVFileGenerator(Grid grid) {
         height = grid.getGridHeight();
         width = grid.getGridWidth();
         states = grid;
@@ -22,11 +21,8 @@ public class CSVFileGenerator {
     }
 
     public void createCSVFile(String filename) throws IOException {
-        String gameTypeNoSpaces = gameType.replace(" ", "");
         File savedConfig = new File("data\\SavedConfigs\\" + filename + ".csv");
         FileWriter config = new FileWriter(savedConfig);
-        config.append(gameType);
-        config.append("\n");
         String strHeight = Integer.toString(height);
         String strWidth = Integer.toString(width);
         config.append(strHeight + ",");
