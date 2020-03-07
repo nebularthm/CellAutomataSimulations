@@ -48,6 +48,7 @@ public class CSVFileReader {
         int currRow = 0;//make it -1 to skip over the first line
         while ((line = br.readLine()) != null) {
             String[] row = line.split(csvSplitBy);
+
             if (row.length != getWidth()) {
                 throw new CSVFileException(myExceptionBundle.getString("DimensionError"));
             }

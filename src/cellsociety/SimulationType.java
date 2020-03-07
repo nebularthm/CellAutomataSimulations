@@ -8,7 +8,7 @@ import java.util.List;
 public enum SimulationType {
     GOL("Game of Life", new String[]{"alive", "dead"}),
     PERCOLATION("Percolation", new String[]{"open", "blocked", "percolated"}),
-    RPS("Rock Paper Scissors", new String[]{"rock", "paper", "scissors"}),
+    RPS("RPS", new String[]{"rock", "paper", "scissors"}),
     FIRE("Spreading of Fire", new String[]{}),
     SEGREGATION("Segregation", new String[]{}),
     PREDPREY("Predator-Prey", new String[]{});

@@ -39,13 +39,13 @@ public class RockPaperSciRules extends Rules {
     @Override
     boolean shouldUpdateCell(String stat, List<String> neigbstates) {
         if (stat.equals(ROCK)){
-            return Collections.frequency(neigbstates,PAPER) > THRESHOLD ;
+            return Collections.frequency(neigbstates,PAPER) > THRESHOLD + thresh ;
         }
         if(stat.equals(PAPER)){
-            return Collections.frequency(neigbstates,SCISSORS) > THRESHOLD;
+            return Collections.frequency(neigbstates,SCISSORS) > THRESHOLD + thresh;
         }
         else{
-            return Collections.frequency(neigbstates,ROCK) > THRESHOLD;
+            return Collections.frequency(neigbstates,ROCK) > THRESHOLD + thresh;
         }
     }
 

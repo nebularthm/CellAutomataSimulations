@@ -6,7 +6,7 @@ public abstract class Rules {
     protected int thresh;
     protected  Grid theGrid;
     public  Rules(){
-        thresh = 1;
+        thresh = 0;
     }
     public  Rules(int threshie){
         thresh = threshie;
