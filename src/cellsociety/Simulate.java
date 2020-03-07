@@ -10,6 +10,7 @@ public class Simulate {
 
     private static final String GOL = "Game of Life";
     private static final String RECTANGLE = "Rectangle";
+    private static final String PERC = "Percolation" ;
     private int gridHeight;
     private int gridWidth;
     private Grid myGrid;
@@ -63,6 +64,10 @@ public class Simulate {
 
             retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial, new GOLRules());
             myGame = GOL;
+        }
+        if(type.equals(PERC)){
+            myGame = PERC;
+            retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial, new PercolationRules());
         }
         return retGrid;
     }

@@ -164,7 +164,7 @@ public class GOLView {
         myVBox = new VBox(4);
         HBox LowerButtons = new HBox();
 
- 
+
         Button fileButton = makeButton(GOLResourceBundle.getString("Button1"), event -> getFile());
 
         LowerButtons.getChildren().add(fileButton);
