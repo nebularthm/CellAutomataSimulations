@@ -12,11 +12,12 @@ public class Simulate {
     private static final String RECTANGLE = "Rectangle";
     private static final String PERC = "Percolation" ;
     private static final String RPS ="RPS" ;
+    private static final String FIRE ="Spreading of Fire";
     private int gridHeight;
     private int gridWidth;
     private Grid myGrid;
     private String myGame;
-
+    private double myThreshold;
     public Simulate() {
 
     }
@@ -25,6 +26,7 @@ public class Simulate {
         gridHeight = gameReader.getHeight();
         gridWidth = gameReader.getWidth();
         myGrid = makeGrid(gameReader.readStates(), gameType);
+        myThreshold = gameReader.getThreshold();
     }
     /**
      * the constructor for this simulate
@@ -72,7 +74,11 @@ public class Simulate {
         }
         if(type.equals(RPS)){
             myGame = RPS;
-            retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial, new RockPaperSciRules());
+            retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial, new RockPaperSciRules((int)myThreshold));
+        }
+        if(type.equals(FIRE)){
+            myGame = FIRE;
+            retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial, new FireSpreadRules((int)myThreshold));
         }
         return retGrid;
     }

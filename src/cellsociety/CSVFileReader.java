@@ -39,9 +39,15 @@ public class CSVFileReader {
         String[] dimensions = readDimension();
         return Integer.parseInt(dimensions[1]);
     }
+    public double getThreshold() throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        br.readLine();
+        return  Double.parseDouble(br.readLine());
+    }
 
     public String[][] readStates() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
+        br.readLine();
         br.readLine();
         String line;
         String[][] states = new String[getHeight()][getWidth()];
