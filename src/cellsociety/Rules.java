@@ -30,7 +30,9 @@ public abstract class Rules {
     }
     abstract List<String> unModifiedStates();
 
+    public void setStateList(){
 
+    }
     public boolean shouldMoveCell(Cell cell) {
      return false;
     }

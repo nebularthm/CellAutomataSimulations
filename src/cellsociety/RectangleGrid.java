@@ -48,6 +48,7 @@ public class RectangleGrid extends Grid {
     }
 
     public void updateCells() {
+        theRules.setStateList();
         for(int yPos = 0; yPos<gridHeight; yPos++) {
             for(int xPos = 0; xPos<gridWidth; xPos++) {
                 if(theRules.shouldUpdateCell(myGrid[yPos][xPos].getState(), neighbsToString(myGrid[yPos][xPos].getNeighbs()))){//pass the cell directly into rulles

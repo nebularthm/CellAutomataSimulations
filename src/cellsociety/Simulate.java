@@ -13,6 +13,7 @@ public class Simulate {
     private static final String PERC = "Percolation" ;
     private static final String RPS ="RPS" ;
     private static final String FIRE ="Spreading of Fire";
+    private static final String RACISM = "Segregation";
     private int gridHeight;
     private int gridWidth;
     private Grid myGrid;
@@ -79,6 +80,10 @@ public class Simulate {
         if(type.equals(FIRE)){
             myGame = FIRE;
             retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial, new FireSpreadRules((int)myThreshold));
+        }
+        if(type.equals(RACISM)){
+            myGame = RACISM;
+            retGrid = new RectangleGrid(RECTANGLE, gridWidth, gridHeight, initial, new SegregationRules((int)myThreshold));
         }
         return retGrid;
     }

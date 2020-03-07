@@ -31,7 +31,7 @@ public class GOLView {
     private Color Black = Color.BLACK;
     private Color White = Color.WHITE;
     private Button myNextButton;
-    private GOLModel myModel;
+
     private Simulate mySimulation;
     private GridPane pane;
     private VBox myVBox;

@@ -9,16 +9,19 @@ public class SegregationRules extends Rules {
     private static final String POC = "poc";
     private static final String EMPTY = "empty";
     private  static  final String WHITES = "white";
-    private List<Cell> emptyStateList;
+    private List emptyStateList;
     private List<Integer> seenIndices;
 
     public SegregationRules() {
-        emptyStateList = theGrid.allCellsWithState(EMPTY);
+
     }
 
     public SegregationRules(int threshie) {
         super(threshie);
-
+    }
+    @Override
+    public void setStateList(){
+        emptyStateList = theGrid.allCellsWithState(EMPTY);
     }
 
     @Override
@@ -37,7 +40,7 @@ public class SegregationRules extends Rules {
         }
         while (!seenIndices.contains(indy));
         seenIndices.add(indy);
-        return emptyStateList.get(indy);
+        return (Cell) emptyStateList.get(indy);
 
     }
 
@@ -61,6 +64,7 @@ public class SegregationRules extends Rules {
     }
     @Override
     public void resetStateList() {
+        System.out.println(emptyStateList);
         emptyStateList.clear();
         seenIndices.clear();
         emptyStateList = theGrid.allCellsWithState(EMPTY);
