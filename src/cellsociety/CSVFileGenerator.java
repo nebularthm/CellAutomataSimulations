@@ -5,14 +5,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/**
- * @author Connor Penny*/
+/***
+ * Writes a CSV File with a simulation's height, width, and comma delimited states
+ * @author Connor Penny
+ * */
 public class CSVFileGenerator {
     private String gameType;
     private int height;
     private int width;
     private Grid states;
 
+    /***
+     * Holds the height, width, and grid object of a simulation's grid object as instance variables
+     * @param grid a simulation's grid object
+     */
     public CSVFileGenerator(Grid grid) {
         height = grid.getGridHeight();
         width = grid.getGridWidth();
@@ -20,6 +26,11 @@ public class CSVFileGenerator {
 
     }
 
+    /***
+     * Writes a CSV file with the proper format to be compatible with the CSVFileReader class
+     * @param filename the file name that the CSV file will be saved under
+     * @throws IOException
+     */
     public void createCSVFile(String filename) throws IOException {
         File savedConfig = new File("data\\SavedConfigs\\" + filename + ".csv");
         FileWriter config = new FileWriter(savedConfig);

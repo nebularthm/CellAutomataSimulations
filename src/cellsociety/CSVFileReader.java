@@ -9,13 +9,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * @author Connor Penny*/
+/***
+ * Reads a CSV file to obtain the height, width, and initial states of any simulation
+ * @author Connor Penny
+ */
 public class CSVFileReader {
     private String fileName;
     String csvSplitBy = ",";
     ResourceBundle myExceptionBundle;
 
+    /***
+     * Constructor keeps file name and the properties file for exception messages as an instance variable
+     * @param csvFile the name of the CSV file for a simulation
+     */
     public CSVFileReader(String csvFile) {
         fileName = csvFile;
         myExceptionBundle = ResourceBundle.getBundle("cellsociety.ExceptionResources.CSVFileExceptionMessages");
@@ -30,16 +36,30 @@ public class CSVFileReader {
         return dimensions;
     }
 
+    /***
+     * Reads the height of the simulation grid from the CSV file
+     * @return the height of the simulation grid
+     * @throws IOException
+     */
     public int getHeight() throws IOException {
         String[] dimensions = readDimension();
         return Integer.parseInt(dimensions[0]);
     }
-
+    /***
+     * Reads the width of the simulation grid from the CSV file
+     * @return the width of the simulation grid
+     * @throws IOException
+     */
     public int getWidth() throws IOException {
         String[] dimensions = readDimension();
         return Integer.parseInt(dimensions[1]);
     }
 
+    /***
+     * Reads the states of the simulation grid from the CSV file
+     * @return a 2D array of the states of the simulation grid
+     * @throws IOException
+     */
     public String[][] readStates() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         br.readLine();
