@@ -21,6 +21,11 @@ public class PopUp{
         GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
     }
 
+    /***
+     * Generates the pop-up window in the view when a user wishes to save the simulation configuration that they are using
+     * Generates a properties file of the information entered by the user
+     * @param mySimulation the simulation object that is used to save the simulation configuration as a CSV file
+     */
     public void popUpSave(Simulate mySimulation) {
         Stage popupstage = new Stage();
         popupstage.setTitle(GOLResourceBundle.getString("PopUpTitle"));
@@ -57,6 +62,9 @@ public class PopUp{
         layout.setAlignment(Pos.CENTER);
         saveButton.setOnAction(e->
         {   try {
+            /***
+             * @author Connor Penny
+             */
             popupstage.close();
             List simInfo = new ArrayList();
             simInfo.add(Title.getText());

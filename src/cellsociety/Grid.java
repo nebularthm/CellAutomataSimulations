@@ -4,16 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/***
+ * This is an abstract class that creates a model representation of a grid with a full neighborhood for a simulation.
+ * States in the grid can be accessed, modified and updated in this class. The plan for this abstract class was to have a subclass
+ * for each cell shape (Triangle, Rectangle, Hexagon, etc) so that the neighborhood differences could be dealt with.
+ * @param <T> I did not create this parameter
+ *
+ * @author Michael Williams
+ * @author Connor Penny
+ */
+
 public abstract class Grid<T> {
 
 
     private static final String ALIVE = "alive";
     private static final String DEAD = "dead";
     private static final String GOL = "Game of Life";
-    private static final String RECTANGLE = "Rectangle";
+    private static final String RECTANGLE = "Rectangle"; //These should be deleted
 
 
-    private String shape;
+    private String shape; //This should be deleted
 
     protected int gridHeight;
     protected int gridWidth;
@@ -37,15 +47,34 @@ public abstract class Grid<T> {
     shape = shap;
     }
 
+    /***
+     * Using the rules instance variable for a specific simulation, iterate through the cells in the grid on a first pass and determine what cells
+     * need to update, storing that information in the cell (THIS SHOULD BE ABSTRACT)
+     */
     void updateCells() {
 
 
     }
+
+    /***
+     * Change a specific cell in the grid to a different state (THIS SHOULD BE ABSTRACT)
+     * @param xPos x coordinate of the cell
+     * @param yPos y coordinate of the cell
+     */
     void changeStateSingleCell(int xPos, int yPos){
 
     }
 
+    /***
+     * Using the rules for a given simulation, iterate through the cells in the grid on a second pass and update their states to the next
+     * generation
+     */
     abstract void generateNextStates();
+
+    /***
+     * Generates a 2D array of cell objects to represent the grid for a simulation
+     * @param initialStates a 2D array of the states for the simulation grid
+     */
 
     void   initializeGrid(String[][] initialStates){
         myGrid = new Cell[gridHeight][gridWidth];

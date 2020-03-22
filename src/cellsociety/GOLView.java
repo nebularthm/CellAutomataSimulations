@@ -144,6 +144,14 @@ public class GOLView {
         System.out.println(colormap.get(state));
     }
 
+    /***
+     * This should be private
+     * @param x
+     * @param y
+     * @param rect
+     * @author Brian Li
+     * @author Connor Penny
+     */
     public void checkForClick(int x, int y, Rectangle rect) {
         mySimulation.rotateState(x, y);
         String state = mySimulation.getState(x, y);
@@ -151,6 +159,11 @@ public class GOLView {
         rect.getStyleClass().add("my-rect-" + colormap.get(state));
     }
 
+    /***
+     * This should be private
+     *
+     * @author Connor Penny
+     */
     public void updateStates() {
         mySimulation.step();
         displayStates();
@@ -231,6 +244,9 @@ public class GOLView {
         //start simulation with random initial configuration
     }
 
+    /***
+     * @author Connor Penny
+     */
     private void Play(){
         myAnimation = new Timeline();
         KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> updateStates());
@@ -240,12 +256,18 @@ public class GOLView {
         myAnimation.play();
     }
 
+    /***
+     * @author Connor Penny
+     */
     private void Pause(){
         myAnimation.stop();
         //create boolean for pause v play
         //set the boolean to false
     }
 
+    /***
+     * @author Connor Penny
+     */
     private void Step(){
         updateStates();
         //access boolean. if true dont step, if false, then do while loop in play once

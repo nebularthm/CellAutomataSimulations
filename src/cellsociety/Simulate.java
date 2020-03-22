@@ -80,8 +80,19 @@ public class Simulate {
         return myGrid.getState(x,y);
     }
 
+    /**
+     * Change the state of a cell in the grid instance variable. Needed when user clicks on a cell.
+     * @param x x coordinate of the cell
+     * @param y y coordinate of the cell
+     */
+
     public void rotateState(int x, int y) {myGrid.changeStateSingleCell(x, y);}
 
+    /***
+     * Use CSVFileGenerator class to create a CSV file that represents the simulate object configuration
+     * @param filename the file name the configuration will be saved under
+     * @throws IOException
+     */
     public void generateSimFile(String filename) throws IOException {
         CSVFileGenerator csvFileGenerator = new CSVFileGenerator(myGrid);
         csvFileGenerator.createCSVFile(filename);

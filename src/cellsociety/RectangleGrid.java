@@ -6,6 +6,13 @@ import java.util.List;
 //The rules shouldnt change based on shapes
 //does cell even need to know it's neighhors
 
+
+/***
+ * Subclass of the abstract Grid class that creates a model representation of a grid of rectangles with a full neighborhood for a simulation.
+ * States in the grid can be accessed, modified and updated in this class.
+ * @author Michael Williams
+ * @author Connor Penny
+ */
 public class RectangleGrid extends Grid {
     private static final String UP = "up";
     private static final String DOWN = "down";
@@ -23,12 +30,24 @@ public class RectangleGrid extends Grid {
 //    private Cell[][] myGrid;
 //    private Rules theRules;
 
+    /***
+     * Constructor for a grid of rectangles for a given simulation
+     * @param shap unnecessary parameter representing the shape of the cells in the grid (should have been deleted)
+     * @param wid width of the grid
+     * @param hei height of the grid
+     * @param initialStates 2D array representing the grid for a simulation
+     * @param rules the given rules object that allows the grid cells to update correctly
+     */
     public RectangleGrid(String shap, int wid, int hei, String[][] initialStates, Rules rules){
         super(shap,wid,hei,initialStates,rules);
         initializeNeighbhors();
 
 
     }
+
+    /***
+     * Set the list of eligible neighbors for each cell in the list
+     */
     public void initializeNeighbhors(){
         for(int yPos = 0; yPos<gridHeight; yPos++) {
             for(int xPos = 0; xPos<gridWidth; xPos++) {
@@ -39,6 +58,8 @@ public class RectangleGrid extends Grid {
         }
 
     }
+
+
     private List<String> neighbsToString(List<Cell> cellList){
         List<String> stateList = new ArrayList<>();
         for(Cell cell:cellList){
@@ -46,6 +67,14 @@ public class RectangleGrid extends Grid {
         }
         return stateList;
     }
+
+
+
+    /***
+     * Using the rules instance variable for a specific simulation, iterate through the cells in the grid on a first pass and determine what cells
+     * need to update, storing that information in the cell
+     */
+
 
     public void updateCells() {
         for(int yPos = 0; yPos<gridHeight; yPos++) {
@@ -57,6 +86,12 @@ public class RectangleGrid extends Grid {
             }
         }
     }
+
+
+    /***
+     * Using the rules for a given simulation, iterate through the cells in the grid on a second pass and update their states to the next
+     * generation
+     */
 
     public void generateNextStates() {
         for(int yPos = 0; yPos<this.getGridHeight(); yPos++) {
@@ -71,10 +106,11 @@ public class RectangleGrid extends Grid {
     }
 
 
-
-
-
-
+    /***
+     * Change a specific cell in the grid to a different state
+     * @param xPos x coordinate of the cell
+     * @param yPos y coordinate of the cell
+     */
 
    public  void changeStateSingleCell(int xPos,int yPos){
        myGrid[yPos][xPos].setState(theRules.changeState(myGrid[yPos][xPos].getState()));
