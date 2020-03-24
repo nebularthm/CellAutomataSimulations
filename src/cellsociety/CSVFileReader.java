@@ -21,7 +21,6 @@ public class CSVFileReader {
         myExceptionBundle = ResourceBundle.getBundle("cellsociety.ExceptionResources.CSVFileExceptionMessages");
     }
 
-
     private String[] readDimension() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         String line = br.readLine();
@@ -54,7 +53,6 @@ public class CSVFileReader {
             states[currRow] = row;
             currRow += 1;
         }
-
         if(currRow != getHeight()) {
             throw new CSVFileException(myExceptionBundle.getString("DimensionError"));
         }

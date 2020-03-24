@@ -26,11 +26,15 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Brian Li
+ * */
+
+/**
+ * this class sets up the GUI View for the simulation and includes a Grid of cells in addition to a button panel to control the simulation
+ */
 public class GOLView {
     private Color Black = Color.BLACK;
-    private Color White = Color.WHITE;
-    private Button myNextButton;
-    private GOLModel myModel;
     private Simulate mySimulation;
     private GridPane pane;
     private VBox myVBox;
@@ -38,19 +42,9 @@ public class GOLView {
     private BorderPane group;
     private double screenHeight;
     private double screenWidth;
-    private Color livecolor = Color.BLACK;
-    private Color deadcolor = Color.WHITE;
     private ResourceBundle GOLResourceBundle;
     private Map<String, String> colormap;
     private Map<String, ChoiceBox> boxmap;
-    private Map<String, Image> imagemap;
-    private ChoiceBox<String> LiveImagebox;
-    private ChoiceBox<String> DeadImagebox;
-    private Image alive = new Image("/Images/alive.png");
-    private Image skull = new Image("/Images/skull.png");
-    private Image liveimage = alive;
-    private Image deadimage = skull;
-    private static boolean containsImages = false;
     private List<String> states = new ArrayList<>(3);
 
     private static final double SECOND_DELAY = 1;
@@ -60,6 +54,12 @@ public class GOLView {
     }
 
     PopUp myPopUp = new PopUp();
+
+    /**
+     * this method creates the Scene with the Grid of Cells and Button panel
+     * @param width, height
+     * @return
+     */
     public Scene makeScene (double width, double height) {
         group = new BorderPane();
         group.setBottom(makeButtonPanel());
@@ -76,6 +76,11 @@ public class GOLView {
         return scene;
     }
 
+    /**
+     * this method creates the GridPane of Rectangles
+     * @param numCellsHeight, numCellsWidth
+     * @return
+     */
     private void makeGrid(int numCellsHeight, int numCellsWidth){
         pane = new GridPane();
         pane.setHgap(1);
@@ -89,13 +94,10 @@ public class GOLView {
             cellHeight = (screenHeight - numCellsHeight - 30) / numCellsHeight;
         }
         cellWidth = cellHeight;
-
         for (int x = 0; x < numCellsWidth; x++) {
             for (int y = 0; y < numCellsHeight; y++) {
                 Rectangle rect = new Rectangle();
-                //set color of squares\
-                Integer col = x;
-                Integer row = y;
+                //set color of squares
                 rect.setFill(Black);
                 rect.setWidth(cellWidth);
                 rect.setHeight(cellHeight);
@@ -109,6 +111,9 @@ public class GOLView {
         group.getChildren().add(pane);
     }
 
+    /**
+     * this method displays the states of each individual cell
+     */
     public void displayStates() {
 
         for (Node child : pane.getChildren()) {
@@ -123,7 +128,9 @@ public class GOLView {
         }
     }
 
-    //create drop down color boxes to change live and dead cell colors
+    /**
+     * this method creates drop down color boxes to change live and dead cell colors
+     */
     private void makeColorBoxes() {
         boxmap = new HashMap<String, ChoiceBox>();
         colormap = new HashMap<String, String>();
@@ -139,11 +146,21 @@ public class GOLView {
         }
     }
 
+    /**
+     * this method maps a color to its corresponding cell state
+     * @param state, color
+     * @return
+     */
     private void mapColor(String state, String color) {
         colormap.put(state, color);
         System.out.println(colormap.get(state));
     }
 
+    /**
+     * this method checks if a cell is clicked on
+     * @param x,y,rect
+     * @return
+     */
     public void checkForClick(int x, int y, Rectangle rect) {
         mySimulation.rotateState(x, y);
         String state = mySimulation.getState(x, y);
@@ -151,11 +168,19 @@ public class GOLView {
         rect.getStyleClass().add("my-rect-" + colormap.get(state));
     }
 
+    /**
+     * this method updates the states of the cells
+     * @return
+     */
     public void updateStates() {
         mySimulation.step();
         displayStates();
     }
 
+    /**
+     * this method creates the panel of buttons for the simulation's GUI
+     * @return
+     */
     private Node makeButtonPanel() {
         myVBox = new VBox(4);
         HBox LowerButtons = new HBox();
@@ -171,12 +196,16 @@ public class GOLView {
         LowerButtons.setAlignment(Pos.CENTER);
         LowerButtons.setSpacing(10);
 
-
         myVBox.getChildren().add(LowerButtons);
 
         return myVBox;
     }
 
+    /**
+     * this method creates a single button based on the button's property
+     * @param property, handler
+     * @return
+     */
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
         // represent all supported image suffixes
         Button result = new Button();
@@ -190,6 +219,11 @@ public class GOLView {
 
     }
 
+    /**
+     * this method accessed the File that is selected
+     * @param numCellsHeight, numCellsWidth
+     * @return
+     */
     //Gets file from finder, and uses csv reader
     Stage stage1;
     private void getFile(){
@@ -200,6 +234,11 @@ public class GOLView {
         }
     }
 
+    /**
+     * this method opens and reads the file that is selected
+     * @param file
+     * @return
+     */
     private void openFile(File file) {
         group.getChildren().remove(pane);
         PropertiesFileReader propertiesFileReader = new PropertiesFileReader(file.getPath());

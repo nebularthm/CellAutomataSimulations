@@ -22,7 +22,6 @@ public class GOLRules extends   Rules {
     public String changeState(String stat) {
         if(stat.equals(ALIVE)){
             return DEAD;
-
         }
         else{
             return ALIVE;
@@ -41,9 +40,8 @@ public class GOLRules extends   Rules {
         }
         else {
             return !(Collections.frequency(neigbstates, ALIVE) == 2) && !(Collections.frequency(neigbstates, ALIVE) == 3);
-
         }
-        }
+    }
 
     /**
      * for the GOL- we have a full neighbhood of all the possible neighbs

@@ -10,6 +10,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * @author Brian Li
+ * */
+
 public class Initializer extends Application {
     // convenience constants
     public static final String TITLE = "Game of Life Simulation";
@@ -19,6 +23,11 @@ public class Initializer extends Application {
     GOLView display;
 
     @Override
+    /**
+     * this method sets up the stage and displays the scene
+     * @param stage
+     * @return
+     */
     public void start (Stage stage) throws IOException {
         ResourceBundle GOLResourceBundle = ResourceBundle.getBundle("cellsociety.Resources.GOLView");
         // create program specific components
@@ -33,15 +42,14 @@ public class Initializer extends Application {
         // display.showPage(DEFAULT_START_PAGE);
     }
 
-
-    private void step(double elapsedTime) {
-
-    }
     public GOLView getDisplay(){
         return display;
     }
 
 
+    /**
+     * this is the main method that launches the simulation
+     */
     public static void main (String[] args) {
         launch(args);
     }
