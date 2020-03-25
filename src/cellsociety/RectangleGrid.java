@@ -130,9 +130,9 @@ public class RectangleGrid extends Grid {
     public String[][] getStringGrid() {
         Cell[][] gridBeforeConv = this.getGrid();
         String[][] stringGrid = new String[gridWidth][gridHeight];
-        for (int i = 0; i < gridBeforeConv.length; i++) {
-            for (int j = 0; j < gridBeforeConv[0].length; j++) {
-                stringGrid[i][j] = gridBeforeConv[i][j].getState();
+        for (int yPos = 0; yPos < gridBeforeConv.length; yPos++) {
+            for (int xPos = 0; xPos < gridBeforeConv[0].length; xPos++) {
+                stringGrid[yPos][xPos] = gridBeforeConv[yPos][xPos].getState();
             }
         }
 

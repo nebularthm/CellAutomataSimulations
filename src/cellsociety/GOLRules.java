@@ -7,9 +7,6 @@ import java.util.List;
 public class GOLRules extends   Rules {
     private static final String ALIVE = "alive";
     private static final String DEAD = "dead";
-    private static final String GOL = "Game of Life";
-    private static final String RECTANGLE = "Rectangle";
-
     /**
      * constructor for GOLRULES objects which modulate rules for game of life simulations
      */
